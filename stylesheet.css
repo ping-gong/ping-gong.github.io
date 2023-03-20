@@ -16,22 +16,22 @@ th,
 tr,
 p,
 a {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 16px
 }
 
 strong {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 16px;
 }
 
 .heading {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 24px;
 }
 
 .heading-grey {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 24px;
     color: lightgrey;
 }
@@ -63,13 +63,13 @@ strong {
 }
 
 .paper-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 16px;
     font-weight: 700
 }
 
 .my-name {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 32px;
     margin-top: 10px;
     margin-bottom: 40px;
