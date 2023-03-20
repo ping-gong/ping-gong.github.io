@@ -16,22 +16,22 @@ th,
 tr,
 p,
 a {
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: "EB Garamond";
     font-size: 18px
 }
 
 strong {
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: "EB Garamond";
     font-size: 18px;
 }
 
 .heading {
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: "EB Garamond";
     font-size: 26px;
 }
 
 .heading-grey {
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: "EB Garamond";
     font-size: 26px;
     color: lightgrey;
 }
