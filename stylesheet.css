@@ -16,22 +16,22 @@ th,
 tr,
 p,
 a {
-    font-family: "EB Garamond";
+    font-family: "EB Garamond", Times, serif;
     font-size: 18px
 }
 
 strong {
-    font-family: "EB Garamond";
+    font-family: "EB Garamond", Times, serif;
     font-size: 18px;
 }
 
 .heading {
-    font-family: "EB Garamond";
+    font-family: "EB Garamond", Times, serif;
     font-size: 26px;
 }
 
 .heading-grey {
-    font-family: "EB Garamond";
+    font-family: "EB Garamond", Times, serif;
     font-size: 26px;
     color: lightgrey;
 }
