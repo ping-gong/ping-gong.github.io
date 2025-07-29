@@ -1,37 +1,26 @@
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-a:focus,
-a:hover {
-    color: #848583;
-    text-decoration: none;
-}
-
-/* Use EB Garamond from Google Fonts */
+/* Use Libertinus Serif from CDN */
 body,
 td,
 th,
 tr,
 p,
 a {
-    font-family: 'EB Garamond', serif;
+    font-family: 'Libertinus Serif', serif;
     font-size: 18px;
 }
 
 strong {
-    font-family: 'EB Garamond', serif;
+    font-family: 'Libertinus Serif', serif;
     font-size: 18px;
 }
 
 .heading {
-    font-family: 'EB Garamond', serif;
+    font-family: 'Libertinus Serif', serif;
     font-size: 26px;
 }
 
 .heading-grey {
-    font-family: 'EB Garamond', serif;
+    font-family: 'Libertinus Serif', serif;
     font-size: 26px;
     color: lightgrey;
 }
@@ -39,6 +28,17 @@ strong {
 .heading-grey:focus,
 .heading-grey:hover {
     color: #D0104C;
+    text-decoration: none;
+}
+
+a {
+    color: #00356B;
+    text-decoration: none;
+}
+
+a:focus,
+a:hover {
+    color: #848583;
     text-decoration: none;
 }
 
@@ -65,14 +65,14 @@ strong {
 .paper-title {
     font-size: 18px;
     font-weight: 700;
-    font-family: 'EB Garamond', serif;
+    font-family: 'Libertinus Serif', serif;
 }
 
 .my-name {
     font-size: 32px;
     margin-top: 10px;
     margin-bottom: 40px;
-    font-family: 'EB Garamond', serif;
+    font-family: 'Libertinus Serif', serif;
 }
 
 #bio-profile .bio {
