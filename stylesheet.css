@@ -5,22 +5,22 @@ th,
 tr,
 p,
 a {
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", Times, serif;
     font-size: 18px;
 }
 
 strong {
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", Times, serif;
     font-size: 18px;
 }
 
 .heading {
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", Times, serif;
     font-size: 26px;
 }
 
 .heading-grey {
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", Times, serif;
     font-size: 26px;
     color: lightgrey;
 }
@@ -65,14 +65,14 @@ a:hover {
 .paper-title {
     font-size: 18px;
     font-weight: 700;
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .my-name {
     font-size: 32px;
     margin-top: 10px;
     margin-bottom: 40px;
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", Times, serif;
 }
 
 #bio-profile .bio {
