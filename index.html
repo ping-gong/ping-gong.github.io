@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ping R. Gong</title>
+
+  <style>
+    :root{
+      --highlight:#A7BBD4;   /* underline + paper hover background */
+      --link:#1E3A5F;        /* darker blue for links & journal names */
+      --fg:#222;
+      --muted:#666;
+      --line:#eee;
+      --bg:#f9f9f9;
+      --maxw:1100px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-weight:400;
+      line-height:1.55;
+      font-size:18px;
+      padding:40px 20px;
+    }
+    .container{max-width:var(--maxw); margin:0 auto}
+
+    /* Links (default sitewide) */
+    a{color:var(--link); text-decoration:none}
+    a:hover{color:var(--link)}
+
+    img{max-width:100%; display:block}
+
+    /* Intro with photo */
+    .intro{
+      display:flex; gap:28px; align-items:flex-start;
+    }
+    .intro-text{flex:2; min-width:0}
+    .intro h1{
+      margin:0 0 16px 0;
+      font-size:2.8rem; line-height:1.3;
+      font-weight:400;
+    }
+    .strong{font-weight:700}
+
+    .highlight-underline{
+      position:relative; display:inline-block;
+    }
+    .highlight-underline::after{
+      content:""; position:absolute; left:0; bottom:0.15em;
+      width:100%; height:0.35em; background:var(--highlight); z-index:-1;
+      border-radius:2px;
+    }
+
+    .intro p{font-size:1.2rem; margin:0.8em 0}
+
+    .pic{
+      flex:1; max-width:240px;
+      margin-top:12px;          /* move photo down a bit */
+    }
+    .pic img{border-radius:8px}
+
+    /* Contact */
+    .contact-inline{display:flex; flex-wrap:wrap; gap:20px; margin-top:14px}
+    .contact-inline a{font-size:1.1rem}
+
+    /* Section headers */
+    h2{
+      font-size:1rem; font-weight:600;
+      text-transform:uppercase; letter-spacing:.15em;
+      color:#888; border-bottom:1px solid var(--line);
+      margin:40px 0 14px; padding-bottom:6px;
+    }
+
+    /* Papers */
+    .papers{display:flex; flex-direction:column; gap:18px}
+    .paper{
+      padding:10px 12px; border-bottom:1px solid var(--line);
+      border-radius:6px; transition:background-color .15s ease-in-out;
+    }
+    .paper:hover{
+      background-color:var(--highlight);   /* light blue hover */
+    }
+    .paper:last-child{border-bottom:none}
+
+    .paper .title{font-weight:600; color:inherit; font-size:1.15rem}
+    .paper .title:hover{color:var(--link)}
+
+    /* Coauthor names black */
+    .paper .meta a{ color:#000; text-decoration:none; }
+    .paper .meta a:hover{ text-decoration:underline; }
+
+    /* Journal names blue */
+    .paper .meta i{ color:var(--link); }
+
+    .meta{font-size:1rem; margin-top:4px}
+    .summary{font-style:italic; color:#444; margin-top:6px; font-size:1.05rem}
+
+    /* Responsive */
+    @media (max-width:860px){
+      .intro{flex-direction:column}
+      .pic{max-width:65%; margin:12px auto 1.2em}
+      .intro h1{font-size:2.3rem}
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+
+    <!-- ABOUT -->
+    <section id="about" class="intro">
+      <div class="pic">
+        <img src="/images/Photo_Refined_SmallSize_wo_Filter.jpeg" alt="Portrait of Ping R. Gong">
+      </div>
+
+      <div class="intro-text">
+        <h1>
+          I’m <span class="strong">Ping R. Gong</span>, a PhD student in
+          <span class="strong highlight-underline">Accounting</span>
+          at Yale University.
+        </h1>
+        <p>My research examines labor and competition issues within the accounting and auditing industries.</p>
+        <p>Prior to my doctoral studies, I received a Bachelor of Commerce (Honours Class I and <i>University Medal</i>) from the University of New South Wales, Australia.</p>
+
+        <!-- CONTACT -->
+        <div class="contact-inline">
+          <a href="mailto:ping.gong@yale.edu">Email</a>
+          <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view?usp=drive_link" target="_blank" rel="noopener">Curriculum Vitae</a>
+          <a href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view?usp=sharing" target="_blank" rel="noopener">Research Statement</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <h2>Research</h2>
+      <div class="papers">
+
+        <article class="paper">
+          <a class="title" href="https://drive.google.com/file/d/1KsfcIFkCiLGuhUnVln2fm4iGGTe1NaOv/view?usp=drive_link" target="_blank" rel="noopener">
+            Accounting for Trade: On Mutual Recognition of Credentials and Cross-Border Trade
+          </a>
+          <div class="meta"><b>Job Market Paper</b></div>
+          <div class="summary">“CPA mutual recognition boosts international trade.”</div>
+        </article>
+
+        <article class="paper">
+          <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4024646" target="_blank" rel="noopener">
+            Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls
+          </a>
+          <div class="meta">
+            with
+            <a href="https://sites.google.com/site/ldaiprofile" target="_blank" rel="noopener">Lili Dai</a>,
+            <a href="https://www.unsw.edu.au/staff/andrew-jackson" target="_blank" rel="noopener">Andrew Jackson</a>, and
+            <a href="https://sites.google.com/view/ryanpengshomepage" target="_blank" rel="noopener">Zihang Peng</a>
+            | R &amp; R at <i>Review of Accounting Studies</i>
+          </div>
+          <div class="summary">“CEOs don't answer the questions being asked of them.”</div>
+        </article>
+
+        <article class="paper">
+          <span class="title">
+            STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market
+          </span>
+          <div class="meta">
+            with
+            <a href="https://www.johnmbarrios.com/" target="_blank" rel="noopener">John Barrios</a> and
+            <a href="https://enshuai-yu.github.io/" target="_blank" rel="noopener">Enshuai Yu</a>
+            | Registered report at <i>Journal of Accounting Research</i>
+          </div>
+          <div class="summary">“Does STEM save American accounting — or is it just window dressing?”</div>
+        </article>
+
+        <article class="paper">
+          <span class="title">
+            The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets
+          </span>
+          <div class="meta">
+            with
+            <a href="https://directory.smeal.psu.edu/dza5396" target="_blank" rel="noopener">Daniel Aobdia</a> and
+            <a href="https://www.hhs.se/en/persons/m/ma-hao/" target="_blank" rel="noopener">Hao Ma</a>
+            | R &amp; R at <i>Journal of Accounting and Economics</i>
+          </div>
+          <div class="summary">“Reducing entry barriers for audit firms increases audit quality.”</div>
+        </article>
+
+        <article class="paper">
+          <span class="title">Internal Control Processes and Employee Satisfaction</span>
+          <div class="meta">
+            with
+            <a href="https://business.ku.edu/people/chan-li" target="_blank" rel="noopener">Chan Li</a>,
+            <a href="https://sites.google.com/nyu.edu/yantingcrystalshi/home" target="_blank" rel="noopener">Crystal Shi</a>, and
+            <a href="https://www.fordham.edu/gabelli-school-of-business/faculty/full-time-faculty/yuan-xie/" target="_blank" rel="noopener">Yuan Xie</a>
+            | R &amp; R at <i>Accounting, Organizations and Society</i>
+          </div>
+          <div class="summary">“Employees don't like bad internal controls.”</div>
+        </article>
+
+        <article class="paper">
+          <span class="title">
+            Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers
+          </span>
+          <div class="meta">
+            with <a href="https://accounting.wharton.upenn.edu/profile/cxzhu/#teaching" target="_blank" rel="noopener">Cindy Zhu</a>
+          </div>
+          <div class="summary">“Cutting free tax assistance hurts lower-income Americans.”</div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
