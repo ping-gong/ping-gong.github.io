@@ -28,6 +28,7 @@
     .hero-pic{width:260px;max-width:40vw;border-radius:10px;box-shadow:0 6px 30px rgba(0,0,0,.06)}
     .hero-content{max-width:680px}
     .hero-line{margin:0 0 14px 0;font-weight:400;font-size:2.2rem;line-height:1.35}
+    .hero-content p{font-size:1.15rem;margin:.7em 0;text-align:left}
     .contact-inline{display:flex;flex-wrap:wrap;gap:18px;margin-top:6px}
     .contact-inline a{font-size:1rem}
 
@@ -38,7 +39,7 @@
     main{padding-bottom:64px}
     section{margin-top:36px}
 
-    /* About text only (no photo, no email links) */
+    /* About text (after scroll, no photo, no email links) */
     .about-text{max-width:820px;margin:0;text-align:left;padding-left:11px}
     .about-text p{font-size:1.15rem;margin:.7em 0;text-align:left}
 
@@ -71,7 +72,7 @@
 </head>
 <body>
 
-  <!-- OPENING PAGE: photo + one-line intro + contact links -->
+  <!-- OPENING PAGE: photo + one-line intro + paragraphs + contact links -->
   <header class="hero">
     <div class="hero-inner">
       <img class="hero-pic" src="/images/Photo_Refined_SmallSize_wo_Filter.jpeg" alt="Portrait of Ping R. Gong">
@@ -81,6 +82,8 @@
           <span class="strong highlight-underline">Accounting</span>
           at Yale University.
         </h1>
+        <p>My research examines labor and competition issues within the accounting and auditing industries.</p>
+        <p>Prior to my doctoral studies, I received a Bachelor of Commerce (Honours Class I and <i>University Medal</i>) from the University of New South Wales, Australia.</p>
         <div class="contact-inline">
           <a href="mailto:ping.gong@yale.edu">Email</a>
           <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view?usp=drive_link" target="_blank" rel="noopener">Curriculum Vitae</a>
@@ -94,8 +97,7 @@
   <!-- AFTER SCROLL: no photo, no Email/CV/RS -->
   <main class="container">
     <section id="about" class="about-text">
-      <div class="reveal"><p>My research examines labor and competition issues within the accounting and auditing industries.</p></div>
-      <div class="reveal"><p>Prior to my doctoral studies, I received a Bachelor of Commerce (Honours Class I and <i>University Medal</i>) from the University of New South Wales, Australia.</p></div>
+      <!-- paragraphs removed from here -->
     </section>
 
     <section id="research" class="reveal">
