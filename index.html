@@ -16,23 +16,16 @@
 
   <style>
     :root{
-      /* Colors & tokens */
       --highlight:#C3D3E6;
       --link:#1E3A5F;
       --fg:#222; --muted:#666; --line:#eee; --bg:#f9f9f9;
 
       /* Fluid layout tokens */
-      /* Side padding grows with viewport but stays in a sensible range */
       --pad-inline: clamp(16px, 4vw, 48px);
-      /* Max content width also grows a bit on large screens but caps */
       --maxw: clamp(900px, 90vw, 1200px);
-      /* Gap scales a touch for breathing room on big screens */
       --gap: clamp(20px, 3vw, 36px);
-      /* Hero bottom padding is a bit fluid too */
       --hero-pad-bottom: clamp(36px, 4.5vw, 56px);
-      /* Fluid type for hero line */
       --hero-fs: clamp(1.8rem, 2.5vw + 1rem, 2.3rem);
-      /* Body text size */
       --body-fs: 17px;
     }
 
@@ -81,10 +74,11 @@
 
     .hero-cta{
       position:absolute;bottom:28px;left:0;right:0;text-align:center;color:var(--muted);
-      font-size:1.1rem;transition:opacity .25s ease, transform .25s ease;
+      font-size:1.1rem;transition:opacity .2s ease, transform .2s ease;
     }
     .hero-cta .big{display:inline-block;font-size:1.1rem;margin-left:.4rem;font-weight:400;text-transform:none}
-    .hero-cta.is-hidden{opacity:0;transform:translateY(6px);pointer-events:none}
+    /* Hidden state controlled by body.scrolled */
+    body.scrolled .hero-cta{opacity:0;transform:translateY(6px);pointer-events:none}
 
     /* --------- MAIN CONTENT (after scroll) --------- */
     main{padding-bottom:64px}
@@ -122,21 +116,14 @@
     }
 
     /* --------- Fade-in animation on page load --------- */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.3s ease forwards;
-    }
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
-    .delay-4 { animation-delay: 0.8s; }
-    .delay-5 { animation-delay: 1.0s; }
-    .delay-6 { animation-delay: 1.2s; }
+    .fade-in { opacity:0; transform:translateY(20px); animation: fadeInUp .3s ease forwards; }
+    .delay-1 { animation-delay:.2s; } .delay-2 { animation-delay:.4s; }
+    .delay-3 { animation-delay:.6s; } .delay-4 { animation-delay:.8s; }
+    .delay-5 { animation-delay:1.0s; } .delay-6 { animation-delay:1.2s; }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:none; }
     }
 
     /* NoScript fallback so .reveal content isn't hidden without JS */
@@ -262,26 +249,36 @@
     }, {threshold: 0.12, rootMargin: "0px 0px -10% 0px"});
     document.querySelectorAll('.reveal, .paper.reveal').forEach(el=>obs.observe(el));
 
-    // Fade out hero CTA immediately after ANY scroll
+    // Robust "hide CTA after ANY scroll" logic
     (function(){
-      const cta = document.querySelector('.hero-cta');
-      if (!cta) return;
+      const body = document.body;
 
-      const updateCTA = () => {
-        if (window.scrollY > 0) {
-          cta.classList.add('is-hidden');
-          cta.setAttribute('aria-hidden','true');
+      const getScrollY = () =>
+        window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      const update = () => {
+        if (getScrollY() > 0) {
+          body.classList.add('scrolled');
         } else {
-          cta.classList.remove('is-hidden');
-          cta.removeAttribute('aria-hidden');
+          body.classList.remove('scrolled');
         }
       };
 
-      // Initial state on load
-      updateCTA();
+      // Initial check
+      update();
 
-      // Passive scroll listener for performance
-      window.addEventListener('scroll', updateCTA, { passive: true });
+      // Listen to multiple inputs for instant reaction
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('wheel', update, { passive: true });
+      window.addEventListener('touchmove', update, { passive: true });
+      window.addEventListener('keydown', (e) => {
+        // Arrow keys, PageUp/Down, Space, Home/End, etc.
+        const keys = ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '];
+        if (keys.includes(e.key)) setTimeout(update, 0);
+      });
+      window.addEventListener('resize', () => setTimeout(update, 0));
+      document.addEventListener('visibilitychange', () => setTimeout(update, 0));
+      window.addEventListener('load', update);
     })();
   </script>
 
