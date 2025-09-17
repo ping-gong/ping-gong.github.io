@@ -45,7 +45,7 @@
       display:grid;
       place-items:center;
       position:relative;
-      padding-bottom:50px; /* adjusted to be a little larger than 40px */
+      padding-bottom:50px; /* adjusted */
     }
     .hero-inner{display:flex;align-items:center;gap:28px;max-width:var(--maxw);padding:0 20px}
     .hero-pic{width:260px;max-width:40vw;border-radius:10px;box-shadow:0 6px 30px rgba(0,0,0,.06)}
@@ -55,8 +55,12 @@
     .contact-inline{display:flex;flex-wrap:wrap;gap:18px;margin-top:6px}
     .contact-inline a{font-size:1rem}
 
-    .hero-cta{position:absolute;bottom:28px;left:0;right:0;text-align:center;color:var(--muted);font-size:1.1rem}
+    .hero-cta{
+      position:absolute;bottom:28px;left:0;right:0;text-align:center;color:var(--muted);
+      font-size:1.1rem;transition:opacity .3s ease, transform .3s ease;
+    }
     .hero-cta .big{display:inline-block;font-size:1.1rem;margin-left:.4rem;font-weight:400;text-transform:none}
+    .hero-cta.is-hidden{opacity:0;transform:translateY(6px);pointer-events:none}
 
     /* --------- MAIN CONTENT (after scroll) --------- */
     main{padding-bottom:64px}
@@ -228,6 +232,24 @@
       }
     }, {threshold: 0.12, rootMargin: "0px 0px -10% 0px"});
     document.querySelectorAll('.reveal, .paper.reveal').forEach(el=>obs.observe(el));
+
+    // Hide hero CTA after scroll
+    const cta = document.querySelector('.hero-cta');
+    const mainEl = document.querySelector('main');
+    if (cta && mainEl) {
+      const ctaObserver = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            cta.classList.add('is-hidden');
+            cta.setAttribute('aria-hidden','true');
+          } else {
+            cta.classList.remove('is-hidden');
+            cta.removeAttribute('aria-hidden');
+          }
+        }
+      }, { threshold: 0.05 });
+      ctaObserver.observe(mainEl);
+    }
   </script>
 </body>
 </html>
