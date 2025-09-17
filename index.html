@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ping R. Gong</title>
+
   <style>
     :root{
       --highlight:#C3D3E6;
@@ -31,7 +32,7 @@
       display:grid;
       place-items:center;
       position:relative;
-      padding-bottom:60px; /* extra space at bottom */
+      padding-bottom:80px; /* ⬅ extra empty space only for hero section */
     }
     .hero-inner{display:flex;align-items:center;gap:28px;max-width:var(--maxw);padding:0 20px}
     .hero-pic{width:260px;max-width:40vw;border-radius:10px;box-shadow:0 6px 30px rgba(0,0,0,.06)}
@@ -64,6 +65,18 @@
     .paper .meta i{color:var(--link)}
     .meta{font-size:.95rem;margin-top:4px}
     .summary{font-style:italic;color:#444;margin-top:5px;font-size:1rem}
+
+    /* Reveal-on-scroll */
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* Responsive */
+    @media (max-width:860px){
+      .hero-inner{flex-direction:column;text-align:center}
+      .hero-pic{width:55vw;max-width:360px}
+      .hero-line{font-size:1.8rem}
+      .about-text{text-align:left;padding-left:11px}
+    }
 
     /* Fade-in animation on page load */
     .fade-in {opacity:0;transform:translateY(20px);animation:fadeInUp 0.3s ease forwards;}
@@ -107,7 +120,7 @@
   <main class="container">
     <section id="research" class="reveal">
       <h2>Research</h2>
-      <!-- papers go here -->
+      <!-- your papers here -->
     </section>
   </main>
 
