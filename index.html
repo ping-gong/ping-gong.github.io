@@ -51,6 +51,9 @@
     .highlight-underline::after{content:"";position:absolute;left:0;bottom:0.15em;
       width:100%;height:0.35em;background:var(--highlight);z-index:-1;border-radius:2px}
 
+    /* Invisible 1px sentinel at the very top for intersection detection */
+    #top-sentinel{position:fixed;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0}
+
     /* --------- OPENING PAGE (hero) --------- */
     .hero{
       min-height:100svh;
@@ -77,8 +80,8 @@
       font-size:1.1rem;transition:opacity .2s ease, transform .2s ease;
     }
     .hero-cta .big{display:inline-block;font-size:1.1rem;margin-left:.4rem;font-weight:400;text-transform:none}
-    /* Hidden state controlled by body.scrolled */
-    body.scrolled .hero-cta{opacity:0;transform:translateY(6px);pointer-events:none}
+    /* Hidden state controlled by body[data-scrolled="1"] */
+    body[data-scrolled="1"] .hero-cta{opacity:0;transform:translateY(6px);pointer-events:none}
 
     /* --------- MAIN CONTENT (after scroll) --------- */
     main{padding-bottom:64px}
@@ -131,6 +134,9 @@
   </style>
 </head>
 <body>
+
+  <!-- 1px sentinel (fixed at the very top) -->
+  <div id="top-sentinel" aria-hidden="true"></div>
 
   <!-- OPENING PAGE -->
   <header class="hero">
@@ -249,35 +255,41 @@
     }, {threshold: 0.12, rootMargin: "0px 0px -10% 0px"});
     document.querySelectorAll('.reveal, .paper.reveal').forEach(el=>obs.observe(el));
 
-    // Robust "hide CTA after ANY scroll" logic
+    // ---- Robust "hide CTA after ANY scroll" with multiple fallbacks ----
     (function(){
       const body = document.body;
+      const sentinel = document.getElementById('top-sentinel');
 
-      const getScrollY = () =>
+      const getScrollTop = () =>
         window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
 
-      const update = () => {
-        if (getScrollY() > 0) {
-          body.classList.add('scrolled');
-        } else {
-          body.classList.remove('scrolled');
-        }
+      const setScrolled = (scrolled) => {
+        body.setAttribute('data-scrolled', scrolled ? '1' : '0');
       };
 
-      // Initial check
+      const update = () => setScrolled(getScrollTop() > 0);
+
+      // Initial state
       update();
 
-      // Listen to multiple inputs for instant reaction
+      // 1) IntersectionObserver on the fixed 1px sentinel at top
+      if ('IntersectionObserver' in window && sentinel){
+        const io = new IntersectionObserver((entries)=>{
+          // If the 1px element at the very top is NOT visible, we know we're scrolled
+          const topVisible = entries[0]?.isIntersecting === true;
+          setScrolled(!topVisible);
+        }, {root: null, threshold: 1.0});
+        io.observe(sentinel);
+      }
+
+      // 2) Traditional input events
+      const immediate = () => setTimeout(update, 0);
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('wheel', update, { passive: true });
       window.addEventListener('touchmove', update, { passive: true });
-      window.addEventListener('keydown', (e) => {
-        // Arrow keys, PageUp/Down, Space, Home/End, etc.
-        const keys = ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '];
-        if (keys.includes(e.key)) setTimeout(update, 0);
-      });
-      window.addEventListener('resize', () => setTimeout(update, 0));
-      document.addEventListener('visibilitychange', () => setTimeout(update, 0));
+      window.addEventListener('keydown', immediate); // arrows/space/pageup etc.
+      window.addEventListener('resize', immediate);
+      document.addEventListener('visibilitychange', immediate);
       window.addEventListener('load', update);
     })();
   </script>
