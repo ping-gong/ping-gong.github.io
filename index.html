@@ -4,15 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ping R. Gong</title>
-
-  <!-- SEO / Social -->
-  <meta name="description" content="Ping R. Gong — PhD student in Accounting at Yale University. Research on labor and competition in accounting and auditing; 2025–2026 academic job market." />
-  <meta property="og:title" content="Ping R. Gong" />
-  <meta property="og:description" content="PhD student in Accounting at Yale University. Research on labor and competition in accounting and auditing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/images/Photo_Refined_SmallSize_wo_Filter.jpeg" />
-  <meta name="theme-color" content="#C3D3E6" />
-
   <style>
     :root{
       --highlight:#C3D3E6;
@@ -21,17 +12,12 @@
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .fade-in,.reveal{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
-    }
     body{margin:0;background:var(--bg);color:var(--fg);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       font-weight:400;line-height:1.5;font-size:17px}
     img{max-width:100%;display:block}
     a{color:var(--link);text-decoration:none}
     a:hover{text-decoration:underline}
-    a:focus-visible{outline:3px solid var(--highlight);outline-offset:2px;border-radius:4px}
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
     .strong{font-weight:700}
@@ -40,13 +26,19 @@
       width:100%;height:0.35em;background:var(--highlight);z-index:-1;border-radius:2px}
 
     /* --------- OPENING PAGE (hero) --------- */
-    .hero{min-height:100svh;display:grid;place-items:center;position:relative}
+    .hero{
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      position:relative;
+      padding-bottom:60px; /* extra space at bottom */
+    }
     .hero-inner{display:flex;align-items:center;gap:28px;max-width:var(--maxw);padding:0 20px}
     .hero-pic{width:260px;max-width:40vw;border-radius:10px;box-shadow:0 6px 30px rgba(0,0,0,.06)}
     .hero-content{max-width:680px}
     .hero-line{margin:0 0 14px 0;font-weight:400;font-size:2.2rem;line-height:1.35}
     .hero-content p{font-size:1.15rem;margin:.7em 0;text-align:left}
-    .contact-inline{display:flex;flex-wrap:wrap;gap:18px;margin-top:6px; margin-bottom:28px;} /* extra bottom space */
+    .contact-inline{display:flex;flex-wrap:wrap;gap:18px;margin-top:6px}
     .contact-inline a{font-size:1rem}
 
     .hero-cta{position:absolute;bottom:28px;left:0;right:0;text-align:center;color:var(--muted);font-size:1.1rem}
@@ -73,37 +65,18 @@
     .meta{font-size:.95rem;margin-top:4px}
     .summary{font-style:italic;color:#444;margin-top:5px;font-size:1rem}
 
-    /* Reveal-on-scroll */
-    .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
-    .reveal.visible{opacity:1;transform:none}
-
-    /* Responsive */
-    @media (max-width:860px){
-      .hero-inner{flex-direction:column;text-align:center}
-      .hero-pic{width:55vw;max-width:360px}
-      .hero-line{font-size:1.8rem}
-      .about-text{text-align:left;padding-left:11px}
-    }
-
-    /* --------- Fade-in animation on page load --------- */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.3s ease forwards;
-    }
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
-    .delay-4 { animation-delay: 0.8s; }
-    .delay-5 { animation-delay: 1.0s; }
-    .delay-6 { animation-delay: 1.2s; }
-
+    /* Fade-in animation on page load */
+    .fade-in {opacity:0;transform:translateY(20px);animation:fadeInUp 0.3s ease forwards;}
+    .delay-1 {animation-delay:0.2s}
+    .delay-2 {animation-delay:0.4s}
+    .delay-3 {animation-delay:0.6s}
+    .delay-4 {animation-delay:0.8s}
+    .delay-5 {animation-delay:1.0s}
+    .delay-6 {animation-delay:1.2s}
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:none}
     }
-
-    .end-spacer{height:80px}
   </style>
 </head>
 <body>
@@ -111,14 +84,7 @@
   <!-- OPENING PAGE -->
   <header class="hero">
     <div class="hero-inner">
-      <img
-        class="hero-pic fade-in delay-1"
-        src="/images/Photo_Refined_SmallSize_wo_Filter.jpeg"
-        alt="Portrait of Ping R. Gong"
-        decoding="async"
-        loading="eager"
-        fetchpriority="high"
-      />
+      <img class="hero-pic fade-in delay-1" src="/images/Photo_Refined_SmallSize_wo_Filter.jpeg" alt="Portrait of Ping R. Gong">
       <div class="hero-content">
         <h1 class="hero-line fade-in delay-2">
           Hello! I’m <span class="strong">Ping R. Gong</span>, a PhD student in
@@ -139,92 +105,19 @@
 
   <!-- AFTER SCROLL -->
   <main class="container">
-    <section id="about" class="about-text"></section>
     <section id="research" class="reveal">
       <h2>Research</h2>
-      <div class="papers">
-        <article class="paper reveal">
-          <a class="title" href="https://drive.google.com/file/d/1KsfcIFkCiLGuhUnVln2fm4iGGTe1NaOv/view?usp=drive_link" target="_blank" rel="noopener">
-            Accounting for Trade: On Mutual Recognition of Credentials and Cross-Border Trade
-          </a>
-          <div class="meta"><b>Job Market Paper</b></div>
-          <div class="summary">“CPA mutual recognition boosts international trade.”</div>
-        </article>
-
-        <article class="paper reveal">
-          <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4024646" target="_blank" rel="noopener">
-            Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls
-          </a>
-          <div class="meta">
-            with
-            <a href="https://sites.google.com/site/ldaiprofile" target="_blank" rel="noopener">Lili Dai</a>,
-            <a href="https://www.unsw.edu.au/staff/andrew-jackson" target="_blank" rel="noopener">Andrew Jackson</a>, and
-            <a href="https://sites.google.com/view/ryanpengshomepage" target="_blank" rel="noopener">Zihang Peng</a>
-            | R &amp; R at <i>Review of Accounting Studies</i>
-          </div>
-          <div class="summary">“CEOs don't answer the questions being asked of them.”</div>
-        </article>
-
-        <article class="paper reveal">
-          <span class="title">
-            STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market
-          </span>
-          <div class="meta">
-            with
-            <a href="https://www.johnmbarrios.com/" target="_blank" rel="noopener">John Barrios</a> and
-            <a href="https://enshuai-yu.github.io/" target="_blank" rel="noopener">Enshuai Yu</a>
-            | Registered report at <i>Journal of Accounting Research</i>
-          </div>
-          <div class="summary">“Does STEM save American accounting — or is it just window dressing?”</div>
-        </article>
-
-        <article class="paper reveal">
-          <span class="title">
-            The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets
-          </span>
-          <div class="meta">
-            with
-            <a href="https://directory.smeal.psu.edu/dza5396" target="_blank" rel="noopener">Daniel Aobdia</a> and
-            <a href="https://www.hhs.se/en/persons/m/ma-hao/" target="_blank" rel="noopener">Hao Ma</a>
-            | R &amp; R at <i>Journal of Accounting and Economics</i>
-          </div>
-          <div class="summary">“Reducing entry barriers for audit firms increases audit quality.”</div>
-        </article>
-
-        <article class="paper reveal">
-          <span class="title">Internal Control Processes and Employee Satisfaction</span>
-          <div class="meta">
-            with
-            <a href="https://business.ku.edu/people/chan-li" target="_blank" rel="noopener">Chan Li</a>,
-            <a href="https://sites.google.com/nyu.edu/yantingcrystalshi/home" target="_blank" rel="noopener">Crystal Shi</a>, and
-            <a href="https://www.fordham.edu/gabelli-school-of-business/faculty/full-time-faculty/yuan-xie/" target="_blank" rel="noopener">Yuan Xie</a>
-            | R &amp; R at <i>Accounting, Organizations and Society</i>
-          </div>
-          <div class="summary">“Employees don't like bad internal controls.”</div>
-        </article>
-
-        <article class="paper reveal">
-          <span class="title">
-            Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers
-          </span>
-          <div class="meta">
-            with <a href="https://accounting.wharton.upenn.edu/profile/cxzhu/#teaching" target="_blank" rel="noopener">Cindy Zhu</a>
-          </div>
-          <div class="summary">“Cutting free tax assistance hurts lower-income Americans.”</div>
-        </article>
-      </div>
+      <!-- papers go here -->
     </section>
-    <div class="end-spacer"></div>
   </main>
 
   <script>
-    // Reveal-on-scroll for text + papers
-    const obs = new IntersectionObserver((entries)=>{
-      for (const e of entries){
-        if (e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    const obs=new IntersectionObserver((entries)=>{
+      for(const e of entries){
+        if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
       }
-    }, {threshold: 0.12, rootMargin: "0px 0px -10% 0px"});
-    document.querySelectorAll('.reveal, .paper.reveal').forEach(el=>obs.observe(el));
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal,.paper.reveal').forEach(el=>obs.observe(el));
   </script>
 </body>
 </html>
