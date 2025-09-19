@@ -26,6 +26,9 @@
       --gap: clamp(20px, 3vw, 36px);
       --spacer-after-intro: clamp(28px, 6vw, 72px);
       --body-fs: 17px;
+
+      /* Shared content width for intro text & research list */
+      --content-maxw: 740px;
     }
 
     *{box-sizing:border-box}
@@ -42,6 +45,8 @@
     a:focus-visible{outline:3px solid var(--highlight);outline-offset:2px;border-radius:4px}
 
     .container{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad-inline)}
+    .content-box{max-width:var(--content-maxw);width:100%}
+
     .strong{font-weight:700}
     .highlight-underline{position:relative;display:inline-block}
     .highlight-underline::after{content:"";position:absolute;left:0;bottom:0.15em;
@@ -55,9 +60,10 @@
         max-width:40vw;
         border-radius:10px;
         box-shadow:0 6px 30px rgba(0,0,0,.06);
-        margin-left: 11px; /* Added indentation */
+        margin-left: 11px; /* subtle indentation so photo’s left edge aligns visually with text block */
     }
-    .intro-text{max-width:740px}
+    /* Remove fixed cap so .content-box governs width */
+    .intro-text{max-width:none}
     .intro-text h1{margin:0 0 10px 0;font-weight:700;font-size:clamp(1.6rem, 2.6vw + 1rem, 2.1rem);line-height:1.35}
     .intro-text p{font-size:1.05rem;margin:.6em 0}
     .contact-inline{display:flex;flex-wrap:wrap;gap:18px;margin-top:8px}
@@ -88,8 +94,8 @@
     /* ---------- Responsive ---------- */
     @media (max-width:860px){
       .intro-row{flex-direction:column;text-align:center;align-items:center}
-      .intro-photo{width:55vw;max-width:360px}
-      .intro-text{max-width:720px}
+      .intro-photo{width:55vw;max-width:360px;margin-left:0}
+      .intro-text{max-width:unset}
       .intro-text h1{font-size:clamp(1.4rem, 5vw, 1.8rem)}
       .contact-inline{justify-content:center}
     }
@@ -107,7 +113,8 @@
         loading="eager"
         fetchpriority="high"
       />
-      <div class="intro-text">
+      <!-- Apply shared width to intro text -->
+      <div class="intro-text content-box">
         <h1>
           Hello! I’m <span class="strong">Ping R. Gong</span>, a PhD student in
           <span class="strong highlight-underline">Accounting</span>
@@ -129,7 +136,8 @@
   <main class="container">
     <section id="research">
       <h2>Research</h2>
-      <div class="papers">
+      <!-- Apply shared width to research list -->
+      <div class="papers content-box">
         <article class="paper">
           <a class="title" href="https://drive.google.com/file/d/1KsfcIFkCiLGuhUnVln2fm4iGGTe1NaOv/view?usp=drive_link" target="_blank" rel="noopener">
             Accounting for Trade: On Mutual Recognition of Credentials and Cross-Border Trade
