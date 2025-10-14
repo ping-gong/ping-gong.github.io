@@ -87,6 +87,26 @@
     .meta{font-size:.95rem;margin-top:4px}
     .summary{font-style:italic;color:#444;margin-top:5px;font-size:1rem}
 
+    /* ---------- ANIMATIONS (fade/phase in) ---------- */
+    .reveal{
+      opacity:0;
+      transform:translateY(10px);
+      transition:opacity .7s ease, transform .7s ease;
+      will-change:opacity, transform;
+    }
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    /* make the headshot feel a touch “snappier” */
+    .intro-photo.reveal{transform:translateY(8px) scale(.995)}
+    .intro-photo.reveal.visible{transform:translateY(0) scale(1)}
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1;transform:none;transition:none}
+    }
+
     /* ---------- Responsive ---------- */
     @media (max-width:860px){
       .intro-row{flex-direction:column;text-align:center;align-items:center}
@@ -102,7 +122,7 @@
   <header class="top-intro container">
     <div class="intro-row">
       <img
-        class="intro-photo"
+        class="intro-photo reveal"
         src="/images/Photo_Refined_SmallSize_wo_Filter.jpeg"
         alt="Portrait of Ping R. Gong"
         decoding="async"
@@ -110,17 +130,17 @@
         fetchpriority="high"
       />
       <div class="intro-text">
-        <h1>
+        <h1 class="reveal">
           Hello! I’m <span class="strong">Ping R. Gong</span>, a PhD student in
           <span class="strong highlight-underline">Accounting</span>
           at Yale University.
         </h1>
-        <p>I will be on the 2025–2026 academic job market. My research examines labor and competition issues within the accounting and auditing industries.</p>
-        <p>Prior to my doctoral studies, I received a Bachelor of Commerce (Honours Class I and <i>University Medal</i>) from the University of New South Wales, Australia.</p>
+        <p class="reveal">I will be on the 2025–2026 academic job market. My research examines labor and competition issues within the accounting and auditing industries.</p>
+        <p class="reveal">Prior to my doctoral studies, I received a Bachelor of Commerce (Honours Class I and <i>University Medal</i>) from the University of New South Wales, Australia.</p>
         <div class="contact-inline">
-          <a href="mailto:ping.gong@yale.edu">Email</a>
-          <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view?usp=drive_link" target="_blank" rel="noopener">Curriculum Vitae</a>
-          <a href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view?usp=sharing" target="_blank" rel="noopener">Research Statement</a>
+          <a class="reveal" href="mailto:ping.gong@yale.edu">Email</a>
+          <a class="reveal" href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view?usp=drive_link" target="_blank" rel="noopener">Curriculum Vitae</a>
+          <a class="reveal" href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view?usp=sharing" target="_blank" rel="noopener">Research Statement</a>
         </div>
       </div>
     </div>
@@ -130,9 +150,9 @@
 
   <main class="container">
     <section id="research">
-      <h2>Research</h2>
+      <h2 class="reveal">Research</h2>
       <div class="papers">
-        <article class="paper">
+        <article class="paper reveal">
           <a class="title" href="https://drive.google.com/file/d/1KsfcIFkCiLGuhUnVln2fm4iGGTe1NaOv/view?usp=drive_link" target="_blank" rel="noopener">
             Accounting for Trade: On Mutual Recognition of Credentials and Cross-Border Trade [Link]
           </a>
@@ -140,7 +160,7 @@
           <div class="summary">“CPA mutual recognition boosts international trade.”</div>
         </article>
 
-        <article class="paper">
+        <article class="paper reveal">
           <span class="title">
             STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market
           </span>
@@ -153,7 +173,7 @@
           <div class="summary">“Does STEM save American accounting — or is it just window dressing?”</div>
         </article>
 
-        <article class="paper">
+        <article class="paper reveal">
           <span class="title">
             The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets
           </span>
@@ -166,7 +186,7 @@
           <div class="summary">“Reducing entry barriers for audit firms increases audit quality.”</div>
         </article>
 
-        <article class="paper">
+        <article class="paper reveal">
           <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4024646" target="_blank" rel="noopener">
             Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls [Link]
           </a>
@@ -180,7 +200,7 @@
           <div class="summary">“CEOs don't answer the questions being asked of them.”</div>
         </article>
         
-        <article class="paper">
+        <article class="paper reveal">
           <span class="title">Internal Control Processes and Employee Satisfaction</span>
           <div class="meta">
             with
@@ -192,7 +212,7 @@
           <div class="summary">“Employees don't like bad internal controls.”</div>
         </article>
 
-        <article class="paper">
+        <article class="paper reveal">
           <span class="title">
             Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers
           </span>
@@ -205,5 +225,49 @@
     </section>
   </main>
 
+  <!-- ANIMATIONS: IntersectionObserver + auto-stagger -->
+  <script>
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const q = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+      // If user prefers reduced motion, reveal everything instantly.
+      if (prefersReduced) {
+        q('.reveal').forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      // Auto-stagger helper: assign incremental delays to a node list
+      function stagger(nodes, base=0, step=70){
+        nodes.forEach((el, i) => {
+          el.style.transitionDelay = (base + i*step) + 'ms';
+        });
+      }
+
+      // Stagger hero text elements
+      const heroGroup = [
+        ...q('.intro-text > h1.reveal'),
+        ...q('.intro-text > p.reveal'),
+        ...q('.intro-text .contact-inline .reveal')
+      ];
+      stagger(heroGroup, 80, 90);
+
+      // Stagger papers
+      const paperCards = q('.papers .paper.reveal');
+      stagger(paperCards, 0, 80);
+
+      // Observe and reveal on entry
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      q('.reveal').forEach(el => io.observe(el));
+    })();
+  </script>
 </body>
 </html>
