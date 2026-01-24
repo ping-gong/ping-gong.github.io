@@ -136,8 +136,8 @@
 
       function step(){
         div.innerHTML += text[j++] || '';
-        if(j <= text.length) setTimeout(step, 50); // <-- per-letter speed
-        else setTimeout(nextLine, 200); // <-- delay between lines
+        if(j <= text.length) setTimeout(step, 25); // <-- per-letter speed
+        else setTimeout(nextLine, 100); // <-- delay between lines
       }
 
       step();
