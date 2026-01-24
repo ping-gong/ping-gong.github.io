@@ -1,8 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ping R. Gong</title>
+  <meta name="description" content="Ping R. Gong — PhD candidate in Accounting at Yale University." />
+
+  <style>
+    :root{
+      --bg:#f9f9f9; --fg:#222; --muted:#666; --line:#eee;
+      --accent:#C3D3E6; --link:#1E3A5F;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--sans);
+      font-size:16px;
+      line-height:1.5;
+    
+      display:flex;
+      justify-content:center;  
+      align-items:center;      
+      min-height:100vh;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:850px;
+      padding:48px 24px;
+      transform:translateY(-40px);
+    }
+
+    /* Header */
+    .header{display:flex; align-items:center; gap:24px; margin-bottom:40px}
+    .photo{
+      width:120px; height:120px; border-radius:16px; object-fit:cover;
+      box-shadow:0 8px 24px rgba(0,0,0,.08)
+    }
+    h1{font-size:1.8rem; margin:0}
+    .sub{color:var(--muted); font-size:1rem}
+
+    /* Tabs */
+    .tabs{display:flex; gap:24px; margin-bottom:24px}
+    .tab{
+      cursor:pointer; padding:4px 0; font-weight:500;
+      border-bottom:2px solid transparent; font-size:1rem;
+    }
+    .tab.active{border-color:var(--accent)}
+
+    /* Terminal */
+    .terminal{
+      background:#fff; border:1px solid var(--line);
+      border-radius:14px; padding:24px 28px;
+      font-family:var(--mono); font-size:14px;
+      box-shadow:0 12px 36px rgba(0,0,0,.06);
+      min-height:260px;
+    }
+
+    .line{white-space:pre-wrap; margin-bottom:8px}
+    .prompt{color:var(--link)}
+    .thinking{color:var(--muted); font-style:italic}
+
+    .cursor{
+      display:inline-block; width:8px; height:1.1em;
+      background:#000; margin-left:3px;
+      animation:blink .5s steps(2) infinite
+    }
+    @keyframes blink{50%{opacity:0}}
+
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    @media (max-width:800px){
+      h1{font-size:1.5rem}
+      .photo{width:100px;height:100px}
+      .wrap{padding:48px 16px}
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="header">
+    <img class="photo" src="/images/Photo_LightBackground.png" alt="Ping R. Gong" />
+    <div>
+      <h1>Ping R. Gong</h1>
+      <div class="sub">PhD candidate in Accounting, Yale University</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="about">about</div>
+    <div class="tab" data-tab="cv">cv</div>
+    <div class="tab" data-tab="contact">contact</div>
+  </div>
+
+  <div class="terminal" id="terminal"></div>
+</div>
+
 <script>
 const terminal = document.getElementById('terminal');
 const tabs = document.querySelectorAll('.tab');
 
-let typingSession = 0; // controls cancellation
+let typingSession = 0;
 
 const content = {
   about: [
@@ -24,13 +130,12 @@ const content = {
   ]
 };
 
-// typeSequence no longer increments typingSession itself
 function typeSequence(seq, sessionId){
   terminal.innerHTML = '';
   let i = 0;
 
-  function next(){
-    if(sessionId !== typingSession) return; // cancel if a new tab is clicked
+  function nextLine(){
+    if(sessionId !== typingSession) return; // cancel if a new tab clicked
 
     if(i >= seq.length){
       const cursor = document.createElement('span');
@@ -48,21 +153,20 @@ function typeSequence(seq, sessionId){
     if(item.html){
       div.innerHTML = item.html;
       i++;
-      setTimeout(next, 120);
+      setTimeout(nextLine, 120);
     } else {
       const text = item.text || '';
       let j = 0;
-      const speed = item.type === 'thinking' ? 12 : 7;
+      const speed = item.type==='thinking'?12:7;
 
       function typeChar(){
-        if(sessionId !== typingSession) return; // cancel safely
-
+        if(sessionId !== typingSession) return;
         if(j < text.length){
           div.textContent += text[j++];
           setTimeout(typeChar, speed);
         } else {
           i++;
-          setTimeout(next, 100);
+          setTimeout(nextLine, 100);
         }
       }
 
@@ -70,20 +174,23 @@ function typeSequence(seq, sessionId){
     }
   }
 
-  next();
+  nextLine();
 }
 
-// tab click handler
+// Tab click handler
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
 
-    typingSession++; // increment session only on tab click
+    typingSession++; // cancel previous typing
     typeSequence(content[tab.dataset.tab], typingSession);
   });
 });
 
-// initial load (use current typingSession without increment)
+// Initial load
 typeSequence(content.about, typingSession);
 </script>
+
+</body>
+</html>
