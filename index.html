@@ -106,12 +106,12 @@
     cv: [
       {type:'prompt', text:'PingGPT › open cv'},
       {type:'thinking', text:'Fetching document…'},
-      {html:'Curriculum Vitae → <a href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view?usp=sharing" target="_blank">Download PDF</a>'}
+      {html:'Curriculum Vitae → &gt;Download PDF'}
     ],
     contact: [
       {type:'prompt', text:'PingGPT › contact'},
       {type:'thinking', text:'Generating contact information…'},
-      {html:'Email → <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'}
+      {html:'Email → &gt;<a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'}
     ]
   };
 
@@ -136,8 +136,8 @@
 
       function step(){
         div.innerHTML += text[j++] || '';
-        if(j <= text.length) setTimeout(step, 25); // <-- per-letter speed
-        else setTimeout(nextLine, 100); // <-- delay between lines
+        if(j <= text.length) setTimeout(step, 10); // letters speed much faster
+        else setTimeout(nextLine, 50); // delay between lines faster
       }
 
       step();
