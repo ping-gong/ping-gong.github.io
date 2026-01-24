@@ -29,7 +29,11 @@
       min-height:100vh;
     }
 
-    .wrap{width:100%; max-width:850px; padding:56px 24px}
+    .wrap{
+      max-width:780px;
+      padding:48px 24px;
+      transform:translateY(-40px);
+    }
 
     /* Header */
     .header{display:flex; align-items:center; gap:24px; margin-bottom:40px}
@@ -64,7 +68,7 @@
     .cursor{
       display:inline-block; width:8px; height:1.1em;
       background:#000; margin-left:3px;
-      animation:blink .6s steps(2) infinite
+      animation:blink .5s steps(2) infinite
     }
     @keyframes blink{50%{opacity:0}}
 
