@@ -75,7 +75,7 @@
 <div class="wrap">
 
   <div class="header">
-    <img class="photo" src="/images/Photo_LightBackground.png" alt="Ping R. Gong" />
+    <img class="photo" src="/images/Photo_Refined_SmallSize_wo_Filter.jpeg" alt="Ping R. Gong" />
     <div>
       <h1>Ping R. Gong</h1>
       <div class="sub">PhD candidate in Accounting, Yale University</div>
@@ -100,18 +100,18 @@
       {type:'prompt', text:'PingGPT › who is Ping R. Gong?'},
       {type:'thinking', text:'Thinking…'},
       {text:'Ping R. Gong is a PhD candidate in Accounting at Yale University.'},
-      {text:'He is interested in labor issues in accounting.'},
+      {text:'His research focuses on labor markets, competition, and auditing.'},
       {text:'He will be on the 2025–2026 academic job market.'}
     ],
     cv: [
       {type:'prompt', text:'PingGPT › open cv'},
       {type:'thinking', text:'Fetching document…'},
-      {html:'Curriculum Vitae → &gt;<a href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view?usp=sharing" target="_blank">Download PDF</a>'}
+      {html:'Curriculum Vitae → <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank">Download PDF</a>'}
     ],
     contact: [
       {type:'prompt', text:'PingGPT › contact'},
       {type:'thinking', text:'Generating contact information…'},
-      {html:'Email → &gt;<a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'}
+      {html:'Email → <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'}
     ]
   };
 
@@ -119,41 +119,54 @@
     terminal.innerHTML = '';
     let i = 0;
 
-    function nextLine(){
+    function next(){
       if(i >= seq.length){
-        terminal.insertAdjacentHTML('beforeend','<span class="cursor"></span>');
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        terminal.appendChild(cursor);
         return;
       }
 
-      const item = seq[i++];
+      const item = seq[i];
       const div = document.createElement('div');
       div.className = 'line';
       if(item.type) div.classList.add(item.type);
       terminal.appendChild(div);
 
-      let text = item.html || item.text || '';
-      let j = 0;
-
-      function step(){
-        div.innerHTML += text[j++] || '';
-        if(j <= text.length) setTimeout(step, 10); // letters speed
-        else setTimeout(nextLine, 50); // delay between lines
+      if(item.html){
+        // show HTML instantly (for links)
+        div.innerHTML = item.html;
+        i++;
+        setTimeout(next, 150); // small delay between lines
+      } else {
+        // type letter by letter
+        const text = item.text || '';
+        let j = 0;
+        const speed = item.type==='thinking' ? 10 : 5; // letters appear super fast
+        const interval = setInterval(() => {
+          div.textContent += text[j] || '';
+          j++;
+          if(j > text.length){
+            clearInterval(interval);
+            i++;
+            setTimeout(next, 50); // small delay between lines
+          }
+        }, speed);
       }
-
-      step();
     }
 
-    nextLine();
+    next();
   }
 
   tabs.forEach(tab => {
-    tab.onclick = () => {
+    tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       typeSequence(content[tab.dataset.tab]);
-    };
+    });
   });
 
+  // initial load
   typeSequence(content.about);
 </script>
 
