@@ -137,19 +137,19 @@
         // show HTML instantly (for links)
         div.innerHTML = item.html;
         i++;
-        setTimeout(next, 150); // small delay between lines
+        setTimeout(next, 200); // small delay between lines
       } else {
         // type letter by letter
         const text = item.text || '';
         let j = 0;
-        const speed = item.type==='thinking' ? 10 : 5; // letters appear super fast
+        const speed = item.type==='thinking' ? 15 : 10; // letters appear super fast
         const interval = setInterval(() => {
           div.textContent += text[j] || '';
           j++;
           if(j > text.length){
             clearInterval(interval);
             i++;
-            setTimeout(next, 50); // small delay between lines
+            setTimeout(next, 100); // small delay between lines
           }
         }, speed);
       }
