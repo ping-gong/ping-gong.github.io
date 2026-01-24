@@ -1,93 +1,89 @@
 <script>
-  const terminal = document.getElementById('terminal');
-  const tabs = document.querySelectorAll('.tab');
+const terminal = document.getElementById('terminal');
+const tabs = document.querySelectorAll('.tab');
 
-  let typingSession = 0; // 🔥 controls cancellation
+let typingSession = 0; // controls cancellation
 
-  const content = {
-    about: [
-      {type:'prompt', text:'PingGPT › who is Ping?'},
-      {type:'thinking', text:'Thinking…'},
-      {text:'Ping R. Gong is a PhD candidate in Accounting at Yale University.'},
-      {text:'His research focuses on labor and technology issues in accounting.'},
-      {text:'He will be on the 2025–2026 academic job market.'}
-    ],
-    cv: [
-      {type:'prompt', text:'PingGPT › open cv'},
-      {type:'thinking', text:'Fetching document…'},
-      {
-        html:'Curriculum Vitae → <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank">Download PDF</a>'
-      }
-    ],
-    contact: [
-      {type:'prompt', text:'PingGPT › contact'},
-      {type:'thinking', text:'Generating contact information…'},
-      {
-        html:'Email → <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'
-      }
-    ]
-  };
+const content = {
+  about: [
+    {type:'prompt', text:'PingGPT › who is Ping?'},
+    {type:'thinking', text:'Thinking…'},
+    {text:'Ping R. Gong is a PhD candidate in Accounting at Yale University.'},
+    {text:'His research focuses on labor and technology issues in accounting.'},
+    {text:'He will be on the 2025–2026 academic job market.'}
+  ],
+  cv: [
+    {type:'prompt', text:'PingGPT › open cv'},
+    {type:'thinking', text:'Fetching document…'},
+    {html:'Curriculum Vitae → <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank">Download PDF</a>'}
+  ],
+  contact: [
+    {type:'prompt', text:'PingGPT › contact'},
+    {type:'thinking', text:'Generating contact information…'},
+    {html:'Email → <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'}
+  ]
+};
 
-  function typeSequence(seq){
-    const sessionId = ++typingSession; // 🚨 invalidate old sessions
-    terminal.innerHTML = '';
+// typeSequence no longer increments typingSession itself
+function typeSequence(seq, sessionId){
+  terminal.innerHTML = '';
+  let i = 0;
 
-    let i = 0;
+  function next(){
+    if(sessionId !== typingSession) return; // cancel if a new tab is clicked
 
-    function next(){
-      // ❌ stop immediately if tab changed
-      if(sessionId !== typingSession) return;
-
-      if(i >= seq.length){
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        terminal.appendChild(cursor);
-        return;
-      }
-
-      const item = seq[i];
-      const div = document.createElement('div');
-      div.className = 'line';
-      if(item.type) div.classList.add(item.type);
-      terminal.appendChild(div);
-
-      if(item.html){
-        // show HTML instantly
-        div.innerHTML = item.html;
-        i++;
-        setTimeout(next, 120);
-      } else {
-        const text = item.text || '';
-        let j = 0;
-        const speed = item.type === 'thinking' ? 12 : 7;
-
-        function typeChar(){
-          if(sessionId !== typingSession) return; // ❌ cancel safely
-
-          if(j < text.length){
-            div.textContent += text[j++];
-            setTimeout(typeChar, speed);
-          } else {
-            i++;
-            setTimeout(next, 100);
-          }
-        }
-
-        typeChar();
-      }
+    if(i >= seq.length){
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      terminal.appendChild(cursor);
+      return;
     }
 
-    next();
+    const item = seq[i];
+    const div = document.createElement('div');
+    div.className = 'line';
+    if(item.type) div.classList.add(item.type);
+    terminal.appendChild(div);
+
+    if(item.html){
+      div.innerHTML = item.html;
+      i++;
+      setTimeout(next, 120);
+    } else {
+      const text = item.text || '';
+      let j = 0;
+      const speed = item.type === 'thinking' ? 12 : 7;
+
+      function typeChar(){
+        if(sessionId !== typingSession) return; // cancel safely
+
+        if(j < text.length){
+          div.textContent += text[j++];
+          setTimeout(typeChar, speed);
+        } else {
+          i++;
+          setTimeout(next, 100);
+        }
+      }
+
+      typeChar();
+    }
   }
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      typeSequence(content[tab.dataset.tab]);
-    });
-  });
+  next();
+}
 
-  // initial load
-  typeSequence(content.about);
+// tab click handler
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    typingSession++; // increment session only on tab click
+    typeSequence(content[tab.dataset.tab], typingSession);
+  });
+});
+
+// initial load (use current typingSession without increment)
+typeSequence(content.about, typingSession);
 </script>
