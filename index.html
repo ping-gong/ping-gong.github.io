@@ -4,283 +4,137 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ping R. Gong</title>
-
-  <meta name="description" content="Ping R. Gong — PhD student in Accounting at Yale University. Research on labor and competition in accounting and auditing; 2025–2026 academic job market." />
-  <meta property="og:title" content="Ping R. Gong" />
-  <meta property="og:description" content="PhD student in Accounting at Yale University. Research on labor and competition in accounting and auditing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/images/Photo_LightBackground.png" />
-  <meta name="theme-color" content="#C3D3E6" />
-  <meta name="color-scheme" content="light" />
+  <meta name="description" content="Ping R. Gong — PhD candidate in Accounting at Yale University." />
 
   <style>
     :root{
-      /* Colors & tokens */
-      --highlight:#C3D3E6;
-      --link:#1E3A5F;
-      --fg:#222; --muted:#666; --line:#eee; --bg:#f9f9f9;
-
-      /* Fluid layout tokens */
-      --pad-inline: clamp(16px, 4vw, 48px);
-      --maxw: clamp(900px, 90vw, 1200px);
-      --gap: clamp(20px, 3vw, 36px);
-      --spacer-after-intro: clamp(28px, 6vw, 72px);
-      --body-fs: 17px;
+      --bg:#f9f9f9; --fg:#222; --muted:#777; --line:#e5e5e5;
+      --accent:#C3D3E6; --link:#1E3A5F;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
     body{
-      margin:0;background:var(--bg);color:var(--fg);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      font-weight:400;line-height:1.5;font-size:var(--body-fs)
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); font-size:17px; line-height:1.5;
+      display:flex; justify-content:center;
     }
-    img{max-width:100%;display:block}
-    a{color:var(--link);text-decoration:none}
+
+    .wrap{
+      width:100%; max-width:900px; padding:80px 24px;
+    }
+
+    /* ---------- Header ---------- */
+    h1{font-size:1.8rem; margin:0 0 8px 0}
+    .sub{color:var(--muted); margin-bottom:40px}
+
+    /* ---------- Tabs ---------- */
+    .tabs{display:flex; gap:24px; margin-bottom:28px}
+    .tab{
+      cursor:pointer; padding:4px 0; font-weight:500;
+      border-bottom:2px solid transparent;
+    }
+    .tab.active{border-color:var(--accent)}
+
+    /* ---------- Fake terminal ---------- */
+    .terminal{
+      background:#fff; border:1px solid var(--line);
+      border-radius:10px; padding:18px 20px;
+      font-family:var(--mono); font-size:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.05);
+    }
+
+    .line{white-space:pre-wrap}
+    .prompt{color:var(--link)}
+    .cursor{display:inline-block; width:8px; background:#000; margin-left:2px; animation:blink 1s steps(2) infinite}
+
+    @keyframes blink{50%{opacity:0}}
+
+    a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
-    a:focus-visible{outline:3px solid var(--highlight);outline-offset:2px;border-radius:4px}
 
-    .container{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad-inline)}
-
-    .strong{font-weight:700}
-    .highlight-underline{position:relative;display:inline-block}
-    .highlight-underline::after{content:"";position:absolute;left:0;bottom:0.15em;
-      width:100%;height:0.35em;background:var(--highlight);z-index:-1;border-radius:2px}
-
-    /* ---------- TOP INTRO (side-by-side, aligned with research container) ---------- */
-    header.top-intro { padding-top: 64px; } /* Increased top margin */
-    .intro-row{display:flex;align-items:center;gap:var(--gap)}
-    .intro-photo{
-        width:260px;
-        max-width:40vw;
-        border-radius:10px;
-        box-shadow:0 6px 30px rgba(0,0,0,.06);
-        margin-left: 11px; /* subtle indentation so photo’s left edge aligns visually with text block */
-    }
-    /* Intro text spans full container width (same as papers) */
-    .intro-text{max-width:none;width:100%}
-    .intro-text h1{margin:0 0 10px 0;font-weight:700;font-size:clamp(1.6rem, 2.6vw + 1rem, 2.1rem);line-height:1.35}
-    .intro-text p{font-size:1.05rem;margin:.6em 0}
-    .contact-inline{display:flex;flex-wrap:wrap;gap:18px;margin-top:8px}
-    .contact-inline a{font-size:1rem}
-
-    .spacer{height:var(--spacer-after-intro)}
-
-    /* ---------- MAIN CONTENT ---------- */
-    main{padding-bottom:64px}
-    section{margin-top:0}
-    h2{
-      font-size:.95rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:#888;
-      border-bottom:1px solid var(--line);margin:0 0 12px;padding-bottom:6px
-    }
-
-    .papers{display:flex;flex-direction:column;gap:16px;margin-bottom:60px}
-    .paper{padding:9px 11px;border-bottom:1px solid var(--line);border-radius:6px;transition:background-color .15s ease-in-out}
-    .paper:hover{background-color:var(--highlight)}
-    .paper:last-child{border-bottom:none}
-    .paper .title{font-weight:600;color:inherit;font-size:1.1rem}
-    .paper .title:hover{color:var(--link)}
-    .paper .meta a{color:#000;text-decoration:none}
-    .paper .meta a:hover{text-decoration:underline}
-    .paper .meta i{color:var(--link)}
-    .meta{font-size:.95rem;margin-top:4px}
-    .summary{font-style:italic;color:#444;margin-top:5px;font-size:1rem}
-
-    /* ---------- ANIMATIONS (fade/phase in) ---------- */
-    .reveal{
-      opacity:0;
-      transform:translateY(10px);
-      transition:opacity .2s ease, transform .2s ease;
-      will-change:opacity, transform;
-    }
-    .reveal.visible{
-      opacity:1;
-      transform:translateY(0);
-    }
-    /* make the headshot feel a touch “snappier” */
-    .intro-photo.reveal{transform:translateY(8px) scale(.995)}
-    .intro-photo.reveal.visible{transform:translateY(0) scale(1)}
-
-    /* Respect users who prefer reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .reveal{opacity:1;transform:none;transition:none}
-    }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width:860px){
-      .intro-row{flex-direction:column;text-align:center;align-items:center}
-      .intro-photo{width:55vw;max-width:360px;margin-left:0}
-      .intro-text{max-width:unset}
-      .intro-text h1{font-size:clamp(1.4rem, 5vw, 1.8rem)}
-      .contact-inline{justify-content:center}
+    @media (max-width:600px){
+      h1{font-size:1.5rem}
+      .wrap{padding:56px 18px}
     }
   </style>
 </head>
 <body>
 
-  <header class="top-intro container">
-    <div class="intro-row">
-      <img
-        class="intro-photo reveal"
-        src="/images/Photo_LightBackground.png"
-        alt="Portrait of Ping R. Gong"
-        decoding="async"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <div class="intro-text">
-        <h1 class="reveal">
-          Hello! I’m <span class="strong">Ping R. Gong</span>, a PhD student in
-          <span class="strong highlight-underline">Accounting</span>
-          at Yale University.
-        </h1>
-        <p class="reveal">I will be on the 2025–2026 academic job market. My research examines labor and competition issues within the accounting and auditing industries.</p>
-        <p class="reveal">Prior to my doctoral studies, I received a Bachelor of Commerce (Honours Class I and <i>University Medal</i>) from the University of New South Wales, Australia.</p>
-        <div class="contact-inline">
-          <a class="reveal" href="mailto:ping.gong@yale.edu">Email</a>
-          <a class="reveal" href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view?usp=drive_link" target="_blank" rel="noopener">Curriculum Vitae</a>
-          <a class="reveal" href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view?usp=sharing" target="_blank" rel="noopener">Research Statement</a>
-        </div>
-      </div>
-    </div>
-  </header>
+<div class="wrap">
+  <h1>Ping R. Gong</h1>
+  <div class="sub">PhD candidate · Accounting · Yale University</div>
 
-  <div class="spacer" aria-hidden="true"></div>
+  <div class="tabs">
+    <div class="tab active" data-tab="about">about</div>
+    <div class="tab" data-tab="research">research</div>
+    <div class="tab" data-tab="contact">contact</div>
+  </div>
 
-  <main class="container">
-    <section id="research">
-      <h2 class="reveal">Research</h2>
-      <div class="papers">
-        <article class="paper reveal">
-          <a class="title" href="https://drive.google.com/file/d/1KsfcIFkCiLGuhUnVln2fm4iGGTe1NaOv/view?usp=drive_link" target="_blank" rel="noopener">
-            International Mutual Recognition Agreements for Accountants [Link]
-          </a>
-          <div class="meta"><b>Job Market Paper</b></div>
-          <div class="summary">“CPA mutual recognition is associated with greater international trade.”</div>
-        </article>
+  <div class="terminal" id="terminal"></div>
+</div>
 
-        <article class="paper reveal">
-          <span class="title">
-            STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market
-          </span>
-          <div class="meta">
-            with
-            <a href="https://www.johnmbarrios.com/" target="_blank" rel="noopener">John Barrios</a> and
-            <a href="https://enshuai-yu.github.io/" target="_blank" rel="noopener">Enshuai Yu</a>
-            | Registered report at <i>Journal of Accounting Research</i>
-          </div>
-          <div class="summary">“Does STEM save American accounting — or is it just window dressing?”</div>
-        </article>
+<script>
+  const terminal = document.getElementById('terminal');
+  const tabs = document.querySelectorAll('.tab');
 
-        <article class="paper reveal">
-          <span class="title">
-            The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets
-          </span>
-          <div class="meta">
-            with
-            <a href="https://directory.smeal.psu.edu/dza5396" target="_blank" rel="noopener">Daniel Aobdia</a> and
-            <a href="https://www.hhs.se/en/persons/m/ma-hao/" target="_blank" rel="noopener">Hao Ma</a>
-            | R &amp; R at <i>Journal of Accounting and Economics</i>
-          </div>
-          <div class="summary">“Reducing entry barriers for audit firms increases audit quality.”</div>
-        </article>
-        
-        <article class="paper reveal">
-          <span class="title">Internal Control Processes and Employee Satisfaction</span>
-          <div class="meta">
-            with
-            <a href="https://business.ku.edu/people/chan-li" target="_blank" rel="noopener">Chan Li</a>,
-            <a href="https://sites.google.com/nyu.edu/yantingcrystalshi/home" target="_blank" rel="noopener">Crystal Shi</a>, and
-            <a href="https://www.fordham.edu/gabelli-school-of-business/faculty/full-time-faculty/yuan-xie/" target="_blank" rel="noopener">Yuan Xie</a>
-            | R &amp; R at <i>Accounting, Organizations and Society</i>
-          </div>
-          <div class="summary">“Employees don't like bad internal controls.”</div>
-        </article>
+  const content = {
+    about: [
+      '> whoami',
+      'Ping R. Gong',
+      'PhD candidate in Accounting at Yale University.',
+      'Research: labor markets, competition, auditing.'
+    ],
+    research: [
+      '> list papers',
+      '- International Mutual Recognition Agreements for Accountants (JMP)',
+      '- STEM Designation and Accounting Labor Markets (JAR, RR)',
+      '- CPA Firm Mobility and Audit Competition (JAE, RR)',
+      '- Generative AI and Glassdoor reviews'
+    ],
+    contact: [
+      '> open links',
+      'email: ping.gong@yale.edu',
+      'cv: https://drive.google.com',
+      'research statement: https://drive.google.com'
+    ]
+  };
 
-        <article class="paper reveal">
-          <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4024646" target="_blank" rel="noopener">
-            Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls [Link]
-          </a>
-          <div class="meta">
-            with
-            <a href="https://sites.google.com/site/ldaiprofile" target="_blank" rel="noopener">Lili Dai</a>,
-            <a href="https://www.unsw.edu.au/staff/andrew-jackson" target="_blank" rel="noopener">Andrew Jackson</a>, and
-            <a href="https://sites.google.com/view/ryanpengshomepage" target="_blank" rel="noopener">Zihang Peng</a>
-            | Accepted by <i>Review of Accounting Studies</i>
-          </div>
-          <div class="summary">“CEOs don't answer the questions being asked of them.”</div>
-        </article>
+  function typeLines(lines){
+    terminal.innerHTML = '';
+    let i = 0;
+    function typeLine(){
+      if(i >= lines.length) return;
+      const div = document.createElement('div');
+      div.className = 'line';
+      terminal.appendChild(div);
+      let j = 0;
+      const text = lines[i];
+      const interval = setInterval(() => {
+        div.textContent += text[j] || '';
+        j++;
+        if(j > text.length){
+          clearInterval(interval);
+          i++;
+          setTimeout(typeLine, 300);
+        }
+      }, 18);
+    }
+    typeLine();
+  }
 
-        <article class="paper reveal">
-          <span class="title">
-            Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers
-          </span>
-          <div class="meta">
-            with <a href="https://accounting.wharton.upenn.edu/profile/cxzhu/#teaching" target="_blank" rel="noopener">Cindy Zhu</a>
-          </div>
-          <div class="summary">“Cutting free tax assistance hurts lower-income Americans.”</div>
-        </article>
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      typeLines(content[tab.dataset.tab]);
+    });
+  });
 
-        <article class="paper reveal">
-          <span class="title">
-            Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor
-          </span>
-          <div class="meta">
-            with 
-            <a href="https://sites.google.com/view/haoma-sse/about" target="_blank" rel="noopener">Hao Ma</a> and
-            <a href="https://sites.google.com/view/haoma-sse/about" target="_blank" rel="noopener">Yilan Li</a>
-          </div>
-          <div class="summary">“Generative AI destroys content crowdsourcing.”</div>
-        </article>
-        
-      </div>
-    </section>
-  </main>
+  // initial load
+  typeLines(content.about);
+</script>
 
-  <!-- ANIMATIONS: IntersectionObserver + auto-stagger -->
-  <script>
-    (function(){
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const q = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-      // If user prefers reduced motion, reveal everything instantly.
-      if (prefersReduced) {
-        q('.reveal').forEach(el => el.classList.add('visible'));
-        return;
-      }
-
-      // Auto-stagger helper: assign incremental delays to a node list
-      function stagger(nodes, base=0, step=70){
-        nodes.forEach((el, i) => {
-          el.style.transitionDelay = (base + i*step) + 'ms';
-        });
-      }
-
-      // Stagger hero text elements
-      const heroGroup = [
-        ...q('.intro-text > h1.reveal'),
-        ...q('.intro-text > p.reveal'),
-        ...q('.intro-text .contact-inline .reveal')
-      ];
-      stagger(heroGroup, 80, 90);
-
-      // Stagger papers
-      const paperCards = q('.papers .paper.reveal');
-      stagger(paperCards, 0, 80);
-
-      // Observe and reveal on entry
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      q('.reveal').forEach(el => io.observe(el));
-    })();
-  </script>
 </body>
 </html>
