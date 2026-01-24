@@ -8,7 +8,7 @@
 
   <style>
     :root{
-      --bg:#f9f9f9; --fg:#222; --muted:#777; --line:#e5e5e5;
+      --bg:#f9f9f9; --fg:#222; --muted:#777; --line:#eee;
       --accent:#C3D3E6; --link:#1E3A5F;
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -22,32 +22,42 @@
     }
 
     .wrap{
-      width:100%; max-width:900px; padding:80px 24px;
+      width:100%; max-width:900px; padding:72px 24px;
     }
 
     /* ---------- Header ---------- */
-    h1{font-size:1.8rem; margin:0 0 8px 0}
-    .sub{color:var(--muted); margin-bottom:40px}
+    .header{display:flex; align-items:center; gap:18px; margin-bottom:40px}
+    .photo{
+      width:64px; height:64px; border-radius:10px; object-fit:cover;
+      box-shadow:0 6px 20px rgba(0,0,0,.08)
+    }
+    h1{font-size:1.7rem; margin:0}
+    .sub{color:var(--muted)}
 
     /* ---------- Tabs ---------- */
-    .tabs{display:flex; gap:24px; margin-bottom:28px}
+    .tabs{display:flex; gap:24px; margin-bottom:24px}
     .tab{
       cursor:pointer; padding:4px 0; font-weight:500;
       border-bottom:2px solid transparent;
     }
     .tab.active{border-color:var(--accent)}
 
-    /* ---------- Fake terminal ---------- */
+    /* ---------- Terminal ---------- */
     .terminal{
       background:#fff; border:1px solid var(--line);
-      border-radius:10px; padding:18px 20px;
+      border-radius:12px; padding:18px 20px;
       font-family:var(--mono); font-size:14px;
       box-shadow:0 10px 30px rgba(0,0,0,.05);
+      min-height:220px;
     }
 
-    .line{white-space:pre-wrap}
+    .line{white-space:pre-wrap; margin-bottom:6px}
     .prompt{color:var(--link)}
-    .cursor{display:inline-block; width:8px; background:#000; margin-left:2px; animation:blink 1s steps(2) infinite}
+    .thinking{color:var(--muted); font-style:italic}
+    .cursor{
+      display:inline-block; width:8px; height:1em;
+      background:#000; margin-left:2px; animation:blink 1s steps(2) infinite
+    }
 
     @keyframes blink{50%{opacity:0}}
 
@@ -55,7 +65,7 @@
     a:hover{text-decoration:underline}
 
     @media (max-width:600px){
-      h1{font-size:1.5rem}
+      h1{font-size:1.45rem}
       .wrap{padding:56px 18px}
     }
   </style>
@@ -63,12 +73,19 @@
 <body>
 
 <div class="wrap">
-  <h1>Ping R. Gong</h1>
-  <div class="sub">PhD candidate · Accounting · Yale University</div>
+
+  <div class="header">
+    <img class="photo" src="/images/Photo_LightBackground.png" alt="Ping R. Gong" />
+    <div>
+      <h1>Ping R. Gong</h1>
+      <div class="sub">PhD candidate · Accounting · Yale University</div>
+    </div>
+  </div>
 
   <div class="tabs">
     <div class="tab active" data-tab="about">about</div>
     <div class="tab" data-tab="research">research</div>
+    <div class="tab" data-tab="cv">cv</div>
     <div class="tab" data-tab="contact">contact</div>
   </div>
 
@@ -81,59 +98,83 @@
 
   const content = {
     about: [
-      '> whoami',
-      'Ping R. Gong',
-      'PhD candidate in Accounting at Yale University.',
-      'Research: labor markets, competition, auditing.'
+      {type:'prompt', text:'PingGPT › who is Ping R. Gong?'},
+      {type:'thinking', text:'Thinking…'},
+      {text:'Ping R. Gong is a PhD candidate in Accounting at Yale University.'},
+      {text:'His research focuses on labor markets, competition, and auditing.'},
+      {text:'He will be on the 2025–2026 academic job market.'}
     ],
     research: [
-      '> list papers',
-      '- International Mutual Recognition Agreements for Accountants (JMP)',
-      '- STEM Designation and Accounting Labor Markets (JAR, RR)',
-      '- CPA Firm Mobility and Audit Competition (JAE, RR)',
-      '- Generative AI and Glassdoor reviews'
+      {type:'prompt', text:'PingGPT › summarize research'},
+      {type:'thinking', text:'Analyzing papers…'},
+      {text:'• International Mutual Recognition Agreements for Accountants (Job Market Paper)'},
+      {text:'• STEM Designation and Accounting Labor Markets (Registered Report, JAR)'},
+      {text:'• CPA Firm Mobility and Audit Competition (R&R, JAE)'},
+      {text:'• Generative AI and the Declining Wisdom of the Crowd (Glassdoor)'}
+    ],
+    cv: [
+      {type:'prompt', text:'PingGPT › open cv'},
+      {type:'thinking', text:'Fetching document…'},
+      {html:'Curriculum Vitae → <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank">Download PDF</a>'}
     ],
     contact: [
-      '> open links',
-      'email: ping.gong@yale.edu',
-      'cv: https://drive.google.com',
-      'research statement: https://drive.google.com'
+      {type:'prompt', text:'PingGPT › contact'},
+      {type:'thinking', text:'Generating contact information…'},
+      {html:'Email → <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'},
+      {html:'Research Statement → <a href="https://drive.google.com/file/d/1e-lFWN2Jtm6wIKb1zggl6wS9WXAvxd-7/view" target="_blank">View PDF</a>'}
     ]
   };
 
-  function typeLines(lines){
+  function typeSequence(seq){
     terminal.innerHTML = '';
     let i = 0;
-    function typeLine(){
-      if(i >= lines.length) return;
+
+    function next(){
+      if(i >= seq.length){
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        terminal.appendChild(cursor);
+        return;
+      }
+
+      const item = seq[i];
       const div = document.createElement('div');
       div.className = 'line';
+
+      if(item.type === 'prompt') div.classList.add('prompt');
+      if(item.type === 'thinking') div.classList.add('thinking');
+
       terminal.appendChild(div);
+
+      const text = item.text || '';
       let j = 0;
-      const text = lines[i];
+      const speed = item.type === 'thinking' ? 35 : 18;
+
       const interval = setInterval(() => {
         div.textContent += text[j] || '';
         j++;
         if(j > text.length){
           clearInterval(interval);
+          if(item.html) div.innerHTML = item.html;
           i++;
-          setTimeout(typeLine, 300);
+          setTimeout(next, item.type === 'thinking' ? 500 : 250);
         }
-      }, 18);
+      }, speed);
     }
-    typeLine();
+
+    next();
   }
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      typeLines(content[tab.dataset.tab]);
+      typeSequence(content[tab.dataset.tab]);
     });
   });
 
   // initial load
-  typeLines(content.about);
+  typeSequence(content.about);
 </script>
 
 </body>
