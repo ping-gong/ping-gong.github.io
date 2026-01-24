@@ -16,9 +16,17 @@
 
     *{box-sizing:border-box}
     body{
-      margin:0; background:var(--bg); color:var(--fg);
-      font-family:var(--sans); font-size:16px; line-height:1.5;
-      display:flex; justify-content:center;
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--sans);
+      font-size:16px;
+      line-height:1.5;
+    
+      display:flex;
+      justify-content:center;  /* horizontal */
+      align-items:center;      /* vertical */
+      min-height:100vh;
     }
 
     .wrap{width:100%; max-width:850px; padding:56px 24px}
@@ -56,7 +64,7 @@
     .cursor{
       display:inline-block; width:8px; height:1.1em;
       background:#000; margin-left:3px;
-      animation:blink .4s steps(2) infinite
+      animation:blink .6s steps(2) infinite
     }
     @keyframes blink{50%{opacity:0}}
 
