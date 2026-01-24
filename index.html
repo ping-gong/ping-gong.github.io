@@ -56,7 +56,7 @@
     .cursor{
       display:inline-block; width:8px; height:1.1em;
       background:#000; margin-left:3px;
-      animation:blink .9s steps(2) infinite
+      animation:blink .4s steps(2) infinite
     }
     @keyframes blink{50%{opacity:0}}
 
@@ -142,7 +142,7 @@
         // type letter by letter
         const text = item.text || '';
         let j = 0;
-        const speed = item.type==='thinking' ? 15 : 10; // letters appear super fast
+        const speed = item.type==='thinking' ? 12 : 7; // letters appear super fast
         const interval = setInterval(() => {
           div.textContent += text[j] || '';
           j++;
