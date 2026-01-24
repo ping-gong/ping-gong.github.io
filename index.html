@@ -100,7 +100,7 @@
       {type:'prompt', text:'PingGPT › who is Ping R. Gong?'},
       {type:'thinking', text:'Thinking…'},
       {text:'Ping R. Gong is a PhD candidate in Accounting at Yale University.'},
-      {text:'He is interesed in labor issues in accounting.'},
+      {text:'He is interested in labor issues in accounting.'},
       {text:'He will be on the 2025–2026 academic job market.'}
     ],
     cv: [
@@ -129,14 +129,18 @@
       const div = document.createElement('div');
       div.className = 'line';
       if(item.type) div.classList.add(item.type);
-
-      if(item.html) div.innerHTML = item.html;
-      else div.textContent = item.text;
-
       terminal.appendChild(div);
 
-      // slower, more readable speed
-      setTimeout(nextLine, 300);
+      let text = item.html || item.text || '';
+      let j = 0;
+
+      function step(){
+        div.innerHTML += text[j++] || '';
+        if(j <= text.length) setTimeout(step, 50); // <-- per-letter speed
+        else setTimeout(nextLine, 200); // <-- delay between lines
+      }
+
+      step();
     }
 
     nextLine();
