@@ -20,9 +20,10 @@
       background:var(--bg);
       color:var(--fg);
       font-family:var(--sans);
-      font-size:16px;
+      /* Scaled from 16px to 24px */
+      font-size:24px;
       line-height:1.5;
-    
+     
       display:flex;
       justify-content:center;  
       align-items:center;      
@@ -31,44 +32,49 @@
 
     .wrap{
       width:100%;
-      max-width:850px;
-      padding:48px 24px;
-      transform:translateY(-40px);
+      /* Scaled from 850px to 1275px */
+      max-width:1275px;
+      /* Scaled padding */
+      padding:72px 36px;
+      transform:translateY(-60px);
     }
 
     /* Header */
-    .header{display:flex; align-items:center; gap:24px; margin-bottom:40px}
+    .header{display:flex; align-items:center; gap:36px; margin-bottom:60px}
     .photo{
-      width:120px; height:120px; border-radius:16px; object-fit:cover;
-      box-shadow:0 8px 24px rgba(0,0,0,.08)
+      /* Scaled from 120px to 180px */
+      width:180px; height:180px; border-radius:24px; object-fit:cover;
+      box-shadow:0 12px 36px rgba(0,0,0,.08)
     }
     h1{font-size:1.8rem; margin:0}
     .sub{color:var(--muted); font-size:1rem}
 
     /* Tabs */
-    .tabs{display:flex; gap:24px; margin-bottom:24px}
+    .tabs{display:flex; gap:36px; margin-bottom:36px}
     .tab{
-      cursor:pointer; padding:4px 0; font-weight:500;
-      border-bottom:2px solid transparent; font-size:1rem;
+      cursor:pointer; padding:6px 0; font-weight:500;
+      border-bottom:3px solid transparent; font-size:1rem;
     }
     .tab.active{border-color:var(--accent)}
 
     /* Terminal */
     .terminal{
       background:#fff; border:1px solid var(--line);
-      border-radius:14px; padding:24px 28px;
-      font-family:var(--mono); font-size:14px;
-      box-shadow:0 12px 36px rgba(0,0,0,.06);
-      min-height:260px;
+      border-radius:21px; padding:36px 42px;
+      font-family:var(--mono); 
+      /* Scaled from 14px to 21px */
+      font-size:21px;
+      box-shadow:0 18px 54px rgba(0,0,0,.06);
+      min-height:390px;
     }
 
-    .line{white-space:pre-wrap; margin-bottom:8px}
+    .line{white-space:pre-wrap; margin-bottom:12px}
     .prompt{color:var(--link)}
     .thinking{color:var(--muted); font-style:italic}
 
     .cursor{
-      display:inline-block; width:8px; height:1.1em;
-      background:#000; margin-left:3px;
+      display:inline-block; width:12px; height:1.1em;
+      background:#000; margin-left:4px;
       animation:blink .5s steps(2) infinite
     }
     @keyframes blink{50%{opacity:0}}
@@ -76,10 +82,11 @@
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    @media (max-width:800px){
+    /* Adjusted Media Query Breakpoint */
+    @media (max-width:1200px){
       h1{font-size:1.5rem}
-      .photo{width:100px;height:100px}
-      .wrap{padding:48px 16px}
+      .photo{width:150px;height:150px}
+      .wrap{padding:72px 24px}
     }
   </style>
 </head>
@@ -135,7 +142,7 @@ function typeSequence(seq, sessionId){
   let i = 0;
 
   function nextLine(){
-    if(sessionId !== typingSession) return; // cancel if a new tab clicked
+    if(sessionId !== typingSession) return; 
 
     if(i >= seq.length){
       const cursor = document.createElement('span');
@@ -177,18 +184,16 @@ function typeSequence(seq, sessionId){
   nextLine();
 }
 
-// Tab click handler
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
 
-    typingSession++; // cancel previous typing
+    typingSession++; 
     typeSequence(content[tab.dataset.tab], typingSession);
   });
 });
 
-// Initial load
 typeSequence(content.about, typingSession);
 </script>
 
