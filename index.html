@@ -20,8 +20,8 @@
       background:var(--bg);
       color:var(--fg);
       font-family:var(--sans);
-      /* Scaled from 16px to 24px */
-      font-size:24px;
+      /* Scaled to 125% (20px) */
+      font-size:20px;
       line-height:1.5;
      
       display:flex;
@@ -32,48 +32,48 @@
 
     .wrap{
       width:100%;
-      /* Scaled from 850px to 1275px */
-      max-width:1275px;
-      /* Scaled padding */
-      padding:72px 36px;
-      transform:translateY(-60px);
+      /* Scaled width (approx 1060px) */
+      max-width:1060px;
+      padding:60px 30px;
+      /* Removed the negative transform to leave more margin on top */
+      transform:none;
     }
 
     /* Header */
-    .header{display:flex; align-items:center; gap:36px; margin-bottom:60px}
+    .header{display:flex; align-items:center; gap:30px; margin-bottom:50px}
     .photo{
-      /* Scaled from 120px to 180px */
-      width:180px; height:180px; border-radius:24px; object-fit:cover;
-      box-shadow:0 12px 36px rgba(0,0,0,.08)
+      /* Scaled to 150px */
+      width:150px; height:150px; border-radius:20px; object-fit:cover;
+      box-shadow:0 10px 30px rgba(0,0,0,.08)
     }
     h1{font-size:1.8rem; margin:0}
     .sub{color:var(--muted); font-size:1rem}
 
     /* Tabs */
-    .tabs{display:flex; gap:36px; margin-bottom:36px}
+    .tabs{display:flex; gap:30px; margin-bottom:30px}
     .tab{
-      cursor:pointer; padding:6px 0; font-weight:500;
-      border-bottom:3px solid transparent; font-size:1rem;
+      cursor:pointer; padding:5px 0; font-weight:500;
+      border-bottom:2.5px solid transparent; font-size:1rem;
     }
     .tab.active{border-color:var(--accent)}
 
     /* Terminal */
     .terminal{
       background:#fff; border:1px solid var(--line);
-      border-radius:21px; padding:36px 42px;
+      border-radius:18px; padding:30px 35px;
       font-family:var(--mono); 
-      /* Scaled from 14px to 21px */
-      font-size:21px;
-      box-shadow:0 18px 54px rgba(0,0,0,.06);
-      min-height:390px;
+      /* Scaled terminal font to 18px */
+      font-size:18px;
+      box-shadow:0 15px 45px rgba(0,0,0,.06);
+      min-height:325px;
     }
 
-    .line{white-space:pre-wrap; margin-bottom:12px}
+    .line{white-space:pre-wrap; margin-bottom:10px}
     .prompt{color:var(--link)}
     .thinking{color:var(--muted); font-style:italic}
 
     .cursor{
-      display:inline-block; width:12px; height:1.1em;
+      display:inline-block; width:10px; height:1.1em;
       background:#000; margin-left:4px;
       animation:blink .5s steps(2) infinite
     }
@@ -82,11 +82,10 @@
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* Adjusted Media Query Breakpoint */
-    @media (max-width:1200px){
+    @media (max-width:1000px){
       h1{font-size:1.5rem}
-      .photo{width:150px;height:150px}
-      .wrap{padding:72px 24px}
+      .photo{width:120px;height:120px}
+      .wrap{padding:60px 20px}
     }
   </style>
 </head>
