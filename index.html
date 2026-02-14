@@ -163,7 +163,7 @@ function typeSequence(seq, sessionId){
     } else {
       const text = item.text || '';
       let j = 0;
-      const speed = item.type==='thinking'?12:7;
+      const speed = item.type==='thinking'?5:3;
 
       function typeChar(){
         if(sessionId !== typingSession) return;
