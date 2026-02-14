@@ -159,11 +159,11 @@ function typeSequence(seq, sessionId){
     if(item.html){
       div.innerHTML = item.html;
       i++;
-      setTimeout(nextLine, 10);
+      setTimeout(nextLine, 4);
     } else {
       const text = item.text || '';
       let j = 0;
-      const speed = item.type==='thinking'?2:1;
+      const speed = item.type==='thinking'?1:0.5;
 
       function typeChar(){
         if(sessionId !== typingSession) return;
@@ -172,7 +172,7 @@ function typeSequence(seq, sessionId){
           setTimeout(typeChar, speed);
         } else {
           i++;
-          setTimeout(nextLine, 5);
+          setTimeout(nextLine, 2);
         }
       }
 
