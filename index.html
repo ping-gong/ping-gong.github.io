@@ -159,7 +159,7 @@ function typeSequence(seq, sessionId){
     if(item.html){
       div.innerHTML = item.html;
       i++;
-      setTimeout(nextLine, 50);
+      setTimeout(nextLine, 20);
     } else {
       const text = item.text || '';
       let j = 0;
@@ -172,7 +172,7 @@ function typeSequence(seq, sessionId){
           setTimeout(typeChar, speed);
         } else {
           i++;
-          setTimeout(nextLine, 40);
+          setTimeout(nextLine, 10);
         }
       }
 
