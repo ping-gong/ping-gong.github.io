@@ -178,7 +178,7 @@ function typeSequence(seq, sessionId){
     } else {
       const text = item.text || '';
       let j = 0;
-      const speed = item.type==='thinking'? 30 : 20; /* Adjusted speed for realism */
+      const speed = item.type==='thinking'? 3 : 2; /* Adjusted speed for realism */
 
       function typeChar(){
         if(sessionId !== typingSession) return;
