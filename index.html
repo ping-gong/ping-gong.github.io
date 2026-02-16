@@ -174,7 +174,7 @@ function typeSequence(seq, sessionId){
     if(item.html){
       div.innerHTML = item.html;
       i++;
-      setTimeout(nextLine, 100); /* Small pause after link appears */
+      setTimeout(nextLine, 3); /* Small pause after link appears */
     } else {
       const text = item.text || '';
       let j = 0;
@@ -187,7 +187,7 @@ function typeSequence(seq, sessionId){
           setTimeout(typeChar, speed);
         } else {
           i++;
-          setTimeout(nextLine, 300); /* Pause between lines */
+          setTimeout(nextLine, 9); /* Pause between lines */
         }
       }
 
