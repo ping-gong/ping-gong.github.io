@@ -6,12 +6,20 @@
   <title>Ping R. Gong</title>
   <meta name="description" content="Ping R. Gong — PhD candidate in Accounting at Yale University." />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#f9f9f9; --fg:#222; --muted:#666; --line:#eee;
       --accent:#C3D3E6; --link:#1E3A5F;
+      
+      /* Terminal font (stays the same) */
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      
+      /* 2. UPDATE THIS LINE TO USE POPPINS */
+      --sans: 'Poppins', system-ui, -apple-system, sans-serif;
     }
 
     *{box-sizing:border-box}
@@ -19,11 +27,11 @@
       margin:0;
       background:var(--bg);
       color:var(--fg);
-      font-family:var(--sans);
+      font-family:var(--sans); /* This applies Poppins to the whole page... */
       /* Scaled to 125% (20px) */
       font-size:20px;
       line-height:1.5;
-     
+      
       display:flex;
       justify-content:center;  
       align-items:center;      
@@ -46,7 +54,7 @@
       width:150px; height:150px; border-radius:20px; object-fit:cover;
       box-shadow:0 10px 30px rgba(0,0,0,.08)
     }
-    h1{font-size:1.8rem; margin:0}
+    h1{font-size:1.8rem; margin:0; font-weight: 600;} /* Added slightly heavier weight for name */
     .sub{color:var(--muted); font-size:1rem}
 
     /* Tabs */
@@ -61,7 +69,10 @@
     .terminal{
       background:#fff; border:1px solid var(--line);
       border-radius:18px; padding:30px 35px;
+      
+      /* This ensures the terminal keeps using the coding font */
       font-family:var(--mono); 
+      
       /* Scaled terminal font to 18px */
       font-size:18px;
       box-shadow:0 15px 45px rgba(0,0,0,.06);
@@ -116,6 +127,7 @@ const tabs = document.querySelectorAll('.tab');
 
 let typingSession = 0;
 
+/* Updated content structure slightly to handle HTML safely */
 const content = {
   about: [
     {type:'prompt', text:'PingGPT › who is Ping?'},
@@ -138,6 +150,8 @@ const content = {
 
 function typeSequence(seq, sessionId){
   terminal.innerHTML = '';
+  
+  /* Reset cursor logic */
   let i = 0;
 
   function nextLine(){
@@ -156,14 +170,15 @@ function typeSequence(seq, sessionId){
     if(item.type) div.classList.add(item.type);
     terminal.appendChild(div);
 
+    /* Instant render for HTML links, typing effect for plain text */
     if(item.html){
       div.innerHTML = item.html;
       i++;
-      setTimeout(nextLine, 4);
+      setTimeout(nextLine, 100); /* Small pause after link appears */
     } else {
       const text = item.text || '';
       let j = 0;
-      const speed = item.type==='thinking'?1:0.5;
+      const speed = item.type==='thinking'? 30 : 20; /* Adjusted speed for realism */
 
       function typeChar(){
         if(sessionId !== typingSession) return;
@@ -172,7 +187,7 @@ function typeSequence(seq, sessionId){
           setTimeout(typeChar, speed);
         } else {
           i++;
-          setTimeout(nextLine, 2);
+          setTimeout(nextLine, 300); /* Pause between lines */
         }
       }
 
@@ -187,12 +202,17 @@ tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-
-    typingSession++; 
-    typeSequence(content[tab.dataset.tab], typingSession);
+    
+    /* Simple content switch logic */
+    const tabName = tab.getAttribute('data-tab');
+    if(content[tabName]) {
+        typingSession++; 
+        typeSequence(content[tabName], typingSession);
+    }
   });
 });
 
+// Initial load
 typeSequence(content.about, typingSession);
 </script>
 
