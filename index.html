@@ -4,217 +4,545 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ping R. Gong</title>
-  <meta name="description" content="Ping R. Gong — PhD candidate in Accounting at Yale University." />
+  <meta name="description" content="Ping R. Gong - incoming Assistant Professor at Nanyang Technological University and PhD graduate in Accounting from Yale University." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,650&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#f9f9f9; --fg:#222; --muted:#666; --line:#eee;
-      --accent:#C3D3E6; --link:#1E3A5F;
-      
-      /* Terminal font (stays the same) */
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      
-      /* 2. UPDATE THIS LINE TO USE POPPINS */
-      --sans: 'Poppins', system-ui, -apple-system, sans-serif;
+      --paper:#f6f3ee;
+      --ink:#171717;
+      --muted:#5c5a61;
+      --line:#c9d2dd;
+      --labor-mark:rgba(122,31,43,.34);
+      --tech-mark:rgba(9,47,87,.32);
+      --red:#7a1f2b;
+      --navy:#092f57;
+      --navy-soft:#dbe4ee;
+      --white:#fffdf7;
+      --sans:"Public Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif:"Source Serif 4", Georgia, serif;
+      --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      background:var(--bg);
-      color:var(--fg);
-      font-family:var(--sans); /* This applies Poppins to the whole page... */
-      /* Scaled to 125% (20px) */
-      font-size:20px;
-      line-height:1.5;
-      
-      display:flex;
-      justify-content:center;  
-      align-items:center;      
-      min-height:100vh;
-    }
-
-    .wrap{
-      width:100%;
-      /* Scaled width (approx 1060px) */
-      max-width:1060px;
-      padding:60px 30px;
-      /* Removed the negative transform to leave more margin on top */
-      transform:none;
-    }
-
-    /* Header */
-    .header{display:flex; align-items:center; gap:30px; margin-bottom:50px}
-    .photo{
-      /* Scaled to 150px */
-      width:150px; height:150px; border-radius:20px; object-fit:cover;
-      box-shadow:0 10px 30px rgba(0,0,0,.08)
-    }
-    h1{font-size:1.8rem; margin:0; font-weight: 600;} /* Added slightly heavier weight for name */
-    .sub{color:var(--muted); font-size:1rem}
-
-    /* Tabs */
-    .tabs{display:flex; gap:30px; margin-bottom:30px}
-    .tab{
-      cursor:pointer; padding:5px 0; font-weight:500;
-      border-bottom:2.5px solid transparent; font-size:1rem;
-    }
-    .tab.active{border-color:var(--accent)}
-
-    /* Terminal */
-    .terminal{
-      background:#fff; border:1px solid var(--line);
-      border-radius:18px; padding:30px 35px;
-      
-      /* This ensures the terminal keeps using the coding font */
-      font-family:var(--mono); 
-      
-      /* Scaled terminal font to 18px */
+      background:
+        linear-gradient(90deg, rgba(9,47,87,.055) 1px, transparent 1px) 0 0/72px 72px,
+        var(--paper);
+      color:var(--ink);
+      font-family:var(--sans);
       font-size:18px;
-      box-shadow:0 15px 45px rgba(0,0,0,.06);
-      min-height:325px;
+      line-height:1.45;
     }
 
-    .line{white-space:pre-wrap; margin-bottom:10px}
-    .prompt{color:var(--link)}
-    .thinking{color:var(--muted); font-style:italic}
+    a{color:var(--navy); text-decoration:none}
+    a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px}
 
-    .cursor{
-      display:inline-block; width:10px; height:1.1em;
-      background:#000; margin-left:4px;
-      animation:blink .5s steps(2) infinite
+    .site{
+      width:min(1180px, calc(100% - 44px));
+      margin:0 auto;
+      position:relative;
     }
-    @keyframes blink{50%{opacity:0}}
 
-    a{color:var(--link); text-decoration:none}
-    a:hover{text-decoration:underline}
+    .site::before{
+      content:"";
+      position:absolute;
+      top:126px;
+      left:18px;
+      width:58px;
+      height:58px;
+      border-top:8px solid var(--navy);
+      border-left:8px solid var(--navy);
+      box-shadow:-14px 14px 0 rgba(122,31,43,.28);
+      opacity:.86;
+      pointer-events:none;
+    }
 
-    @media (max-width:1000px){
-      h1{font-size:1.5rem}
-      .photo{width:120px;height:120px}
-      .wrap{padding:60px 20px}
+    .topbar{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:28px;
+      padding:22px 0 0 38px;
+      position:relative;
+      z-index:3;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      color:var(--navy);
+      font-size:15px;
+      font-weight:500;
+    }
+
+    .nav a{
+      display:inline-flex;
+      align-items:center;
+      gap:0;
+    }
+
+    .hero{
+      min-height:calc(100vh - 70px);
+      display:grid;
+      grid-template-columns:minmax(0, 1.15fr) minmax(280px, .85fr);
+      gap:48px;
+      align-items:center;
+      padding:28px 0 72px 150px;
+      position:relative;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:150px;
+      right:0;
+      bottom:32px;
+      border-bottom:1px solid rgba(9,47,87,.22);
+    }
+
+    h1{
+      margin:0;
+      max-width:850px;
+      font-size:clamp(37px, 4.9vw, 70px);
+      line-height:1;
+      letter-spacing:0;
+      font-weight:300;
+    }
+
+    h1 strong{font-weight:800}
+
+    .topic{
+      background-repeat:no-repeat;
+      box-decoration-break:clone;
+      -webkit-box-decoration-break:clone;
+      padding:0 .02em;
+    }
+
+    .topic-labor{
+      background-image:linear-gradient(var(--labor-mark), var(--labor-mark));
+      background-position:0 86%;
+      background-size:100% .24em;
+    }
+
+    .topic-tech{
+      background-image:linear-gradient(var(--tech-mark), var(--tech-mark));
+      background-position:0 86%;
+      background-size:100% .24em;
+    }
+
+    .topic-both{
+      --topic-line-width:100%;
+      background-image:
+        linear-gradient(var(--labor-mark), var(--labor-mark)),
+        linear-gradient(var(--tech-mark), var(--tech-mark));
+      background-position:0 calc(100% - .18em), 0 100%;
+      background-size:var(--topic-line-width) .18em, var(--topic-line-width) .18em;
+      box-decoration-break:clone;
+      -webkit-box-decoration-break:clone;
+    }
+
+    .dek{
+      max-width:610px;
+      margin:18px 0 0;
+      font-family:var(--serif);
+      font-size:clamp(20px, 1.8vw, 27px);
+      line-height:1.16;
+      color:#25221d;
+    }
+
+    .hero-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 22px;
+      margin-top:20px;
+      font-size:15px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .portrait-wrap{
+      justify-self:end;
+      width:min(292px, 100%);
+      position:relative;
+    }
+
+    .portrait-wrap::before,
+    .portrait-wrap::after{
+      content:"";
+      position:absolute;
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    .portrait-wrap::before{
+      inset:34px -24px -34px 36px;
+      background:repeating-linear-gradient(0deg, transparent 0 13px, rgba(9,47,87,.22) 13px 15px);
+    }
+
+    .portrait-wrap::after{
+      width:98px;
+      height:98px;
+      right:-14px;
+      bottom:-14px;
+      background:
+        linear-gradient(var(--red), var(--red)) right bottom/15px 84px no-repeat,
+        linear-gradient(var(--red), var(--red)) right bottom/84px 15px no-repeat,
+        linear-gradient(var(--navy), var(--navy)) right 14px bottom 14px/15px 84px no-repeat,
+        linear-gradient(var(--navy), var(--navy)) right 14px bottom 14px/84px 15px no-repeat;
+    }
+
+    .photo{
+      display:block;
+      width:100%;
+      aspect-ratio:4/4.6;
+      object-fit:cover;
+      object-position:center 23%;
+      border:1px solid rgba(23,23,23,.16);
+      filter:saturate(.95) contrast(1.02);
+    }
+
+    .section{
+      padding:88px 0 86px 150px;
+      border-top:1px solid rgba(9,47,87,.22);
+      display:grid;
+      grid-template-columns:180px minmax(0, 1fr);
+      gap:42px;
+    }
+
+    .section-label{
+      margin:0;
+      font-size:14px;
+      color:var(--navy);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+    }
+
+    .intro-card{
+      max-width:850px;
+      position:relative;
+    }
+
+    .intro-card::before{
+      content:"";
+      position:absolute;
+      left:-18px;
+      top:6px;
+      bottom:6px;
+      border-left:5px solid var(--navy);
+    }
+
+    .intro-card p{
+      margin:0;
+      font-family:var(--serif);
+      font-size:clamp(23px, 2.55vw, 36px);
+      line-height:1.16;
+    }
+
+    .paper-list{
+      max-width:900px;
+      display:grid;
+      gap:0;
+      border-top:1px solid rgba(9,47,87,.24);
+    }
+
+    .paper-legend{
+      max-width:900px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px 14px;
+      margin-bottom:20px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+    }
+
+    .filter-button{
+      appearance:none;
+      border:1px solid rgba(9,47,87,.18);
+      background:rgba(246,243,238,.7);
+      color:var(--muted);
+      cursor:pointer;
+      display:inline-block;
+      font:inherit;
+      letter-spacing:inherit;
+      padding:8px 11px 9px;
+      text-transform:inherit;
+    }
+
+    .filter-button:hover,
+    .filter-button.is-active{
+      border-color:rgba(9,47,87,.46);
+      background:rgba(219,228,238,.72);
+      color:var(--navy);
+    }
+
+    .paper.is-hidden{
+      display:none;
+    }
+
+    .paper{
+      display:grid;
+      grid-template-columns:54px minmax(0, 1fr);
+      gap:22px;
+      padding:28px 0 30px;
+      border-bottom:1px solid rgba(9,47,87,.18);
+    }
+
+    .paper-number{
+      color:var(--ink);
+      font-family:var(--mono);
+      font-size:14px;
+      padding-top:8px;
+    }
+
+    .paper-title{
+      margin:0;
+      font-family:var(--serif);
+      font-size:clamp(21px, 2vw, 29px);
+      line-height:1.18;
+      font-weight:650;
+    }
+
+    .paper-title .topic-both{--topic-line-width:100%}
+
+    .paper-meta{
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.45;
+    }
+
+    .paper-note{
+      display:inline-block;
+      margin-top:10px;
+      color:var(--navy);
+      font-size:13px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .paper-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:12px;
+      font-size:13px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .paper-links a{color:var(--ink)}
+
+    @media (max-width:900px){
+      body{font-size:17px}
+      .site{width:min(100% - 28px, 680px)}
+      .site::before{
+        top:126px;
+        left:10px;
+        width:42px;
+        height:42px;
+        border-top-width:6px;
+        border-left-width:6px;
+      }
+      .topbar{
+        min-height:auto;
+        padding:22px 0 10px 30px;
+        align-items:flex-end;
+        flex-direction:row;
+      }
+      .nav{gap:16px; flex-wrap:wrap}
+      .hero{
+        grid-template-columns:1fr;
+        gap:42px;
+        min-height:auto;
+        padding:30px 0 68px 42px;
+      }
+      .hero::after{left:42px; bottom:34px}
+      .portrait-wrap{
+        justify-self:start;
+        width:min(270px, calc(100% - 20px));
+      }
+      .portrait-wrap::after{
+        right:-10px;
+        bottom:-10px;
+        width:72px;
+        height:72px;
+        background:
+          linear-gradient(var(--red), var(--red)) right bottom/11px 62px no-repeat,
+          linear-gradient(var(--red), var(--red)) right bottom/62px 11px no-repeat,
+          linear-gradient(var(--navy), var(--navy)) right 10px bottom 10px/11px 62px no-repeat,
+          linear-gradient(var(--navy), var(--navy)) right 10px bottom 10px/62px 11px no-repeat;
+      }
+      .section{
+        grid-template-columns:1fr;
+        gap:24px;
+        padding:68px 0 70px 42px;
+      }
+    }
+
+    @media (max-width:560px){
+      h1{font-size:36px}
+      .dek{font-size:20px}
+      .hero{padding-left:32px}
+      .section{padding-left:32px}
+      .intro-card p{font-size:23px}
+      .paper-title{font-size:22px}
+      .paper{grid-template-columns:1fr; gap:8px}
+      .paper-number{padding-top:0}
     }
   </style>
 </head>
 <body>
+  <main class="site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#research">Interests</a>
+        <a href="#papers">Papers</a>
+      </nav>
+    </header>
 
-<div class="wrap">
+    <section class="hero" id="about">
+      <div>
+        <h1><strong>Ping R. Gong</strong> studies <span class="topic topic-labor">labor</span> and <span class="topic topic-tech">technology</span> issues in accounting.</h1>
+        <p class="dek">
+          Ping received his PhD from Yale University and will join Nanyang Technological University as an Assistant Professor in July 2026.
+        </p>
+        <div class="hero-links" aria-label="Profile links">
+          <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank" rel="noreferrer">Curriculum Vitae</a>
+          <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>
+        </div>
+      </div>
 
-  <div class="header">
-    <img class="photo" src="/images/Photo_LightBackground.png" alt="Ping R. Gong" />
-    <div>
-      <h1>Ping R. Gong 公平</h1>
-      <div class="sub"> Incoming AP @ NTU, PhD Yale, BCom (Hons) UNSW</div>
-    </div>
-  </div>
+      <figure class="portrait-wrap">
+        <img class="photo" src="images/Photo_Dithered_Bitmap_Navy_Burgundy.png" alt="Ping R. Gong" />
+      </figure>
+    </section>
 
-  <div class="tabs">
-    <div class="tab active" data-tab="about">about</div>
-    <div class="tab" data-tab="cv">cv</div>
-    <div class="tab" data-tab="contact">contact</div>
-  </div>
+    <section class="section" id="research">
+      <h2 class="section-label">Research Interests</h2>
+      <div class="intro-card">
+        <p>
+          I study <span class="topic topic-labor">labor</span> and <span class="topic topic-tech">technology</span> issues in accounting, from education, mobility, and work in accounting labor markets to the economics and applications of new technologies in accounting.
+        </p>
+      </div>
+    </section>
 
-  <div class="terminal" id="terminal"></div>
-</div>
+    <section class="section" id="papers">
+      <h2 class="section-label">Papers</h2>
+      <div>
+        <div class="paper-legend" aria-label="Filter papers by topic">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-button topic topic-labor" type="button" data-filter="labor" aria-pressed="false">Labor</button>
+          <button class="filter-button topic topic-tech" type="button" data-filter="tech" aria-pressed="false">Technology</button>
+          <button class="filter-button topic topic-both" type="button" data-filter="both" aria-pressed="false">Both</button>
+        </div>
 
-<script>
-const terminal = document.getElementById('terminal');
-const tabs = document.querySelectorAll('.tab');
+        <div class="paper-list">
+        <article class="paper" data-topics="tech">
+          <div class="paper-number">01</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h3>
+            <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
+            <span class="paper-note">Review of Accounting Studies, 2026</span>
+            <div class="paper-links">
+              <a href="https://link.springer.com/article/10.1007/s11142-026-09952-5" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
 
-let typingSession = 0;
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">02</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">International Mutual Recognition Agreements for Accountants</span></h3>
+            <span class="paper-note">Solo-authored</span>
+          </div>
+        </article>
 
-/* Updated content structure slightly to handle HTML safely */
-const content = {
-  about: [
-    {type:'prompt', text:'PingGPT › who is Ping?'},
-    {type:'thinking', text:'Thinking…'},
-    {text: 'Ping received his PhD in Accounting from Yale University.'},
-    {text: 'His research examines labor and technology issues in accounting.'},
-    {text: 'He will join Nanyang Technological University as an Assistant Professor in July 2026.'}
-  ],
-  cv: [
-    {type:'prompt', text:'PingGPT › open cv'},
-    {type:'thinking', text:'Fetching document…'},
-    {html:'Curriculum Vitae → <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank">Download PDF</a>'}
-  ],
-  contact: [
-    {type:'prompt', text:'PingGPT › contact'},
-    {type:'thinking', text:'Generating contact information…'},
-    {html:'Email → <a href="mailto:ping.gong@yale.edu">ping.gong@yale.edu</a>'}
-  ]
-};
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">03</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market</span></h3>
+            <p class="paper-meta">with John Barrios and Enshuai Yu</p>
+          </div>
+        </article>
 
-function typeSequence(seq, sessionId){
-  terminal.innerHTML = '';
-  
-  /* Reset cursor logic */
-  let i = 0;
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">04</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h3>
+            <p class="paper-meta">with Daniel Aobdia and Hao Ma</p>
+            <div class="paper-links">
+              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6225800" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
 
-  function nextLine(){
-    if(sessionId !== typingSession) return; 
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">05</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h3>
+            <p class="paper-meta">with Chan Li, Crystal Shi, and Yuan Xie</p>
+            <div class="paper-links">
+              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4454973" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
 
-    if(i >= seq.length){
-      const cursor = document.createElement('span');
-      cursor.className = 'cursor';
-      terminal.appendChild(cursor);
-      return;
-    }
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">06</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h3>
+            <p class="paper-meta">with Yilan Li and Hao Ma</p>
+          </div>
+        </article>
 
-    const item = seq[i];
-    const div = document.createElement('div');
-    div.className = 'line';
-    if(item.type) div.classList.add(item.type);
-    terminal.appendChild(div);
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">07</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers</span></h3>
+            <p class="paper-meta">with Cindy Zhu</p>
+          </div>
+        </article>
+        </div>
+      </div>
+    </section>
 
-    /* Instant render for HTML links, typing effect for plain text */
-    if(item.html){
-      div.innerHTML = item.html;
-      i++;
-      setTimeout(nextLine, 3); /* Small pause after link appears */
-    } else {
-      const text = item.text || '';
-      let j = 0;
-      const speed = item.type==='thinking'? 1 : 0.3; /* Adjusted speed for realism */
+  </main>
+  <script>
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const papers = document.querySelectorAll('.paper[data-topics]');
 
-      function typeChar(){
-        if(sessionId !== typingSession) return;
-        if(j < text.length){
-          div.textContent += text[j++];
-          setTimeout(typeChar, speed);
-        } else {
-          i++;
-          setTimeout(nextLine, 9); /* Pause between lines */
-        }
-      }
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
 
-      typeChar();
-    }
-  }
+        filterButtons.forEach(item => {
+          item.classList.toggle('is-active', item === button);
+          item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+        });
 
-  nextLine();
-}
-
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    
-    /* Simple content switch logic */
-    const tabName = tab.getAttribute('data-tab');
-    if(content[tabName]) {
-        typingSession++; 
-        typeSequence(content[tabName], typingSession);
-    }
-  });
-});
-
-// Initial load
-typeSequence(content.about, typingSession);
-</script>
-
+        papers.forEach(paper => {
+          const topics = paper.dataset.topics.split(' ');
+          paper.classList.toggle('is-hidden', filter !== 'all' && !topics.includes(filter));
+        });
+      });
+    });
+  </script>
 </body>
 </html>
