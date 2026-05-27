@@ -201,7 +201,8 @@
       object-fit:cover;
       object-position:center 23%;
       border:1px solid rgba(23,23,23,.16);
-      filter:saturate(.95) contrast(1.02);
+      filter:saturate(.82) contrast(.88);
+      opacity:.94;
     }
 
     .section{
@@ -219,6 +220,12 @@
       font-weight:800;
       text-transform:uppercase;
       letter-spacing:.09em;
+    }
+
+    .section-heading{
+      display:grid;
+      gap:22px;
+      align-content:start;
     }
 
     .intro-card{
@@ -250,17 +257,19 @@
     }
 
     .paper-legend{
-      max-width:900px;
       display:flex;
       flex-wrap:wrap;
-      align-items:center;
-      gap:10px 14px;
-      margin-bottom:20px;
+      align-items:flex-start;
+      gap:10px;
       color:var(--muted);
       font-size:13px;
       font-weight:700;
       text-transform:uppercase;
       letter-spacing:.07em;
+    }
+
+    .section-heading .paper-legend{
+      flex-direction:column;
     }
 
     .filter-button{
@@ -386,6 +395,9 @@
         gap:24px;
         padding:68px 0 70px 42px;
       }
+      .section-heading .paper-legend{
+        flex-direction:row;
+      }
     }
 
     @media (max-width:560px){
@@ -437,15 +449,17 @@
     </section>
 
     <section class="section" id="papers">
-      <h2 class="section-label">Papers</h2>
-      <div>
+      <div class="section-heading">
+        <h2 class="section-label">Papers</h2>
         <div class="paper-legend" aria-label="Filter papers by topic">
           <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
           <button class="filter-button topic topic-labor" type="button" data-filter="labor" aria-pressed="false">Labor</button>
           <button class="filter-button topic topic-tech" type="button" data-filter="tech" aria-pressed="false">Technology</button>
           <button class="filter-button topic topic-both" type="button" data-filter="both" aria-pressed="false">Both</button>
         </div>
+      </div>
 
+      <div>
         <div class="paper-list">
         <article class="paper" data-topics="tech">
           <div class="paper-number">01</div>
