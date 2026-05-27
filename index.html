@@ -98,15 +98,6 @@
       position:relative;
     }
 
-    .hero::after{
-      content:"";
-      position:absolute;
-      left:150px;
-      right:0;
-      bottom:32px;
-      border-bottom:1px solid rgba(9,47,87,.22);
-    }
-
     h1{
       margin:0;
       max-width:850px;
@@ -117,6 +108,8 @@
     }
 
     h1 strong{font-weight:800}
+
+    .nowrap{white-space:nowrap}
 
     .topic{
       background-repeat:no-repeat;
@@ -371,7 +364,6 @@
         min-height:auto;
         padding:30px 0 68px 42px;
       }
-      .hero::after{left:42px; bottom:34px}
       .portrait-wrap{
         justify-self:start;
         width:min(270px, calc(100% - 20px));
@@ -418,7 +410,7 @@
 
     <section class="hero" id="about">
       <div>
-        <h1><strong>Ping R. Gong</strong> studies <span class="topic topic-labor">labor</span> and <span class="topic topic-tech">technology</span> issues in accounting.</h1>
+        <h1><strong>Ping R. Gong</strong> studies <span class="nowrap"><span class="topic topic-labor">labor</span> and <span class="topic topic-tech">technology</span></span> issues in accounting.</h1>
         <p class="dek">
           Ping received his PhD from Yale University and will join Nanyang Technological University as an Assistant Professor in July 2026.
         </p>
