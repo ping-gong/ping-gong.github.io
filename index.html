@@ -117,10 +117,6 @@
       padding:0 .02em;
     }
 
-    .intro-card .topic{
-      font-weight:800;
-    }
-
     .topic-labor{
       background-image:linear-gradient(var(--labor-mark), var(--labor-mark));
       background-position:0 86%;
@@ -227,27 +223,6 @@
       display:grid;
       gap:22px;
       align-content:start;
-    }
-
-    .intro-card{
-      max-width:850px;
-      position:relative;
-    }
-
-    .intro-card::before{
-      content:"";
-      position:absolute;
-      left:-18px;
-      top:6px;
-      bottom:6px;
-      border-left:5px solid var(--navy);
-    }
-
-    .intro-card p{
-      margin:0;
-      font-family:var(--serif);
-      font-size:clamp(23px, 2.55vw, 36px);
-      line-height:1.16;
     }
 
     .paper-list{
@@ -406,7 +381,6 @@
       .dek{font-size:20px}
       .hero{padding-left:32px}
       .section{padding-left:32px}
-      .intro-card p{font-size:23px}
       .paper-title{font-size:22px}
       .paper{grid-template-columns:1fr; gap:8px}
       .paper-number{padding-top:0}
@@ -418,7 +392,6 @@
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
         <a href="#about">About</a>
-        <a href="#research">Interests</a>
         <a href="#papers">Papers</a>
       </nav>
     </header>
@@ -438,15 +411,6 @@
       <figure class="portrait-wrap">
         <img class="photo" src="images/Photo_Dithered_Bitmap_Navy_Burgundy_720.webp" alt="Ping R. Gong" />
       </figure>
-    </section>
-
-    <section class="section" id="research">
-      <h2 class="section-label">Research Interests</h2>
-      <div class="intro-card">
-        <p>
-          I study <span class="topic topic-labor">labor</span> and <span class="topic topic-tech">technology</span> issues in accounting, from education, mobility, and work in accounting labor markets to the economics and applications of new technologies in accounting.
-        </p>
-      </div>
     </section>
 
     <section class="section" id="papers">
