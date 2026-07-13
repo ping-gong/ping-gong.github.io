@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700&family=Public+Sans:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,650&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@500;700&family=Public+Sans:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,650&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -24,7 +24,7 @@
       --white:#fffdf7;
       --sans:"Public Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --serif:"Source Serif 4", Georgia, serif;
-      --cjk-display:"ZCOOL QingKe HuangYou", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+      --cjk-display:"Ma Shan Zheng", KaiTi, "STKaiti", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
       --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
@@ -116,30 +116,52 @@
       position:relative;
       outline:none;
       cursor:default;
+      isolation:isolate;
     }
 
-    .name-wrap strong{
+    .name-wrap::before{
+      content:"";
+      position:absolute;
+      left:-.06em;
+      right:-.08em;
+      bottom:.02em;
+      height:.2em;
+      z-index:-1;
+      border-radius:999px;
+      background:rgba(70,70,70,.13);
+      filter:blur(8px);
+      opacity:.55;
+      transform:translateY(.03em);
+    }
+
+    .name-wrap strong,
+    .name-part{
       transition:color .18s ease;
     }
 
     .cn-name{
       position:absolute;
-      left:calc(100% - .46em);
-      bottom:calc(100% + .16em);
+      left:calc(100% - .34em);
+      bottom:calc(100% + .2em);
       z-index:4;
-      transform:translate(-.32em, .34em) rotate(-6deg) scale(.94);
-      transform-origin:18% 100%;
-      padding:.19em .5em .24em;
-      border:1px solid rgba(9,47,87,.2);
-      border-radius:999px 999px 999px 7px;
-      background:linear-gradient(135deg, rgba(255,253,247,.98), rgba(219,228,238,.96));
-      box-shadow:0 14px 30px rgba(9,47,87,.14), 0 3px 0 rgba(122,31,43,.08);
-      color:var(--navy);
+      display:inline-flex;
+      align-items:center;
+      gap:.02em;
+      transform:translate(-.16em, .34em) rotate(-4deg) scale(.96);
+      transform-origin:0 100%;
+      padding:.18em .48em .26em;
+      border:1px solid rgba(23,23,23,.12);
+      border-radius:12px 18px 18px 18px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.9), transparent 42%),
+        linear-gradient(135deg, rgba(255,253,247,.98), rgba(246,243,238,.96));
+      box-shadow:0 18px 38px rgba(9,47,87,.13), 0 2px 0 rgba(255,255,255,.72) inset;
+      color:var(--ink);
       font-family:var(--cjk-display);
-      font-size:.5em;
-      font-weight:500;
+      font-size:.54em;
+      font-weight:400;
       line-height:1;
-      letter-spacing:.08em;
+      letter-spacing:.02em;
       opacity:0;
       pointer-events:none;
       transition:opacity .2s ease, transform .2s ease;
@@ -149,14 +171,13 @@
     .cn-name::after{
       content:"";
       position:absolute;
-      left:.72em;
-      bottom:-.24em;
-      width:.42em;
-      height:.42em;
-      border-right:1px solid rgba(9,47,87,.2);
-      border-bottom:1px solid rgba(9,47,87,.2);
-      background:linear-gradient(135deg, rgba(238,244,249,.98), rgba(219,228,238,.96));
-      transform:rotate(45deg);
+      left:.52em;
+      bottom:-.16em;
+      width:.5em;
+      height:.24em;
+      border-radius:0 0 999px 999px;
+      background:rgba(122,31,43,.14);
+      filter:blur(5px);
     }
 
     .name-wrap:focus-visible{
@@ -165,14 +186,24 @@
       outline-offset:.08em;
     }
 
-    .name-wrap:hover strong{
-      color:#25221d;
+    .name-wrap:hover .name-ping,
+    .name-wrap:focus-visible .name-ping,
+    .name-wrap:hover .cn-ping,
+    .name-wrap:focus-visible .cn-ping{
+      color:var(--navy);
+    }
+
+    .name-wrap:hover .name-gong,
+    .name-wrap:focus-visible .name-gong,
+    .name-wrap:hover .cn-gong,
+    .name-wrap:focus-visible .cn-gong{
+      color:var(--red);
     }
 
     .name-wrap:hover .cn-name,
     .name-wrap:focus-visible .cn-name{
       opacity:1;
-      transform:translate(0, -.08em) rotate(-6deg) scale(1);
+      transform:translate(0, -.1em) rotate(-4deg) scale(1);
     }
 
     .headline-phrase{white-space:nowrap}
@@ -465,7 +496,7 @@
 
     <section class="hero" id="about">
       <div>
-        <h1><span class="name-wrap" tabindex="0" aria-label="Ping R. Gong, Chinese name Gong Ping"><strong>Ping R. Gong</strong><span class="cn-name" lang="zh-Hans" aria-hidden="true">公平</span></span><br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
+        <h1><span class="name-wrap" tabindex="0" aria-label="Ping R. Gong, Chinese name Gong Ping"><strong><span class="name-part name-ping">Ping</span> R. <span class="name-part name-gong">Gong</span></strong><span class="cn-name" lang="zh-Hans" aria-hidden="true"><span class="cn-gong">公</span><span class="cn-ping">平</span></span></span><br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
         <p class="dek">
           NTU AP, Yale PhD, UNSW BCom (Hons)
         </p>
