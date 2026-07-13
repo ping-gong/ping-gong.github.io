@@ -150,16 +150,16 @@
       display:inline-flex;
       align-items:center;
       gap:.03em;
-      transform:translate(-.18em, .34em) rotate(-3deg) scale(.94);
+      transform:translate(-.2em, .34em) rotate(3deg) scale(.96);
       transform-origin:0 100%;
-      padding:.24em .58em .28em;
+      padding:.28em .66em .32em;
       border:3px solid var(--ink);
-      border-radius:46% 54% 49% 51% / 57% 49% 51% 43%;
+      border-radius:54% 46% 51% 49% / 49% 57% 43% 51%;
       background:var(--white);
       box-shadow:0 13px 0 -9px rgba(23,23,23,.24);
       color:var(--ink);
       font-family:var(--cjk-display);
-      font-size:.54em;
+      font-size:.59em;
       font-weight:400;
       line-height:1;
       letter-spacing:.02em;
@@ -172,7 +172,7 @@
     .cn-name::after{
       content:"";
       position:absolute;
-      right:.18em;
+      left:.18em;
       bottom:-.78em;
       width:1em;
       height:.86em;
@@ -180,13 +180,13 @@
         radial-gradient(circle at 16% 17%, var(--white) 0 .16em, var(--ink) .17em .23em, transparent .24em),
         radial-gradient(circle at 53% 51%, var(--white) 0 .12em, var(--ink) .13em .18em, transparent .19em),
         radial-gradient(circle at 86% 78%, var(--white) 0 .07em, var(--ink) .08em .12em, transparent .13em);
-      transform:rotate(18deg);
+      transform:scaleX(-1) rotate(18deg);
     }
 
     .cn-name::before{
       content:"";
       position:absolute;
-      right:-.42em;
+      left:-.42em;
       bottom:-.2em;
       width:1.22em;
       height:1.26em;
@@ -194,7 +194,7 @@
       background-size:.12em .12em;
       border-radius:50%;
       z-index:-1;
-      transform:rotate(12deg);
+      transform:rotate(-12deg);
     }
 
     .name-wrap:focus-visible{
@@ -220,7 +220,7 @@
     .name-wrap:hover .cn-name,
     .name-wrap:focus-visible .cn-name{
       opacity:1;
-      transform:translate(0, -.1em) rotate(-3deg) scale(1);
+      transform:translate(0, -.1em) rotate(3deg) scale(1.04);
     }
 
     .headline-phrase{white-space:nowrap}
