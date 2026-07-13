@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,650&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Public+Sans:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,650&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -24,6 +24,7 @@
       --white:#fffdf7;
       --sans:"Public Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --serif:"Source Serif 4", Georgia, serif;
+      --cjk-serif:"Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, serif;
       --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
@@ -109,6 +110,16 @@
     }
 
     h1 strong{font-weight:800}
+
+    .cn-name{
+      display:inline-block;
+      margin-left:.34em;
+      font-family:var(--cjk-serif);
+      font-size:.7em;
+      font-weight:700;
+      line-height:1;
+      vertical-align:.08em;
+    }
 
     .headline-phrase{white-space:nowrap}
 
@@ -400,7 +411,7 @@
 
     <section class="hero" id="about">
       <div>
-        <h1><strong>Ping R. Gong</strong>公平<br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
+        <h1><strong>Ping R. Gong</strong><span class="cn-name" lang="zh-Hans">公平</span><br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
         <p class="dek">
           NTU AP, Yale PhD, UNSW BCom (Hons)
         </p>
