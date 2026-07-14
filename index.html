@@ -247,10 +247,11 @@
     .topic-both{
       --topic-line-width:100%;
       --topic-line-height:.18em;
+      --topic-line-gap:.035em;
       background-image:
         linear-gradient(var(--labor-mark), var(--labor-mark)),
         linear-gradient(var(--tech-mark), var(--tech-mark));
-      background-position:left bottom var(--topic-line-height), left bottom;
+      background-position:left bottom calc(var(--topic-line-height) + var(--topic-line-gap)), left bottom;
       background-size:var(--topic-line-width) var(--topic-line-height), var(--topic-line-width) var(--topic-line-height);
       box-decoration-break:clone;
       -webkit-box-decoration-break:clone;
