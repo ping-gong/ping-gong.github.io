@@ -138,8 +138,19 @@
     }
 
     .name-wrap strong,
-    .name-part{
+    .name-part,
+    .name-cue{
       transition:color .18s ease;
+    }
+
+    .name-cue{
+      display:inline-block;
+      margin-left:.16em;
+      font-size:.34em;
+      font-weight:700;
+      line-height:1;
+      color:rgba(23,23,23,.42);
+      vertical-align:.9em;
     }
 
     .cn-name{
@@ -206,7 +217,9 @@
     .name-wrap:hover .name-gong,
     .name-wrap:focus-visible .name-gong,
     .name-wrap:hover .cn-gong,
-    .name-wrap:focus-visible .cn-gong{
+    .name-wrap:focus-visible .cn-gong,
+    .name-wrap:hover .name-cue,
+    .name-wrap:focus-visible .name-cue{
       color:var(--navy);
     }
 
@@ -246,11 +259,17 @@
 
     .topic-both{
       --topic-line-width:100%;
+      --topic-line-height:.16em;
+      --topic-line-gap:.06em;
       background-image:
         linear-gradient(var(--labor-mark), var(--labor-mark)),
         linear-gradient(var(--tech-mark), var(--tech-mark));
-      background-position:0 calc(100% - .18em), 0 100%;
-      background-size:var(--topic-line-width) .18em, var(--topic-line-width) .18em;
+      background-position:
+        0 calc(100% - var(--topic-line-height) - var(--topic-line-height) - var(--topic-line-gap)),
+        0 calc(100% - var(--topic-line-height));
+      background-size:
+        var(--topic-line-width) var(--topic-line-height),
+        var(--topic-line-width) var(--topic-line-height);
       box-decoration-break:clone;
       -webkit-box-decoration-break:clone;
     }
@@ -513,7 +532,7 @@
 
     <section class="hero" id="about">
       <div>
-        <h1><span class="name-wrap" tabindex="0" aria-label="Ping R. Gong, Chinese name Gong Ping"><strong><span class="name-part name-ping">Ping</span> R. <span class="name-part name-gong">Gong</span></strong><span class="cn-name" lang="zh-Hans" aria-hidden="true"><span class="cn-gong">公</span><span class="cn-ping">平</span></span></span><br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
+        <h1><span class="name-wrap" tabindex="0" aria-label="Ping R. Gong, Chinese name Gong Ping"><strong><span class="name-part name-ping">Ping</span> R. <span class="name-part name-gong">Gong</span></strong><span class="name-cue" aria-hidden="true">?</span><span class="cn-name" lang="zh-Hans" aria-hidden="true"><span class="cn-gong">公</span><span class="cn-ping">平</span></span></span><br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
         <p class="dek">
           NTU AP, Yale PhD, UNSW BCom (Hons)
         </p>
