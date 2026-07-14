@@ -246,11 +246,12 @@
 
     .topic-both{
       --topic-line-width:100%;
+      --topic-line-height:.18em;
       background-image:
         linear-gradient(var(--labor-mark), var(--labor-mark)),
         linear-gradient(var(--tech-mark), var(--tech-mark));
-      background-position:0 calc(100% - .18em), 0 100%;
-      background-size:var(--topic-line-width) .18em, var(--topic-line-width) .18em;
+      background-position:left bottom var(--topic-line-height), left bottom;
+      background-size:var(--topic-line-width) var(--topic-line-height), var(--topic-line-width) var(--topic-line-height);
       box-decoration-break:clone;
       -webkit-box-decoration-break:clone;
     }
