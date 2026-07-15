@@ -205,20 +205,30 @@
 
     .name-wrap:hover .name-gong,
     .name-wrap:focus-visible .name-gong,
+    .hero:has(.portrait-wrap:hover) .name-gong,
+    .hero:has(.portrait-wrap:focus-visible) .name-gong,
     .name-wrap:hover .cn-gong,
-    .name-wrap:focus-visible .cn-gong{
+    .name-wrap:focus-visible .cn-gong,
+    .hero:has(.portrait-wrap:hover) .cn-gong,
+    .hero:has(.portrait-wrap:focus-visible) .cn-gong{
       color:var(--navy);
     }
 
     .name-wrap:hover .name-ping,
     .name-wrap:focus-visible .name-ping,
+    .hero:has(.portrait-wrap:hover) .name-ping,
+    .hero:has(.portrait-wrap:focus-visible) .name-ping,
     .name-wrap:hover .cn-ping,
-    .name-wrap:focus-visible .cn-ping{
+    .name-wrap:focus-visible .cn-ping,
+    .hero:has(.portrait-wrap:hover) .cn-ping,
+    .hero:has(.portrait-wrap:focus-visible) .cn-ping{
       color:var(--red);
     }
 
     .name-wrap:hover .cn-name,
-    .name-wrap:focus-visible .cn-name{
+    .name-wrap:focus-visible .cn-name,
+    .hero:has(.portrait-wrap:hover) .cn-name,
+    .hero:has(.portrait-wrap:focus-visible) .cn-name{
       opacity:1;
       transform:translate(0, -.1em) rotate(3deg) scale(1.04);
     }
@@ -282,6 +292,13 @@
       justify-self:end;
       width:min(270px, 100%);
       position:relative;
+      cursor:default;
+      outline:none;
+    }
+
+    .portrait-wrap:focus-visible{
+      outline:2px solid rgba(9,47,87,.28);
+      outline-offset:8px;
     }
 
     .portrait-wrap::before,
@@ -526,7 +543,7 @@
         </div>
       </div>
 
-      <figure class="portrait-wrap">
+      <figure class="portrait-wrap" tabindex="0" aria-label="Portrait of Ping R. Gong">
         <img class="photo" src="images/Photo_Dithered_Bitmap_Navy_Burgundy_720.webp" alt="Ping R. Gong" />
       </figure>
     </section>
