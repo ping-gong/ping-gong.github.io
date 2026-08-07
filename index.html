@@ -8,9 +8,27 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
+    @font-face{
+      font-family:"Jost";
+      font-style:normal;
+      font-weight:300 800;
+      font-display:swap;
+      src:url("fonts/jost-latin-300-800.woff2") format("woff2");
+      unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face{
+      font-family:"Jost";
+      font-style:normal;
+      font-weight:300 800;
+      font-display:swap;
+      src:url("fonts/jost-latin-ext-300-800.woff2") format("woff2");
+      unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
     :root{
       --paper:#f6f3ee;
       --ink:#171717;
@@ -109,7 +127,7 @@
       font-weight:300;
     }
 
-    h1 strong{font-weight:500}
+    h1 strong{font-weight:400}
 
     .name-wrap{
       display:inline-block;
@@ -283,7 +301,7 @@
       gap:12px 22px;
       margin-top:20px;
       font-size:15px;
-      font-weight:700;
+      font-weight:600;
       text-transform:uppercase;
       letter-spacing:.05em;
     }
@@ -349,7 +367,7 @@
       margin:0;
       font-size:14px;
       color:var(--navy);
-      font-weight:800;
+      font-weight:600;
       text-transform:uppercase;
       letter-spacing:.09em;
     }
@@ -374,7 +392,7 @@
       gap:10px;
       color:var(--muted);
       font-size:13px;
-      font-weight:700;
+      font-weight:600;
       text-transform:uppercase;
       letter-spacing:.07em;
     }
@@ -427,7 +445,7 @@
       font-family:var(--serif);
       font-size:clamp(21px, 2vw, 29px);
       line-height:1.18;
-      font-weight:500;
+      font-weight:400;
     }
 
     .paper-title .topic-both{--topic-line-width:100%}
@@ -444,7 +462,7 @@
       margin-top:10px;
       color:var(--navy);
       font-size:13px;
-      font-weight:800;
+      font-weight:600;
       text-transform:uppercase;
       letter-spacing:.08em;
     }
@@ -455,7 +473,7 @@
       gap:12px;
       margin-top:12px;
       font-size:13px;
-      font-weight:800;
+      font-weight:600;
       text-transform:uppercase;
       letter-spacing:.08em;
     }
