@@ -403,6 +403,29 @@
       color:var(--navy);
     }
 
+    .filter-button.topic-labor{
+      border-color:rgba(122,31,43,.2);
+      background:rgba(122,31,43,.13);
+      color:var(--red);
+    }
+
+    .filter-button.topic-tech{
+      border-color:rgba(9,47,87,.2);
+      background:rgba(9,47,87,.13);
+      color:var(--navy);
+    }
+
+    .filter-button.topic-both{
+      border-color:rgba(23,23,23,.11);
+      background:
+        linear-gradient(90deg, rgba(122,31,43,.15) 0 50%, rgba(9,47,87,.15) 50% 100%);
+      color:var(--ink);
+    }
+
+    .filter-button.is-active{
+      box-shadow:inset 0 -3px 0 rgba(23,23,23,.36);
+    }
+
     .paper.is-hidden{
       display:none;
     }
@@ -420,37 +443,6 @@
       font-family:var(--mono);
       font-size:14px;
       padding-top:8px;
-      display:grid;
-      gap:8px;
-      justify-items:start;
-      align-content:start;
-    }
-
-    .paper-topic{
-      display:inline-block;
-      min-width:42px;
-      padding:4px 7px 5px;
-      color:var(--ink);
-      font-size:10px;
-      font-weight:600;
-      line-height:1;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      border:1px solid rgba(23,23,23,.09);
-    }
-
-    .paper-topic-labor{
-      background:rgba(122,31,43,.15);
-      color:var(--red);
-    }
-
-    .paper-topic-tech{
-      background:rgba(9,47,87,.15);
-      color:var(--navy);
-    }
-
-    .paper-topic-both{
-      background:linear-gradient(90deg, rgba(122,31,43,.17) 0 50%, rgba(9,47,87,.17) 50% 100%);
     }
 
     .paper-title{
@@ -596,7 +588,7 @@
       <div>
         <div class="paper-list">
         <article class="paper" data-topics="tech">
-          <div class="paper-number"><span>01</span><span class="paper-topic paper-topic-tech">Tech</span></div>
+          <div class="paper-number">01</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h3>
             <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
@@ -608,14 +600,14 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number"><span>02</span><span class="paper-topic paper-topic-labor">Labor</span></div>
+          <div class="paper-number">02</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">International Mutual Recognition Agreements for Accountants</span></h3>
           </div>
         </article>
 
         <article class="paper" data-topics="labor tech both">
-          <div class="paper-number"><span>03</span><span class="paper-topic paper-topic-both">Both</span></div>
+          <div class="paper-number">03</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-both">STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market</span></h3>
             <p class="paper-meta">with John Barrios and Enshuai Yu</p>
@@ -623,7 +615,7 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number"><span>04</span><span class="paper-topic paper-topic-labor">Labor</span></div>
+          <div class="paper-number">04</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h3>
             <p class="paper-meta">with Daniel Aobdia and Hao Ma</p>
@@ -634,7 +626,7 @@
         </article>
 
         <article class="paper" data-topics="labor tech both">
-          <div class="paper-number"><span>05</span><span class="paper-topic paper-topic-both">Both</span></div>
+          <div class="paper-number">05</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-both">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h3>
             <p class="paper-meta">with Chan Li, Crystal Shi, and Yuan Xie</p>
@@ -645,7 +637,7 @@
         </article>
 
         <article class="paper" data-topics="labor tech both">
-          <div class="paper-number"><span>06</span><span class="paper-topic paper-topic-both">Both</span></div>
+          <div class="paper-number">06</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h3>
             <p class="paper-meta">with Yilan Li and Hao Ma</p>
@@ -653,7 +645,7 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number"><span>07</span><span class="paper-topic paper-topic-labor">Labor</span></div>
+          <div class="paper-number">07</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers</span></h3>
             <p class="paper-meta">with Cindy Zhu</p>
@@ -661,7 +653,7 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number"><span>08</span><span class="paper-topic paper-topic-labor">Labor</span></div>
+          <div class="paper-number">08</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h3>
             <p class="paper-meta">with Jiawen Yan and Kangying Zhou</p>
