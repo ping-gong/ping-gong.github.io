@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ping R. Gong</title>
+  <title>Papers | Ping R. Gong</title>
   <meta name="description" content="Ping R. Gong -- Assistant Professor at Nanyang Technological University and PhD graduate in Accounting from Yale University." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +59,10 @@
       line-height:1.45;
     }
 
+    body.papers-page{
+      background:var(--paper);
+    }
+
     a{color:var(--navy); text-decoration:none}
     a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px}
 
@@ -106,6 +110,10 @@
       display:inline-flex;
       align-items:center;
       gap:0;
+    }
+
+    .papers-page .site::before{
+      display:none;
     }
 
     .hero{
@@ -561,32 +569,124 @@
     }
   </style>
 </head>
-<body>
+<body class="papers-page">
   <main class="site">
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#about">About</a>
+        <a href="index.html#about">About</a>
         <a href="papers.html">Papers</a>
       </nav>
     </header>
 
-    <section class="hero" id="about">
-      <div>
-        <h1><span class="name-wrap" tabindex="0" aria-label="Ping R. Gong, Chinese name Gong Ping"><strong><span class="name-part name-ping">Ping</span> R. <span class="name-part name-gong">Gong</span></strong><span class="cn-name" lang="zh-Hans" aria-hidden="true"><span class="cn-gong">公</span><span class="cn-ping">平</span></span></span><br>studies <span class="topic topic-labor">labor</span><br><span class="headline-phrase">and <span class="topic topic-tech">technology</span> issues</span><br>in accounting.</h1>
-        <p class="dek">
-          NTU AP, Yale PhD, UNSW BCom (Hons)
-        </p>
-        <div class="hero-links" aria-label="Profile links">
-          <a href="https://drive.google.com/file/d/1beN9zTzvjvvluaU4ljviKfS5SUV3EDjV/view" target="_blank" rel="noreferrer">Curriculum Vitae</a>
-          <a href="mailto:gong.ping@ntu.edu.sg">gong.ping@ntu.edu.sg</a>
+    <section class="section" id="papers">
+      <div class="section-heading">
+        <h2 class="section-label">Papers</h2>
+        <div class="paper-legend" aria-label="Filter papers by topic">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-button topic topic-labor" type="button" data-filter="labor" aria-pressed="false">Labor</button>
+          <button class="filter-button topic topic-tech" type="button" data-filter="tech" aria-pressed="false">Tech</button>
+          <button class="filter-button topic topic-both" type="button" data-filter="both" aria-pressed="false"><span class="both-labor">Bo</span><span class="both-tech">th</span></button>
         </div>
       </div>
 
-      <figure class="portrait-wrap" tabindex="0" aria-label="Portrait of Ping R. Gong">
-        <img class="photo" src="images/Photo_Dithered_Bitmap_Navy_Burgundy_720.webp" alt="Ping R. Gong" />
-      </figure>
+      <div>
+        <div class="paper-list">
+        <article class="paper" data-topics="tech">
+          <div class="paper-number">01</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h3>
+            <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
+            <span class="paper-note">Review of Accounting Studies, 2026</span>
+            <div class="paper-links">
+              <a href="https://link.springer.com/article/10.1007/s11142-026-09952-5" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">02</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">International Mutual Recognition Agreements for Accountants</span></h3>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">03</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market</span></h3>
+            <p class="paper-meta">with John Barrios and Enshuai Yu</p>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">04</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h3>
+            <p class="paper-meta">with Daniel Aobdia and Hao Ma</p>
+            <div class="paper-links">
+              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6225800" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">05</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h3>
+            <p class="paper-meta">with Chan Li, Crystal Shi, and Yuan Xie</p>
+            <div class="paper-links">
+              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4454973" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">06</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h3>
+            <p class="paper-meta">with Yilan Li and Hao Ma</p>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">07</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">Are Government-Provided Free Tax Services Necessary? Evidence from Closures of Taxpayer Assistance Centers</span></h3>
+            <p class="paper-meta">with Cindy Zhu</p>
+          </div>
+        </article>
+
+        <article class="paper" data-topics="labor">
+          <div class="paper-number">08</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h3>
+            <p class="paper-meta">with Jiawen Yan and Kangying Zhou</p>
+          </div>
+        </article>
+        </div>
+      </div>
     </section>
 
   </main>
+  <script>
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const papers = document.querySelectorAll('.paper[data-topics]');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach(item => {
+          item.classList.toggle('is-active', item === button);
+          item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+        });
+
+        papers.forEach(paper => {
+          const topics = paper.dataset.topics.split(' ');
+          paper.classList.toggle('is-hidden', filter !== 'all' && !topics.includes(filter));
+        });
+      });
+    });
+  </script>
 </body>
 </html>
