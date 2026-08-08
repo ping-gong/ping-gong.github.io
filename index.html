@@ -385,9 +385,9 @@
 
     .filter-button{
       appearance:none;
-      border:1px solid rgba(9,47,87,.18);
-      background:rgba(246,243,238,.7);
-      color:var(--muted);
+      border:1px solid rgba(23,23,23,.14);
+      background:transparent;
+      color:var(--ink);
       cursor:pointer;
       display:inline-flex;
       align-items:center;
@@ -400,18 +400,6 @@
     }
 
     .filter-button:hover,
-    .filter-button.is-active{
-      border-color:rgba(9,47,87,.46);
-      background:rgba(219,228,238,.72);
-      color:var(--navy);
-    }
-
-    .filter-button[data-filter="all"]{
-      border-color:rgba(23,23,23,.14);
-      background:transparent;
-      color:var(--ink);
-    }
-
     .filter-button[data-filter="all"]:hover,
     .filter-button[data-filter="all"].is-active{
       border-color:rgba(23,23,23,.2);
@@ -419,27 +407,30 @@
       color:var(--ink);
     }
 
-    .filter-button.topic-labor{
+    .filter-button.topic-labor.is-active{
       border-color:rgba(122,31,43,.2);
       background:rgba(122,31,43,.13);
       color:var(--red);
     }
 
-    .filter-button.topic-tech{
+    .filter-button.topic-tech.is-active{
       border-color:rgba(9,47,87,.2);
       background:rgba(9,47,87,.13);
       color:var(--navy);
     }
 
-    .filter-button.topic-both{
+    .filter-button.topic-both.is-active{
       border-color:rgba(23,23,23,.11);
       background:
         linear-gradient(90deg, rgba(122,31,43,.15) 0 50%, rgba(9,47,87,.15) 50% 100%);
       color:var(--ink);
     }
 
-    .filter-button .both-labor{color:var(--red)}
-    .filter-button .both-tech{color:var(--navy)}
+    .filter-button .both-labor,
+    .filter-button .both-tech{color:inherit}
+
+    .filter-button.topic-both.is-active .both-labor{color:var(--red)}
+    .filter-button.topic-both.is-active .both-tech{color:var(--navy)}
 
     .filter-button.is-active{
       box-shadow:inset 0 -3px 0 rgba(23,23,23,.36);
@@ -467,7 +458,7 @@
     .paper-title{
       margin:0;
       font-family:var(--serif);
-      font-size:clamp(21px, 2vw, 29px);
+      font-size:clamp(19px, 1.65vw, 25px);
       line-height:1.24;
       font-weight:450;
     }
@@ -487,7 +478,7 @@
     .paper-note{
       display:inline-block;
       margin-top:10px;
-      color:var(--navy);
+      color:var(--ink);
       font-size:13px;
       font-weight:600;
       text-transform:uppercase;
