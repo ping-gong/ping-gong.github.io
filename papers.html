@@ -47,7 +47,10 @@
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html{
+      scroll-behavior:smooth;
+      scrollbar-gutter:stable;
+    }
     body{
       margin:0;
       background:
@@ -378,6 +381,7 @@
 
     .paper-list{
       max-width:none;
+      width:100%;
       display:grid;
       gap:0;
       border-top:1px solid rgba(9,47,87,.24);
