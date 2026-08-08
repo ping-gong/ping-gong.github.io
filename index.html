@@ -71,8 +71,9 @@
     .site::before{
       content:"";
       position:absolute;
-      top:116px;
-      left:34px;
+      display:none;
+      top:60px;
+      left:10px;
       width:58px;
       height:58px;
       border-top:8px solid var(--navy);
@@ -116,6 +117,19 @@
       align-items:center;
       padding:28px 0 72px 150px;
       position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      top:calc(50% - 162px);
+      left:104px;
+      width:58px;
+      height:58px;
+      border-top:8px solid var(--navy);
+      border-left:8px solid var(--navy);
+      opacity:.86;
+      pointer-events:none;
     }
 
     h1{
@@ -506,6 +520,7 @@
       body{font-size:17px}
       .site{width:min(100% - 28px, 680px)}
       .site::before{
+        display:block;
         top:60px;
         left:10px;
         width:42px;
@@ -513,6 +528,7 @@
         border-top-width:6px;
         border-left-width:6px;
       }
+      .hero::before{display:none}
       .topbar{
         min-height:auto;
         padding:22px 0 10px 30px;
