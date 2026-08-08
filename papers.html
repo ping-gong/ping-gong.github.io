@@ -421,36 +421,14 @@
 
     .filter-button:hover,
     .filter-button[data-filter="all"]:hover,
-    .filter-button[data-filter="all"].is-active{
-      border-color:rgba(23,23,23,.2);
-      background:rgba(23,23,23,.08);
-      color:var(--ink);
-    }
-
-    .filter-button.topic-labor.is-active{
-      border-color:rgba(122,31,43,.2);
+    .filter-button.is-active{
+      border-color:rgba(122,31,43,.22);
       background:rgba(122,31,43,.13);
-      color:var(--red);
-    }
-
-    .filter-button.topic-tech.is-active{
-      border-color:rgba(9,47,87,.2);
-      background:rgba(9,47,87,.13);
-      color:var(--navy);
-    }
-
-    .filter-button.topic-both.is-active{
-      border-color:rgba(23,23,23,.11);
-      background:
-        linear-gradient(90deg, rgba(122,31,43,.15) 0 50%, rgba(9,47,87,.15) 50% 100%);
       color:var(--ink);
     }
 
     .filter-button .both-labor,
     .filter-button .both-tech{color:inherit}
-
-    .filter-button.topic-both.is-active .both-labor{color:var(--red)}
-    .filter-button.topic-both.is-active .both-tech{color:var(--navy)}
 
     .filter-button.is-active{
       box-shadow:inset 0 -3px 0 rgba(23,23,23,.36);
@@ -498,7 +476,7 @@
     .paper-note{
       display:inline-block;
       margin-top:10px;
-      color:var(--ink);
+      color:var(--navy);
       font-size:13px;
       font-weight:600;
       text-transform:uppercase;
