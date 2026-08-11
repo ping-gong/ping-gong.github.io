@@ -675,22 +675,41 @@
   <script>
     const filterButtons = document.querySelectorAll('[data-filter]');
     const papers = document.querySelectorAll('.paper[data-topics]');
+    const validFilters = new Set(['all', 'labor', 'tech', 'both']);
+
+    function applyFilter(filter, updateUrl = true){
+      const activeFilter = validFilters.has(filter) ? filter : 'all';
+      const activeButton = document.querySelector(`[data-filter="${activeFilter}"]`);
+      if (!activeButton) return;
+
+      filterButtons.forEach(item => {
+        item.classList.toggle('is-active', item === activeButton);
+        item.setAttribute('aria-pressed', item === activeButton ? 'true' : 'false');
+      });
+
+      papers.forEach(paper => {
+        const topics = paper.dataset.topics.split(' ');
+        paper.classList.toggle('is-hidden', activeFilter !== 'all' && !topics.includes(activeFilter));
+      });
+
+      if (updateUrl) {
+        const url = new URL(window.location);
+        if (activeFilter === 'all') {
+          url.searchParams.delete('filter');
+        } else {
+          url.searchParams.set('filter', activeFilter);
+        }
+        window.history.replaceState({}, '', url);
+      }
+    }
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const filter = button.dataset.filter;
-
-        filterButtons.forEach(item => {
-          item.classList.toggle('is-active', item === button);
-          item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
-        });
-
-        papers.forEach(paper => {
-          const topics = paper.dataset.topics.split(' ');
-          paper.classList.toggle('is-hidden', filter !== 'all' && !topics.includes(filter));
-        });
+        applyFilter(button.dataset.filter);
       });
     });
+
+    applyFilter(new URLSearchParams(window.location.search).get('filter'), false);
   </script>
 </body>
 </html>
