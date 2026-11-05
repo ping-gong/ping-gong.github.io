@@ -1269,8 +1269,6 @@
     }
 
     @media (max-width:560px){
-      .topbar{padding-left:0}
-      .nav{gap:18px; font-size:15px}
       .papers-page .section{padding-top:20px}
       .papers-intro h1{font-size:30px; line-height:1.08}
       .paper-list-heading{align-items:flex-start; flex-direction:column; gap:4px}
@@ -1346,6 +1344,8 @@
     .cast-member img{display:block; width:100%; height:112px; object-fit:contain}
     .cast-member span{display:block; text-align:center; font-size:13px; font-weight:600}
     .cast-member p{margin:4px 2px 0; color:var(--muted); text-align:center; font-size:12px; line-height:1.25}
+    .mobile-joystick,
+    .mobile-hover{display:none}
     @media (max-width:560px){
       .game-minimap{left:8px; top:8px; width:132px; padding:6px; font-size:9px}
       .minimap-field{height:78px}
@@ -1359,6 +1359,85 @@
       .cast-header h2{font-size:20px}
       .cast-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 10px}
       .cast-member img{height:76px}
+    }
+
+    @media (max-width:800px){
+      .research-map{height:calc(100dvh - 175px); min-height:400px}
+      .game-controls{display:none}
+      .research-map.is-started .mobile-joystick{display:grid}
+      .research-map.is-started .mobile-hover{display:grid}
+      .mobile-joystick,
+      .mobile-hover{
+        position:absolute;
+        top:calc(60% - 80px);
+        z-index:7;
+        transform:translateY(-50%);
+        touch-action:none;
+        user-select:none;
+        -webkit-user-select:none;
+        -webkit-touch-callout:none;
+      }
+      .mobile-joystick{
+        left:14px;
+        place-items:center;
+        width:112px;
+        height:112px;
+        border:2px solid rgba(9,47,87,.75);
+        border-radius:50%;
+        background:rgba(246,243,238,.72);
+        box-shadow:0 3px 12px rgba(23,23,23,.16), inset 0 0 0 12px rgba(9,47,87,.06);
+      }
+      .mobile-joystick::before{
+        content:"";
+        position:absolute;
+        width:66px;
+        height:66px;
+        border:1px solid rgba(9,47,87,.28);
+        border-radius:50%;
+      }
+      .mobile-joystick-thumb{
+        width:42px;
+        height:42px;
+        border:2px solid #f6f3ee;
+        border-radius:50%;
+        background:var(--navy);
+        box-shadow:0 2px 8px rgba(23,23,23,.3);
+        transform:translate(var(--stick-x,0px),var(--stick-y,0px));
+      }
+      .mobile-hover{
+        right:16px;
+        place-content:center;
+        justify-items:center;
+        gap:2px;
+        width:72px;
+        height:72px;
+        padding:0;
+        border:2px solid #f6f3ee;
+        border-radius:50%;
+        background:var(--red);
+        box-shadow:0 3px 12px rgba(23,23,23,.22);
+        color:#fff;
+        font:700 10px/1 var(--sans);
+        cursor:pointer;
+      }
+      .mobile-hover span{font-size:21px; line-height:1}
+      .mobile-hover.is-pressed{background:var(--navy); box-shadow:0 0 0 5px rgba(9,47,87,.22)}
+      .paper-encounter{
+        left:12px;
+        right:12px;
+        top:auto;
+        bottom:12px;
+        z-index:8;
+        max-height:40%;
+        padding:14px 16px 16px;
+        overflow:auto;
+        overscroll-behavior:contain;
+      }
+    }
+    @media (max-width:360px){
+      .mobile-joystick{top:calc(60% - 67px); width:92px; height:92px}
+      .mobile-joystick-thumb{width:38px; height:38px}
+      .mobile-hover{width:64px; height:64px}
     }
 
   </style>
@@ -1459,6 +1538,8 @@
             <button class="game-control" type="button" data-move="east" aria-label="D: steer right" title="D: steer right"><span class="control-key">D</span><span class="control-action">RIGHT</span></button>
           </div>
         </div>
+        <div class="mobile-joystick" role="group" aria-label="Drag to drive in any direction"><div class="mobile-joystick-thumb"></div></div>
+        <button class="mobile-hover" type="button" aria-label="Hold to hover" title="Hold to hover"><span aria-hidden="true">↑</span>HOVER</button>
       </div>
 
       <div class="paper-data" aria-hidden="true">
@@ -1850,6 +1931,6 @@
     if (validFilters.has(initialFilter) && initialFilter !== 'all') startGame();
     }
   </script>
-  <script type="module" src="papers-game.js?v=discover-map-1"></script>
+  <script type="module" src="papers-game.js?v=mobile-controls-1"></script>
 </body>
 </html>

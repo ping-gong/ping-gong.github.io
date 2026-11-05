@@ -1057,6 +1057,63 @@ const hoverButton = document.querySelector('[data-action="dash"]');
 hoverButton.addEventListener('pointerdown', event => { event.preventDefault(); setPressed('hover', true); });
 ['pointerup','pointercancel','pointerleave'].forEach(type => hoverButton.addEventListener(type, () => setPressed('hover', false)));
 
+const joystick = document.querySelector('.mobile-joystick');
+const joystickThumb = joystick.querySelector('.mobile-joystick-thumb');
+const stick = {x:0, y:0, pointerId:null};
+function moveStick(event){
+  const bounds = joystick.getBoundingClientRect();
+  const radius = (joystick.clientWidth - joystickThumb.clientWidth) / 2;
+  const dx = event.clientX - (bounds.left + bounds.width / 2);
+  const dy = event.clientY - (bounds.top + bounds.height / 2);
+  const scale = Math.min(1, radius / Math.max(radius, Math.hypot(dx, dy)));
+  stick.x = dx * scale / radius;
+  stick.y = dy * scale / radius;
+  joystick.style.setProperty('--stick-x', `${dx * scale}px`);
+  joystick.style.setProperty('--stick-y', `${dy * scale}px`);
+}
+function resetStick(){
+  stick.x = stick.y = 0;
+  stick.pointerId = null;
+  joystick.style.setProperty('--stick-x', '0px');
+  joystick.style.setProperty('--stick-y', '0px');
+}
+joystick.addEventListener('pointerdown', event => {
+  event.preventDefault();
+  if (stick.pointerId !== null) return;
+  stick.pointerId = event.pointerId;
+  joystick.setPointerCapture(event.pointerId);
+  moveStick(event);
+});
+joystick.addEventListener('pointermove', event => {
+  if (event.pointerId === stick.pointerId) moveStick(event);
+});
+['pointerup','pointercancel','lostpointercapture'].forEach(type => joystick.addEventListener(type, event => {
+  if (event.pointerId === stick.pointerId) resetStick();
+}));
+
+const mobileHover = document.querySelector('.mobile-hover');
+let hoverPointerId = null;
+mobileHover.addEventListener('pointerdown', event => {
+  event.preventDefault();
+  if (hoverPointerId !== null) return;
+  hoverPointerId = event.pointerId;
+  mobileHover.setPointerCapture(event.pointerId);
+  mobileHover.classList.add('is-pressed');
+  setPressed('hover', true);
+});
+['pointerup','pointercancel','lostpointercapture'].forEach(type => mobileHover.addEventListener(type, event => {
+  if (event.pointerId !== hoverPointerId) return;
+  hoverPointerId = null;
+  mobileHover.classList.remove('is-pressed');
+  setPressed('hover', false);
+}));
+[joystick,mobileHover].forEach(control => control.addEventListener('contextmenu', event => event.preventDefault()));
+window.addEventListener('blur', () => {
+  resetStick();
+  hoverPointerId = null;
+  mobileHover.classList.remove('is-pressed');
+});
+
 startButton.addEventListener('click', () => {
   started = true;
   map.classList.add('is-started');
@@ -1070,20 +1127,36 @@ if (new URLSearchParams(window.location.search).get('play') === '1') {
 
 function updateRover(delta){
   if (!started) return;
-  const direction = (pressed.has('forward') ? 1 : 0) - (pressed.has('backward') ? 1 : 0);
-  const turn = (pressed.has('left') ? 1 : 0) - (pressed.has('right') ? 1 : 0);
+  const stickStrength = Math.hypot(stick.x, stick.y);
+  const usingStick = stick.pointerId !== null && stickStrength > .12;
   const hovering = pressed.has('hover');
   let onWater = !isOnIsland(rover.position.x / .975, rover.position.z / .975);
   const maxSpeed = onWater ? 4.8 : 7.2;
   const acceleration = onWater ? 6.5 : 10;
 
-  if (direction) speed += direction * acceleration * delta;
-  else speed *= Math.pow(onWater ? .12 : .04, delta);
-  speed = THREE.MathUtils.clamp(speed, onWater ? -2.8 : -4.2, maxSpeed);
-
-  const turnStrength = THREE.MathUtils.clamp(Math.abs(speed) / 5, .15, 1);
-  steering = THREE.MathUtils.lerp(steering, turn * 1.7 * turnStrength, 1 - Math.pow(.001, delta));
-  rover.rotation.y += steering * delta * (speed >= 0 ? 1 : -1);
+  if (usingStick){
+    const screenX = stick.x / stickStrength;
+    const screenY = stick.y / stickStrength;
+    const targetAngle = Math.atan2(.793 * screenX + .61 * screenY,
+      -.61 * screenX + .793 * screenY);
+    const angleError = Math.atan2(Math.sin(targetAngle - rover.rotation.y),
+      Math.cos(targetAngle - rover.rotation.y));
+    const turnStep = THREE.MathUtils.clamp(angleError, -4.5 * delta, 4.5 * delta);
+    rover.rotation.y += turnStep;
+    steering = 0;
+    const targetSpeed = maxSpeed * Math.min(1, stickStrength)
+      * Math.max(0, Math.cos(angleError - turnStep));
+    speed = THREE.MathUtils.lerp(speed, targetSpeed, 1 - Math.pow(.001, delta));
+  } else {
+    const direction = (pressed.has('forward') ? 1 : 0) - (pressed.has('backward') ? 1 : 0);
+    const turn = (pressed.has('left') ? 1 : 0) - (pressed.has('right') ? 1 : 0);
+    if (direction) speed += direction * acceleration * delta;
+    else speed *= Math.pow(onWater ? .12 : .04, delta);
+    speed = THREE.MathUtils.clamp(speed, onWater ? -2.8 : -4.2, maxSpeed);
+    const turnStrength = THREE.MathUtils.clamp(Math.abs(speed) / 5, .15, 1);
+    steering = THREE.MathUtils.lerp(steering, turn * 1.7 * turnStrength, 1 - Math.pow(.001, delta));
+    rover.rotation.y += steering * delta * (speed >= 0 ? 1 : -1);
+  }
 
   const previousPosition = rover.position.clone();
   rover.position.x += Math.sin(rover.rotation.y) * speed * delta;
