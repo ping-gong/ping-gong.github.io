@@ -58,6 +58,7 @@
     }
     body{
       margin:0;
+      overflow-x:hidden;
       background:
         linear-gradient(90deg, rgba(9,47,87,.055) 1px, transparent 1px) 0 0/72px 72px,
         var(--paper);
@@ -572,6 +573,794 @@
       .paper{grid-template-columns:1fr; gap:8px}
       .paper-number{padding-top:0}
     }
+
+    .papers-page .section{
+      display:block;
+      padding:12px 0 20px;
+    }
+
+    .papers-intro{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:32px;
+      margin-bottom:16px;
+    }
+
+    .papers-kicker{
+      margin:0 0 8px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .papers-intro h1{
+      max-width:720px;
+      font-size:clamp(32px, 3.8vw, 54px);
+      line-height:1.04;
+      font-weight:400;
+    }
+
+    .paper-legend{
+      flex-wrap:nowrap;
+      align-items:center;
+      flex-shrink:0;
+    }
+
+    .filter-button{
+      transition:background-color .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
+    }
+
+    .filter-button:active{transform:translateY(1px)}
+
+    .research-map{
+      --walker-x:50;
+      --walker-y:70;
+      position:relative;
+      min-height:620px;
+      height:calc(100dvh - 180px);
+      margin:0;
+      overflow:hidden;
+      border-top:1px solid rgba(23,23,23,.18);
+      border-bottom:1px solid rgba(23,23,23,.18);
+      background-color:#dfe7e3;
+      background-image:none;
+      background-position:center;
+      background-size:cover;
+      image-rendering:pixelated;
+      container-type:inline-size;
+    }
+
+    .research-map::before{
+      display:none;
+    }
+
+    .destination{
+      appearance:none;
+      position:absolute;
+      top:0;
+      bottom:76px;
+      width:50%;
+      padding:42px 42px 36px;
+      border:0;
+      background:var(--paper);
+      color:var(--ink);
+      cursor:pointer;
+      font:inherit;
+      text-align:left;
+      transition:background-color .35s cubic-bezier(.22,1,.36,1), color .35s ease;
+    }
+
+    .destination-labor{
+      left:-2%;
+      background:transparent;
+      clip-path:polygon(0 0, 86% 0, 95% 15%, 88% 32%, 97% 51%, 86% 71%, 92% 100%, 0 100%);
+    }
+    .destination-tech{
+      right:-2%;
+      background:transparent;
+      clip-path:polygon(14% 0, 100% 0, 100% 100%, 8% 100%, 15% 76%, 4% 57%, 13% 35%, 5% 17%);
+      text-align:right;
+    }
+    .destination-labor:hover,
+    .destination-labor:focus-visible,
+    .research-map[data-active="labor"] .destination-labor{background:rgba(122,31,43,.035)}
+    .destination-tech:hover,
+    .destination-tech:focus-visible,
+    .research-map[data-active="tech"] .destination-tech{background:rgba(9,47,87,.035)}
+
+    .destination:focus-visible,
+    .intersection:focus-visible{
+      outline:2px solid var(--ink);
+      outline-offset:-6px;
+    }
+
+    .destination-name{
+      display:block;
+      width:max-content;
+      padding:4px 8px 6px;
+      background:rgba(246,243,238,.88);
+      font-size:clamp(30px, 4vw, 54px);
+      font-weight:450;
+      line-height:1;
+    }
+
+    .destination-labor .destination-name{color:var(--red)}
+    .destination-tech .destination-name{color:var(--navy)}
+
+    .destination-copy{
+      display:block;
+      max-width:260px;
+      margin-top:14px;
+      padding:7px 9px;
+      background:rgba(246,243,238,.86);
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.45;
+    }
+
+    .destination-tech .destination-copy{margin-left:auto}
+    .destination-tech .destination-name{margin-left:auto}
+
+    .place-mark{
+      display:grid;
+      grid-template-columns:repeat(5, 12px);
+      align-items:end;
+      gap:8px;
+      height:82px;
+      margin-top:34px;
+    }
+
+    .research-map .place-mark{display:none}
+
+    .destination-tech .place-mark{justify-content:end}
+    .place-mark span{display:block; background:currentColor; opacity:.72}
+    .place-mark span:nth-child(1){height:34px}
+    .place-mark span:nth-child(2){height:58px}
+    .place-mark span:nth-child(3){height:46px}
+    .place-mark span:nth-child(4){height:72px}
+    .place-mark span:nth-child(5){height:52px}
+    .destination-labor .place-mark{color:var(--red)}
+    .destination-tech .place-mark{color:var(--navy); transform:skewY(-10deg)}
+
+    .intersection{
+      appearance:none;
+      position:absolute;
+      left:50%;
+      top:31%;
+      z-index:2;
+      width:78px;
+      height:36px;
+      transform:translateX(-50%);
+      border:1px solid rgba(23,23,23,.28);
+      background:#eef0e6;
+      color:var(--ink);
+      cursor:pointer;
+      font:inherit;
+      transition:background-color .3s ease, transform .5s cubic-bezier(.22,1,.36,1);
+      box-shadow:4px 4px 0 rgba(92,55,105,.18);
+    }
+
+    .intersection span{
+      display:block;
+      font-size:12px;
+      font-weight:650;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .intersection:hover,
+    .research-map[data-active="both"] .intersection{
+      background:linear-gradient(135deg, rgba(122,31,43,.18) 0 50%, rgba(9,47,87,.18) 50% 100%);
+      transform:translateX(-50%) scale(1.05);
+    }
+
+    .map-compass{
+      position:absolute;
+      right:20px;
+      top:18px;
+      z-index:4;
+      display:grid;
+      place-items:center;
+      width:42px;
+      height:42px;
+      border:1px solid rgba(23,23,23,.35);
+      border-radius:0;
+      background:rgba(246,243,238,.72);
+      color:var(--ink);
+      font-size:11px;
+      font-weight:650;
+      letter-spacing:.08em;
+    }
+
+    .map-compass::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:4px;
+      width:0;
+      height:0;
+      transform:translateX(-50%);
+      border-left:4px solid transparent;
+      border-right:4px solid transparent;
+      border-bottom:9px solid var(--red);
+    }
+
+    .game-intro{
+      position:absolute;
+      inset:0;
+      z-index:9;
+      display:grid;
+      place-content:center;
+      justify-items:center;
+      background:rgba(246,243,238,.94);
+      text-align:center;
+      transition:opacity .5s cubic-bezier(.22,1,.36,1), visibility .5s;
+    }
+
+    .research-map.is-started .game-intro{
+      visibility:hidden;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .game-intro h2{
+      max-width:520px;
+      margin:0 0 24px;
+      color:var(--ink);
+      font-size:clamp(30px, 4vw, 52px);
+      font-weight:450;
+      line-height:1.02;
+    }
+
+    .game-start{
+      appearance:none;
+      min-width:128px;
+      padding:11px 18px 12px;
+      border:1px solid var(--ink);
+      border-radius:0;
+      background:var(--ink);
+      color:var(--white);
+      cursor:pointer;
+      font:650 13px/1 var(--sans);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      transition:background-color .25s ease, color .25s ease, transform .25s ease;
+    }
+
+    .game-start:hover,
+    .game-start:focus-visible{
+      background:var(--red);
+      border-color:var(--red);
+      outline:none;
+    }
+
+    .game-start:active{transform:translateY(2px)}
+
+
+    .walker{
+      position:absolute;
+      left:calc(var(--walker-x) * 1%);
+      top:calc(var(--walker-y) * 1%);
+      z-index:4;
+      width:66px;
+      height:118px;
+      transform:translate(-50%, -50%) scale(1.22);
+      transform-origin:50% 50%;
+      transition:none;
+      pointer-events:none;
+      image-rendering:pixelated;
+    }
+
+    .walker-character{
+      position:relative;
+      width:100%;
+      height:100%;
+      transform-origin:50% 100%;
+    }
+
+    .walker-head{
+      position:absolute;
+      left:19px;
+      top:19px;
+      width:30px;
+      height:31px;
+      border:3px solid var(--ink);
+      border-radius:0;
+      background:#e8c7ae;
+    }
+
+    .walker-cap{
+      position:absolute;
+      left:19px;
+      top:12px;
+      z-index:2;
+      width:30px;
+      height:14px;
+      border:3px solid var(--ink);
+      border-radius:0;
+      background:var(--navy);
+      color:var(--white);
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.08em;
+      line-height:9px;
+      text-align:center;
+    }
+
+    .walker-cap::after{
+      content:"";
+      position:absolute;
+      right:-7px;
+      bottom:-2px;
+      width:9px;
+      height:4px;
+      border:2px solid var(--ink);
+      border-left:0;
+      background:var(--navy);
+      transform:skewX(-24deg);
+    }
+
+    .walker.facing-west .walker-cap::after{
+      left:-7px;
+      right:auto;
+      transform:skewX(24deg);
+    }
+
+    .walker.is-dashing::before{
+      content:"";
+      position:absolute;
+      left:-34px;
+      top:58px;
+      width:26px;
+      height:12px;
+      background:repeating-linear-gradient(0deg, var(--navy) 0 2px, transparent 2px 5px);
+      opacity:.62;
+    }
+
+    .walker.is-dashing.facing-west::before{
+      left:auto;
+      right:-34px;
+    }
+
+    .walker-head::before{
+      content:"";
+      position:absolute;
+      left:6px;
+      top:11px;
+      width:4px;
+      height:4px;
+      background:var(--ink);
+      box-shadow:11px 0 0 var(--ink);
+    }
+
+    .walker-body{
+      position:absolute;
+      left:17px;
+      top:49px;
+      width:34px;
+      height:35px;
+      border:3px solid var(--ink);
+      background:var(--red);
+      transform:skewX(-4deg);
+    }
+
+    .walker-arm{
+      position:absolute;
+      top:52px;
+      width:9px;
+      height:31px;
+      border:3px solid var(--ink);
+      background:#e8c7ae;
+      transform-origin:50% 6px;
+      transform:rotate(24deg);
+    }
+
+    .walker-arm-left{left:9px}
+    .walker-arm-right{right:8px; transform:rotate(-24deg)}
+
+    .walker-leg{
+      position:absolute;
+      top:81px;
+      width:10px;
+      height:23px;
+      border:3px solid var(--ink);
+      border-bottom-width:5px;
+      background:var(--navy);
+      transform-origin:50% 2px;
+    }
+
+    .walker-leg-a{left:20px; transform:rotate(8deg)}
+    .walker-leg-b{left:38px; transform:rotate(-9deg)}
+
+    .walker.is-walking .walker-body{animation:walker-bob .18s steps(2,end) infinite alternate}
+    .walker.is-walking .walker-arm-left{animation:walker-arm .24s steps(2,end) infinite alternate}
+    .walker.is-walking .walker-arm-right{animation:walker-arm-reverse .24s steps(2,end) infinite alternate}
+    .walker.is-walking .walker-leg-a{animation:walker-leg-a .24s steps(2,end) infinite alternate}
+    .walker.is-walking .walker-leg-b{animation:walker-leg-b .24s steps(2,end) infinite alternate}
+    .walker.is-jumping .walker-character{animation:walker-jump .75s cubic-bezier(.22,1,.36,1)}
+
+    @keyframes walker-bob{to{transform:translateY(-3px) skewX(-4deg)}}
+    @keyframes walker-arm{to{transform:rotate(-24deg)}}
+    @keyframes walker-arm-reverse{to{transform:rotate(24deg)}}
+    @keyframes walker-leg-a{to{transform:rotate(-20deg)}}
+    @keyframes walker-leg-b{to{transform:rotate(20deg)}}
+    @keyframes walker-jump{50%{transform:translateY(-42px) rotate(-2deg)}}
+
+    .paper-token{
+      appearance:none;
+      position:absolute;
+      left:calc(var(--token-x) * 1%);
+      top:calc(var(--token-y) * 1%);
+      z-index:3;
+      display:grid;
+      place-items:center;
+      width:34px;
+      height:34px;
+      transform:translate(-50%, -50%);
+      border:1px solid currentColor;
+      border-radius:0;
+      background:var(--paper);
+      color:var(--ink);
+      cursor:pointer;
+      font:600 11px/1 var(--sans);
+      box-shadow:4px 4px 0 rgba(23,23,23,.14);
+      transition:transform .3s cubic-bezier(.22,1,.36,1), background-color .3s ease, color .3s ease;
+    }
+
+    .paper-token::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-8px;
+      width:1px;
+      height:8px;
+      background:currentColor;
+    }
+
+    .paper-token[data-zone="labor"]{color:var(--red)}
+    .paper-token[data-zone="tech"]{color:var(--navy)}
+    .paper-token[data-zone="both"]{
+      border-color:rgba(23,23,23,.4);
+      background:linear-gradient(135deg, rgba(122,31,43,.18) 0 50%, rgba(9,47,87,.18) 50% 100%), var(--paper);
+    }
+
+    .paper-token:hover,
+    .paper-token:focus-visible{
+      transform:translate(-50%, -50%) scale(1.16);
+      background:var(--ink);
+      color:var(--white);
+      outline:none;
+    }
+
+    .paper-token.is-discovered{
+      background:var(--ink);
+      color:var(--white);
+    }
+
+    .game-controls{
+      position:absolute;
+      right:18px;
+      bottom:18px;
+      z-index:5;
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+    }
+
+    .direction-controls{
+      display:grid;
+      grid-template-columns:repeat(3, 44px);
+      grid-template-rows:repeat(2, 46px);
+      gap:6px;
+    }
+
+    .game-control{
+      appearance:none;
+      display:grid;
+      place-items:center;
+      width:44px;
+      height:46px;
+      padding:0;
+      border:1px solid rgba(23,23,23,.28);
+      border-radius:0;
+      background:rgba(246,243,238,.92);
+      color:var(--ink);
+      cursor:pointer;
+      font:500 14px/1 var(--sans);
+      transition:background-color .25s ease, color .25s ease, transform .25s ease;
+      box-shadow:3px 3px 0 rgba(23,23,23,.18);
+    }
+
+    .game-control:hover,
+    .game-control:focus-visible{
+      background:var(--ink);
+      color:var(--white);
+      outline:none;
+    }
+
+    .game-control:active{transform:translateY(2px)}
+
+    .game-control[data-move="north"]{grid-column:2; grid-row:1}
+    .game-control[data-move="west"]{grid-column:1; grid-row:2}
+    .game-control[data-move="south"]{grid-column:2; grid-row:2}
+    .game-control[data-move="east"]{grid-column:3; grid-row:2}
+
+    .dash-control{
+      width:104px;
+      height:46px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-align:center;
+    }
+
+    .dash-control .control-action{margin-top:0}
+
+    .control-key{
+      display:block;
+      font-size:14px;
+      font-weight:700;
+      line-height:1;
+    }
+
+    .control-action{
+      display:block;
+      margin-top:3px;
+      font-size:8px;
+      font-weight:650;
+      letter-spacing:.04em;
+      line-height:1;
+    }
+
+    .paper.is-highlighted{
+      animation:paper-arrival 1.3s cubic-bezier(.22,1,.36,1);
+    }
+
+    @keyframes paper-arrival{
+      0%, 35%{background:rgba(232,216,61,.2)}
+      100%{background:transparent}
+    }
+
+    .paper-encounter{
+      position:absolute;
+      right:24px;
+      top:78px;
+      z-index:8;
+      width:min(390px, calc(100% - 48px));
+      padding:24px 26px 26px;
+      border:1px solid rgba(23,23,23,.36);
+      background:rgba(246,243,238,.96);
+      color:var(--ink);
+      box-shadow:10px 10px 0 rgba(9,47,87,.18);
+      animation:encounter-in .32s steps(4,end);
+    }
+
+    .paper-encounter[hidden]{display:none}
+    @media (min-width:561px){
+      .research-map:is([data-paper="01"], [data-paper="02"], [data-paper="03"], [data-paper="04"], [data-paper="06"], [data-paper="07"], [data-paper="08"]) .paper-encounter{
+        left:24px; right:auto; top:auto; bottom:24px;
+      }
+    }
+
+    @keyframes encounter-in{
+      from{opacity:0; transform:translateY(18px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .encounter-label{
+      margin:0 0 14px;
+      color:var(--red);
+      font-size:11px;
+      font-weight:650;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .encounter-title{
+      margin:0;
+      font-size:clamp(20px, 2vw, 27px);
+      font-weight:450;
+      line-height:1.18;
+    }
+
+    .encounter-meta{
+      margin:14px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.4;
+    }
+
+    .encounter-note{
+      margin:12px 0 0;
+      color:var(--navy);
+      font-size:12px;
+      font-weight:650;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .encounter-links{
+      display:flex;
+      gap:14px;
+      margin-top:18px;
+      font-size:12px;
+      font-weight:650;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .encounter-close{
+      appearance:none;
+      position:absolute;
+      right:12px;
+      top:10px;
+      width:32px;
+      height:32px;
+      padding:0;
+      border:0;
+      background:transparent;
+      color:var(--ink);
+      cursor:pointer;
+      font:400 25px/1 var(--sans);
+    }
+
+    .encounter-close:hover,
+    .encounter-close:focus-visible{color:var(--red); outline:none}
+
+    .paper-data{display:none!important}
+
+    .paper-list-heading{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:24px;
+      padding-bottom:18px;
+    }
+
+    .paper-list-heading h2{
+      margin:0;
+      font-size:20px;
+      font-weight:500;
+    }
+
+    .paper-list-heading p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    @media (max-width:800px){
+      .papers-intro{align-items:flex-start; flex-direction:column}
+      .paper-legend{flex-wrap:wrap}
+      .research-map{height:auto; min-height:660px}
+      .destination{bottom:62px; width:44%; padding:28px 12px}
+      .destination-name{font-size:24px}
+      .destination-copy{display:none}
+      .place-mark{grid-template-columns:repeat(4, 8px); gap:6px; height:68px; margin-top:28px}
+      .place-mark span:nth-child(5){display:none}
+      .intersection{top:105px; width:78px; height:78px}
+      .walker{transform:translate(-50%, -50%) scale(.96)}
+      .paper-token{width:30px; height:30px; font-size:10px}
+      .game-controls{right:10px; bottom:10px; gap:7px}
+      .direction-controls{grid-template-columns:repeat(3, 38px); grid-template-rows:repeat(2, 42px); gap:5px}
+      .game-control{width:38px; height:42px}
+      .dash-control{width:86px; height:42px}
+      .map-compass{display:none}
+      .game-intro{padding:24px}
+      .paper-encounter{
+        left:16px;
+        right:16px;
+        top:auto;
+        bottom:126px;
+        width:auto;
+        max-height:48%;
+        overflow:auto;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .walker,
+      .walker *{animation:none!important; transition:none!important}
+    }
+
+    @media (max-width:560px){
+      .topbar{padding-left:0}
+      .nav{gap:18px; font-size:15px}
+      .papers-page .section{padding-top:20px}
+      .papers-intro h1{font-size:30px; line-height:1.08}
+      .paper-list-heading{align-items:flex-start; flex-direction:column; gap:4px}
+    }
+
+    .research-map{
+      background:#d9ddd3;
+      isolation:isolate;
+    }
+
+    .game-canvas{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+      background:#d9ddd3;
+    }
+
+    .game-canvas canvas{
+      display:block;
+      width:100%;
+      height:100%;
+      outline:none;
+    }
+
+    .destination,
+    .intersection,
+    .paper-token,
+    .walker,
+    .map-compass{
+      display:none!important;
+    }
+
+    .game-controls,
+    .paper-encounter{z-index:6}
+    .game-intro{z-index:8}
+
+    .game-minimap{
+      position:absolute; left:18px; top:18px; z-index:7;
+      width:206px; padding:10px; border:1px solid rgba(23,23,23,.32);
+      background:rgba(246,243,238,.94); box-shadow:4px 4px 0 rgba(23,23,23,.12);
+      font:600 11px/1.2 var(--sans); color:var(--ink);
+    }
+    .game-minimap-title{display:flex; align-items:center; justify-content:space-between; margin:0 0 8px; text-transform:uppercase; letter-spacing:.08em}
+    .minimap-hint{display:grid; place-items:center; width:18px; height:18px; border:1px solid currentColor; font-size:15px; line-height:1}
+    .minimap-field{position:relative; height:122px; background:#8eaab0; overflow:hidden}
+    .minimap-island{position:absolute; inset:0; background:#a7b78b; overflow:hidden}
+    .minimap-road{position:absolute; width:145%; height:16px; background:#727970; transform-origin:center}
+    .minimap-road-one{left:-23%; top:45%; transform:rotate(-23deg)}
+    .minimap-road-two{left:-22%; top:52%; transform:rotate(26deg)}
+    .minimap-point{position:absolute; z-index:2; transform:translate(-50%,-50%); width:21px; height:21px; padding:0; border:1px solid #f1f0ea; border-radius:50%; background:#747a78; color:#fff; cursor:pointer; font:700 10px/1 var(--sans)}
+    .minimap-point:not(.is-discovered)::after{content:""; display:block; width:5px; height:5px; margin:auto; border-radius:50%; background:#dfe2dd}
+    .minimap-point.is-discovered{background:var(--red)}
+    .minimap-point.is-discovered[data-zone="tech"]{background:var(--navy)}
+    .minimap-point.is-discovered[data-zone="both"]{background:#6c426f}
+    .minimap-point:hover,.minimap-point:focus-visible{outline:2px solid var(--ink); outline-offset:2px; transform:translate(-50%,-50%) scale(1.18)}
+    .minimap-car{position:absolute; z-index:3; width:11px; height:16px; border:2px solid #fff; background:#171717; transform:translate(-50%,-50%) rotate(var(--car-angle,0deg)); pointer-events:none}
+    .game-zoom{position:absolute; top:18px; right:18px; z-index:7; display:grid; gap:5px}
+    .game-zoom button{width:38px; height:38px; padding:0; border:1px solid rgba(23,23,23,.35); border-radius:0; background:rgba(246,243,238,.95); color:var(--ink); cursor:pointer; font:500 26px/1 var(--sans); box-shadow:3px 3px 0 rgba(23,23,23,.12)}
+    .game-zoom button:hover,.game-zoom button:focus-visible{background:var(--ink); color:var(--white); outline:2px solid var(--red); outline-offset:2px}
+    .game-zoom button:disabled{opacity:.42; cursor:default; box-shadow:none}
+    .cast-toggle{position:absolute; top:18px; left:240px; z-index:7; padding:10px 12px; border:1px solid rgba(23,23,23,.35); background:rgba(246,243,238,.95); color:var(--ink); cursor:pointer; font:650 11px/1 var(--sans); letter-spacing:.08em; box-shadow:3px 3px 0 rgba(23,23,23,.12)}
+    .cast-toggle:hover,.cast-toggle:focus-visible{background:var(--red); color:#fff; outline:2px solid var(--ink); outline-offset:2px}
+    .cast-panel{position:absolute; inset:0; z-index:12; display:grid; place-items:center; padding:18px; background:rgba(14,31,43,.78)}
+    .cast-panel[hidden]{display:none}
+    .cast-sheet{width:min(850px,100%); max-height:100%; overflow:auto; padding:22px; border:1px solid var(--ink); background:var(--white); box-shadow:8px 8px 0 rgba(0,0,0,.18)}
+    .cast-header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:14px}
+    .cast-header h2{margin:0; font-size:24px; font-weight:500}
+    .cast-close{width:32px; height:32px; border:0; background:transparent; color:var(--ink); cursor:pointer; font:400 28px/1 var(--sans)}
+    .cast-close:hover,.cast-close:focus-visible{color:var(--red); outline:2px solid var(--red)}
+    .cast-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0 16px}
+    .cast-member{min-width:0; padding:8px 0 10px; border-top:1px solid rgba(23,23,23,.22)}
+    .cast-member img{display:block; width:100%; height:112px; object-fit:contain}
+    .cast-member span{display:block; text-align:center; font-size:13px; font-weight:600}
+    .cast-member p{margin:4px 2px 0; color:var(--muted); text-align:center; font-size:12px; line-height:1.25}
+    @media (max-width:560px){
+      .game-minimap{left:8px; top:8px; width:132px; padding:6px; font-size:9px}
+      .minimap-field{height:78px}
+      .minimap-point{width:16px; height:16px; font-size:8px}
+      .minimap-car{width:8px; height:11px}
+      .minimap-hint{width:15px; height:15px; font-size:12px}
+      .game-zoom{right:8px; top:8px}
+      .game-zoom button{width:34px; height:34px; font-size:23px}
+      .cast-toggle{top:8px; left:148px; padding:7px; font-size:10px}
+      .cast-sheet{padding:14px}
+      .cast-header h2{font-size:20px}
+      .cast-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 10px}
+      .cast-member img{height:76px}
+    }
+
   </style>
 </head>
 <body class="papers-page">
@@ -584,16 +1373,95 @@
     </header>
 
     <section class="section" id="papers">
-      <div class="section-heading">
-        <div class="paper-legend" aria-label="Filter papers by topic">
-          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-          <button class="filter-button topic topic-labor" type="button" data-filter="labor" aria-pressed="false">Labor</button>
-          <button class="filter-button topic topic-tech" type="button" data-filter="tech" aria-pressed="false">Tech</button>
-          <button class="filter-button topic topic-both" type="button" data-filter="both" aria-pressed="false"><span class="both-labor">Bo</span><span class="both-tech">th</span></button>
+      <div class="papers-intro">
+        <div>
+          <p class="papers-kicker">Interactive paper archive</p>
+          <h1>Welcome to Pingville</h1>
         </div>
       </div>
 
-      <div>
+      <div class="research-map" data-active="all" aria-label="An interactive map between labor and technology research">
+        <div class="game-canvas" role="img" aria-label="A drivable 3D research world"></div>
+        <div class="game-intro">
+          <h2>Welcome to Pingville</h2>
+          <button class="game-start" type="button">Start</button>
+        </div>
+
+        <div class="game-zoom" role="group" aria-label="Map zoom">
+          <button type="button" data-zoom="in" aria-label="Zoom in" title="Zoom in">+</button>
+          <button type="button" data-zoom="out" aria-label="Zoom out" title="Zoom out">−</button>
+        </div>
+        <button class="cast-toggle" type="button" aria-haspopup="dialog" aria-controls="cast-panel" aria-expanded="false" aria-keyshortcuts="C" title="Who is who (C)">CHARACTERS</button>
+        <div class="cast-panel" id="cast-panel" role="dialog" aria-modal="true" aria-label="Research cast" hidden>
+          <div class="cast-sheet">
+            <div class="cast-header"><h2>Who is who</h2><button class="cast-close" type="button" aria-label="Close characters">×</button></div>
+            <div class="cast-grid"></div>
+          </div>
+        </div>
+        <aside class="game-minimap" aria-label="Jump to a paper">
+          <p class="game-minimap-title">Research map <span class="minimap-hint" aria-hidden="true">↗</span></p>
+          <div class="minimap-field"><div class="minimap-island" aria-hidden="true"><span class="minimap-road minimap-road-one"></span><span class="minimap-road minimap-road-two"></span></div><span class="minimap-car" aria-hidden="true"></span></div>
+        </aside>
+        <div class="map-compass" aria-hidden="true">N</div>
+
+        <button class="destination destination-labor" type="button" data-filter="labor" aria-label="Go to labor papers">
+          <span class="destination-name">Labor</span>
+          <span class="destination-copy">Education, mobility, institutions, and work in accounting labor markets.</span>
+          <span class="place-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+        </button>
+
+        <button class="intersection" type="button" data-filter="both" aria-label="Go to papers at the intersection of labor and technology">
+          <span>Both</span>
+        </button>
+
+        <button class="destination destination-tech" type="button" data-filter="tech" aria-label="Go to technology papers">
+          <span class="destination-name">Technology</span>
+          <span class="destination-copy">New technologies and AI in the production and study of accounting information.</span>
+          <span class="place-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+        </button>
+
+        <button class="paper-token" type="button" data-paper="02" data-zone="labor" style="--token-x:14; --token-y:28" aria-label="Open paper 02">02</button>
+        <button class="paper-token" type="button" data-paper="03" data-zone="labor" style="--token-x:23; --token-y:67" aria-label="Open paper 03">03</button>
+        <button class="paper-token" type="button" data-paper="04" data-zone="labor" style="--token-x:34; --token-y:39" aria-label="Open paper 04">04</button>
+        <button class="paper-token" type="button" data-paper="06" data-zone="labor" style="--token-x:38; --token-y:76" aria-label="Open paper 06">06</button>
+        <button class="paper-token" type="button" data-paper="07" data-zone="labor" style="--token-x:9; --token-y:78" aria-label="Open paper 07">07</button>
+        <button class="paper-token" type="button" data-paper="05" data-zone="both" style="--token-x:54; --token-y:56" aria-label="Open paper 05">05</button>
+        <button class="paper-token" type="button" data-paper="01" data-zone="tech" style="--token-x:85; --token-y:44" aria-label="Open paper 01">01</button>
+        <button class="paper-token" type="button" data-paper="08" data-zone="tech" style="--token-x:81; --token-y:79" aria-label="Open paper 08">08</button>
+
+        <div class="walker" aria-hidden="true">
+          <div class="walker-character">
+            <div class="walker-cap">P</div>
+            <div class="walker-head"></div>
+            <div class="walker-arm walker-arm-left"></div>
+            <div class="walker-arm walker-arm-right"></div>
+            <div class="walker-body"></div>
+            <div class="walker-leg walker-leg-a"></div>
+            <div class="walker-leg walker-leg-b"></div>
+          </div>
+        </div>
+
+        <aside class="paper-encounter" aria-live="polite" hidden>
+          <button class="encounter-close" type="button" aria-label="Close paper">×</button>
+          <p class="encounter-label">Paper encountered · <span id="encounter-number"></span></p>
+          <h2 class="encounter-title"></h2>
+          <p class="encounter-meta"></p>
+          <p class="encounter-note"></p>
+          <div class="encounter-links"></div>
+        </aside>
+
+        <div class="game-controls" aria-label="Character controls">
+          <button class="game-control dash-control" type="button" data-action="dash" aria-label="Space: hover while held" title="Hold Space to hover"><span class="control-key">SPACE</span><span class="control-action">HOVER</span></button>
+          <div class="direction-controls">
+            <button class="game-control" type="button" data-move="north" aria-label="W: drive forward" title="W: drive forward"><span class="control-key">W</span><span class="control-action">FORWARD</span></button>
+            <button class="game-control" type="button" data-move="west" aria-label="A: steer left" title="A: steer left"><span class="control-key">A</span><span class="control-action">LEFT</span></button>
+            <button class="game-control" type="button" data-move="south" aria-label="S: reverse" title="S: reverse"><span class="control-key">S</span><span class="control-action">REVERSE</span></button>
+            <button class="game-control" type="button" data-move="east" aria-label="D: steer right" title="D: steer right"><span class="control-key">D</span><span class="control-action">RIGHT</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="paper-data" aria-hidden="true">
         <div class="paper-list">
         <article class="paper" data-topics="tech">
           <div class="paper-number">01</div>
@@ -618,16 +1486,8 @@
           </div>
         </article>
 
-        <article class="paper" data-topics="labor tech both">
-          <div class="paper-number">03</div>
-          <div>
-            <h3 class="paper-title"><span class="topic topic-both">STEMming the Tide: The Impact of STEM Designation on Accounting Education and the Labor Market</span></h3>
-            <p class="paper-meta">with John Barrios and Enshuai Yu</p>
-          </div>
-        </article>
-
         <article class="paper" data-topics="labor">
-          <div class="paper-number">04</div>
+          <div class="paper-number">03</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h3>
             <p class="paper-meta">with Daniel Aobdia and Hao Ma</p>
@@ -638,7 +1498,7 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number">05</div>
+          <div class="paper-number">04</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h3>
             <p class="paper-meta">with Chan Li, Crystal Shi, and Yuan Xie</p>
@@ -649,7 +1509,7 @@
         </article>
 
         <article class="paper" data-topics="labor tech both">
-          <div class="paper-number">06</div>
+          <div class="paper-number">05</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h3>
             <p class="paper-meta">with Yilan Li and Hao Ma</p>
@@ -657,7 +1517,7 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number">07</div>
+          <div class="paper-number">06</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">Local IRS Assistance and Tax Benefit Claiming</span></h3>
             <p class="paper-meta">with Cindy Zhu</p>
@@ -665,36 +1525,118 @@
         </article>
 
         <article class="paper" data-topics="labor">
-          <div class="paper-number">08</div>
+          <div class="paper-number">07</div>
           <div>
             <h3 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h3>
             <p class="paper-meta">with Jiawen Yan and Kangying Zhou</p>
           </div>
         </article>
-        </div>
+
+        <article class="paper" data-topics="tech">
+          <div class="paper-number">08</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-tech">Out of Corpus, Out of Mind: Training-Corpus Exposure and LLM Firm Recommendation</span></h3>
+            <p class="paper-meta">with Yilan Li</p>
+          </div>
+        </article>
+      </div>
       </div>
     </section>
 
   </main>
+  <script>window.useThreeResearchGame = true;</script>
   <script>
+    if (!window.useThreeResearchGame) {
     const filterButtons = document.querySelectorAll('[data-filter]');
     const papers = document.querySelectorAll('.paper[data-topics]');
     const validFilters = new Set(['all', 'labor', 'tech', 'both']);
+    const researchMap = document.querySelector('.research-map');
+    const walker = document.querySelector('.walker');
+    const gameStart = document.querySelector('.game-start');
+    const encounter = document.querySelector('.paper-encounter');
+    const encounterNumber = document.querySelector('#encounter-number');
+    const encounterTitle = document.querySelector('.encounter-title');
+    const encounterMeta = document.querySelector('.encounter-meta');
+    const encounterNote = document.querySelector('.encounter-note');
+    const encounterLinks = document.querySelector('.encounter-links');
+    let walkerPosition = 50;
+    let walkerY = 70;
+    let currentFilter = 'all';
+    let autoTarget = null;
+    let lastFrame = 0;
+    let lastEncounterCheck = 0;
+    let lastEncountered = null;
+    let dashUntil = 0;
+    let lastMoveVector = [1,0];
+    const heldDirections = new Set();
+    const discoveredPapers = new Set();
+    const movementVectors = {
+      north:[0,-1],
+      west:[-1,0],
+      south:[0,1],
+      east:[1,0]
+    };
 
-    function applyFilter(filter, updateUrl = true){
+    function startGame(){
+      researchMap.classList.add('is-started');
+    }
+
+    gameStart.addEventListener('click', () => {
+      startGame();
+      window.setTimeout(() => document.querySelector('[data-move="east"]').focus(), 520);
+    });
+
+    function positionForFilter(filter){
+      return {
+        all:[50,70],
+        labor:[24,62],
+        tech:[77,58],
+        both:[50,50]
+      }[filter] ?? [50,70];
+    }
+
+    function setWalkerPosition(x, y){
+      walkerPosition = Math.max(5, Math.min(95, x));
+      walkerY = Math.max(12, Math.min(88, y));
+      researchMap.style.setProperty('--walker-x', walkerPosition);
+      researchMap.style.setProperty('--walker-y', walkerY);
+    }
+
+    function filterForPosition(position){
+      if (position < 41) return 'labor';
+      if (position > 59) return 'tech';
+      return 'both';
+    }
+
+    function moveToFilter(filter, updateUrl = true){
+      const [x, y] = positionForFilter(filter);
+      autoTarget = [x, y];
+      applyFilter(filter, updateUrl, false);
+    }
+
+    function applyFilter(filter, updateUrl = true, moveWalker = true){
       const activeFilter = validFilters.has(filter) ? filter : 'all';
-      const activeButton = document.querySelector(`[data-filter="${activeFilter}"]`);
-      if (!activeButton) return;
+      const activeButtons = document.querySelectorAll(`[data-filter="${activeFilter}"]`);
 
       filterButtons.forEach(item => {
-        item.classList.toggle('is-active', item === activeButton);
-        item.setAttribute('aria-pressed', item === activeButton ? 'true' : 'false');
+        const isActive = item.dataset.filter === activeFilter;
+        item.classList.toggle('is-active', isActive);
+        if (item.matches('.filter-button')) {
+          item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        }
       });
 
       papers.forEach(paper => {
         const topics = paper.dataset.topics.split(' ');
         paper.classList.toggle('is-hidden', activeFilter !== 'all' && !topics.includes(activeFilter));
       });
+
+      researchMap.dataset.active = activeFilter;
+      currentFilter = activeFilter;
+      if (moveWalker) {
+        const [x, y] = positionForFilter(activeFilter);
+        autoTarget = [x, y];
+      }
 
       if (updateUrl) {
         const url = new URL(window.location);
@@ -709,11 +1651,205 @@
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        applyFilter(button.dataset.filter);
+        startGame();
+        moveToFilter(button.dataset.filter);
       });
     });
 
-    applyFilter(new URLSearchParams(window.location.search).get('filter'), false);
+    document.querySelectorAll('[data-move]').forEach(button => {
+      const direction = button.dataset.move;
+      const beginMove = () => {
+        startGame();
+        autoTarget = null;
+        heldDirections.add(direction);
+      };
+      const endMove = () => heldDirections.delete(direction);
+
+      button.addEventListener('pointerdown', beginMove);
+      button.addEventListener('pointerup', endMove);
+      button.addEventListener('pointercancel', endMove);
+      button.addEventListener('pointerleave', endMove);
+      button.addEventListener('click', event => {
+        if (event.detail !== 0) return;
+        const [dx, dy] = movementVectors[direction];
+        setWalkerPosition(walkerPosition + dx * 3, walkerY + dy * 3);
+        checkForPaperEncounter();
+      });
+    });
+
+    document.addEventListener('keydown', event => {
+      const key = event.key.toLowerCase();
+      if (event.code === 'Space') {
+        event.preventDefault();
+        triggerDash();
+        return;
+      }
+      const keyMap = {
+        arrowup:'north', w:'north',
+        arrowleft:'west', a:'west',
+        arrowdown:'south', s:'south',
+        arrowright:'east', d:'east'
+      };
+      const direction = keyMap[key];
+      if (!direction) return;
+      event.preventDefault();
+      startGame();
+      autoTarget = null;
+      heldDirections.add(direction);
+    });
+
+    document.addEventListener('keyup', event => {
+      const keyMap = {
+        arrowup:'north', w:'north',
+        arrowleft:'west', a:'west',
+        arrowdown:'south', s:'south',
+        arrowright:'east', d:'east'
+      };
+      const direction = keyMap[event.key.toLowerCase()];
+      if (direction) heldDirections.delete(direction);
+    });
+
+    window.addEventListener('blur', () => heldDirections.clear());
+
+    function triggerDash(){
+      startGame();
+      autoTarget = null;
+      dashUntil = performance.now() + 300;
+    }
+
+    document.querySelector('[data-action="dash"]').addEventListener('click', triggerDash);
+
+    function movementLoop(timestamp){
+      const elapsed = Math.min(34, timestamp - (lastFrame || timestamp));
+      lastFrame = timestamp;
+      let dx = 0;
+      let dy = 0;
+
+      heldDirections.forEach(direction => {
+        dx += movementVectors[direction][0];
+        dy += movementVectors[direction][1];
+      });
+
+      const isDashing = timestamp < dashUntil;
+      if (!dx && !dy && isDashing) {
+        [dx, dy] = lastMoveVector;
+      } else if (!dx && !dy && autoTarget) {
+        dx = autoTarget[0] - walkerPosition;
+        dy = autoTarget[1] - walkerY;
+        if (Math.hypot(dx, dy) < .7) {
+          setWalkerPosition(autoTarget[0], autoTarget[1]);
+          autoTarget = null;
+          dx = 0;
+          dy = 0;
+        }
+      }
+
+      const length = Math.hypot(dx, dy);
+      if (length) {
+        const normalizedX = dx / length;
+        const normalizedY = dy / length;
+        if (heldDirections.size || autoTarget) lastMoveVector = [normalizedX, normalizedY];
+        if (normalizedX < -.08) {
+          walker.classList.add('facing-west');
+        } else if (normalizedX > .08) {
+          walker.classList.remove('facing-west');
+        }
+
+        const step = .037 * elapsed * (isDashing ? 3 : 1);
+        setWalkerPosition(
+          walkerPosition + normalizedX * step,
+          walkerY + normalizedY * step
+        );
+        walker.classList.add('is-walking');
+        walker.classList.toggle('is-dashing', isDashing);
+
+        const nextFilter = filterForPosition(walkerPosition);
+        if (nextFilter !== currentFilter) applyFilter(nextFilter, true, false);
+        if (timestamp - lastEncounterCheck > 120) {
+          checkForPaperEncounter();
+          lastEncounterCheck = timestamp;
+        }
+      } else {
+        walker.classList.remove('is-walking');
+        walker.classList.remove('is-dashing');
+      }
+
+      window.requestAnimationFrame(movementLoop);
+    }
+
+    window.requestAnimationFrame(movementLoop);
+
+    function paperByNumber(number){
+      return [...papers].find(paper => paper.querySelector('.paper-number')?.textContent.trim() === number);
+    }
+
+    function revealPaper(number){
+      const target = paperByNumber(number);
+      const token = document.querySelector(`.paper-token[data-paper="${number}"]`);
+      if (!target || !token) return;
+
+      discoveredPapers.add(number);
+      token.classList.add('is-discovered');
+      encounterNumber.textContent = number;
+      encounterTitle.textContent = target.querySelector('.paper-title')?.textContent.trim() ?? '';
+      encounterMeta.textContent = target.querySelector('.paper-meta')?.textContent.trim() ?? '';
+
+      const note = target.querySelector('.paper-note')?.textContent.trim() ?? '';
+      encounterNote.textContent = note;
+      encounterNote.hidden = !note;
+
+      const links = target.querySelector('.paper-links');
+      encounterLinks.innerHTML = links?.innerHTML ?? '';
+      encounterLinks.hidden = !links;
+      encounter.hidden = false;
+    }
+
+    function checkForPaperEncounter(){
+      const mapRect = researchMap.getBoundingClientRect();
+      const closest = [...document.querySelectorAll('.paper-token')]
+        .map(token => {
+          const x = Number.parseFloat(token.style.getPropertyValue('--token-x'));
+          const y = Number.parseFloat(token.style.getPropertyValue('--token-y'));
+          const dx = ((walkerPosition - x) / 100) * mapRect.width;
+          const dy = ((walkerY - y) / 100) * mapRect.height;
+          return {token, distance:Math.hypot(dx, dy)};
+        })
+        .sort((a, b) => a.distance - b.distance)[0];
+
+      const encounterRadius = Math.max(64, Math.min(92, mapRect.width * .075));
+      if (closest && closest.distance <= encounterRadius) {
+        if (lastEncountered !== closest.token.dataset.paper) {
+          lastEncountered = closest.token.dataset.paper;
+          revealPaper(closest.token.dataset.paper);
+        }
+      } else {
+        lastEncountered = null;
+      }
+    }
+
+    document.querySelector('.encounter-close').addEventListener('click', () => {
+      encounter.hidden = true;
+    });
+
+    document.querySelectorAll('.paper-token').forEach(token => {
+      token.addEventListener('click', event => {
+        event.stopPropagation();
+        startGame();
+        const x = Number.parseFloat(token.style.getPropertyValue('--token-x'));
+        const y = Number.parseFloat(token.style.getPropertyValue('--token-y'));
+        autoTarget = [x, y];
+        applyFilter(token.dataset.zone, true, false);
+      });
+    });
+
+    const initialFilter = new URLSearchParams(window.location.search).get('filter');
+    const startingFilter = validFilters.has(initialFilter) ? initialFilter : 'all';
+    const [startingX, startingY] = positionForFilter(startingFilter);
+    setWalkerPosition(startingX, startingY);
+    applyFilter(startingFilter, false, false);
+    if (validFilters.has(initialFilter) && initialFilter !== 'all') startGame();
+    }
   </script>
+  <script type="module" src="papers-game.js?v=discover-map-1"></script>
 </body>
 </html>
