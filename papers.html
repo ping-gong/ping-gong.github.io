@@ -587,20 +587,80 @@
       margin-bottom:16px;
     }
 
-    .papers-kicker{
-      margin:0 0 8px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:600;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
     .papers-intro h1{
       max-width:720px;
       font-size:clamp(32px, 3.8vw, 54px);
       line-height:1.04;
       font-weight:400;
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .6s ease, visibility .6s;
+    }
+    .papers-page.is-started .papers-intro h1{opacity:1; visibility:visible}
+
+    .papers-direct-link{
+      display:inline-block;
+      margin-top:12px;
+      padding:0 0 2px;
+      border:0;
+      border-bottom:1px solid currentColor;
+      background:none;
+      color:var(--ink);
+      cursor:pointer;
+      font:600 14px/1.3 var(--sans);
+    }
+
+    .papers-direct-link:hover,
+    .papers-direct-link:focus-visible{color:var(--red); outline:none}
+
+    .all-papers-dialog{
+      width:min(760px, calc(100vw - 32px));
+      max-height:calc(100dvh - 32px);
+      margin:auto;
+      padding:0;
+      border:1px solid rgba(23,23,23,.45);
+      background:var(--paper);
+      color:var(--ink);
+      box-shadow:12px 12px 0 rgba(9,47,87,.22);
+      overflow:hidden;
+    }
+
+    .all-papers-dialog[open]{display:flex; flex-direction:column}
+    .all-papers-dialog::backdrop{background:rgba(9,47,87,.38)}
+    .all-papers-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      padding:18px 24px;
+      border-bottom:1px solid rgba(9,47,87,.24);
+    }
+    .all-papers-header h2{margin:0; font-size:26px; font-weight:450; line-height:1.1}
+    .all-papers-close{
+      width:32px;
+      height:32px;
+      padding:0;
+      border:0;
+      background:none;
+      color:var(--ink);
+      cursor:pointer;
+      font:400 28px/1 var(--sans);
+    }
+    .all-papers-close:hover,
+    .all-papers-close:focus-visible{color:var(--red); outline:2px solid currentColor}
+    .all-papers-scroll{min-height:0; overflow:auto; overscroll-behavior:contain; padding:0 24px 20px}
+    .all-papers-group{padding-top:18px}
+    .all-papers-group + .all-papers-group{margin-top:8px}
+    .all-papers-group-title{margin:0 0 8px; font-size:14px; font-weight:650; text-transform:uppercase; letter-spacing:.08em}
+    .all-papers-dialog .paper{padding:20px 0 22px}
+    .all-papers-dialog .paper-title{font-size:20px}
+    @media (max-width:560px){
+      .all-papers-header{padding:14px 16px}
+      .all-papers-header h2{font-size:22px}
+      .all-papers-scroll{padding:0 16px 16px}
+      .all-papers-dialog .paper{grid-template-columns:30px minmax(0,1fr); gap:10px; padding:16px 0}
+      .all-papers-dialog .paper-title{font-size:18px}
+      .all-papers-dialog .paper-meta{font-size:14px}
     }
 
     .paper-legend{
@@ -1137,10 +1197,17 @@
       background:rgba(246,243,238,.96);
       color:var(--ink);
       box-shadow:10px 10px 0 rgba(9,47,87,.18);
-      animation:encounter-in .32s steps(4,end);
+      animation:encounter-in .32s ease-out;
     }
 
     .paper-encounter[hidden]{display:none}
+    .paper-encounter.is-leaving{
+      opacity:0;
+      transform:translateY(12px);
+      transition:opacity .26s ease, transform .26s ease;
+      animation:none;
+      pointer-events:none;
+    }
     @media (min-width:561px){
       .research-map:is([data-paper="01"], [data-paper="02"], [data-paper="03"], [data-paper="04"], [data-paper="06"], [data-paper="07"], [data-paper="08"]) .paper-encounter{
         left:24px; right:auto; top:auto; bottom:24px;
@@ -1212,8 +1279,6 @@
     .encounter-close:hover,
     .encounter-close:focus-visible{color:var(--red); outline:none}
 
-    .paper-data{display:none!important}
-
     .paper-list-heading{
       display:flex;
       align-items:baseline;
@@ -1266,6 +1331,8 @@
     @media (prefers-reduced-motion:reduce){
       .walker,
       .walker *{animation:none!important; transition:none!important}
+      .papers-intro h1,
+      .paper-encounter{animation:none!important; transition:none!important}
     }
 
     @media (max-width:560px){
@@ -1454,8 +1521,8 @@
     <section class="section" id="papers">
       <div class="papers-intro">
         <div>
-          <p class="papers-kicker">Interactive paper archive</p>
           <h1>Welcome to Pingville</h1>
+          <button class="papers-direct-link" type="button" aria-haspopup="dialog" aria-controls="all-papers-dialog">Click to View All Papers Directly</button>
         </div>
       </div>
 
@@ -1542,24 +1609,19 @@
         <button class="mobile-hover" type="button" aria-label="Hold to hover" title="Hold to hover"><span aria-hidden="true">↑</span>HOVER</button>
       </div>
 
-      <div class="paper-data" aria-hidden="true">
-        <div class="paper-list">
-        <article class="paper" data-topics="tech">
-          <div class="paper-number">01</div>
-          <div>
-            <h3 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h3>
-            <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
-            <span class="paper-note">Review of Accounting Studies, 2026</span>
-            <div class="paper-links">
-              <a href="https://link.springer.com/article/10.1007/s11142-026-09952-5" target="_blank" rel="noreferrer">Paper</a>
-            </div>
-          </div>
-        </article>
-
+      <dialog class="all-papers-dialog" id="all-papers-dialog" aria-labelledby="all-papers-title">
+        <div class="all-papers-header">
+          <h2 id="all-papers-title">All papers</h2>
+          <button class="all-papers-close" type="button" aria-label="Close paper list" title="Close paper list">×</button>
+        </div>
+        <div class="all-papers-scroll">
+          <section class="all-papers-group" aria-labelledby="labor-papers-title">
+            <h3 class="all-papers-group-title" id="labor-papers-title">Labor</h3>
+            <div class="paper-list">
         <article class="paper" data-topics="labor">
           <div class="paper-number">02</div>
           <div>
-            <h3 class="paper-title"><span class="topic topic-labor">Recognizing Accountants and Trading Goods</span></h3>
+            <h4 class="paper-title"><span class="topic topic-labor">Recognizing Accountants and Trading Goods</span></h4>
             <p class="paper-meta">Solo-authored</p>
             <div class="paper-links">
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320459" target="_blank" rel="noreferrer">Paper</a>
@@ -1570,7 +1632,7 @@
         <article class="paper" data-topics="labor">
           <div class="paper-number">03</div>
           <div>
-            <h3 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h3>
+            <h4 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h4>
             <p class="paper-meta">with Daniel Aobdia and Hao Ma</p>
             <div class="paper-links">
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6225800" target="_blank" rel="noreferrer">Paper</a>
@@ -1581,7 +1643,7 @@
         <article class="paper" data-topics="labor">
           <div class="paper-number">04</div>
           <div>
-            <h3 class="paper-title"><span class="topic topic-labor">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h3>
+            <h4 class="paper-title"><span class="topic topic-labor">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h4>
             <p class="paper-meta">with Chan Li, Crystal Shi, and Yuan Xie</p>
             <div class="paper-links">
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4454973" target="_blank" rel="noreferrer">Paper</a>
@@ -1589,18 +1651,10 @@
           </div>
         </article>
 
-        <article class="paper" data-topics="labor tech both">
-          <div class="paper-number">05</div>
-          <div>
-            <h3 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h3>
-            <p class="paper-meta">with Yilan Li and Hao Ma</p>
-          </div>
-        </article>
-
         <article class="paper" data-topics="labor">
           <div class="paper-number">06</div>
           <div>
-            <h3 class="paper-title"><span class="topic topic-labor">Local IRS Assistance and Tax Benefit Claiming</span></h3>
+            <h4 class="paper-title"><span class="topic topic-labor">Local IRS Assistance and Tax Benefit Claiming</span></h4>
             <p class="paper-meta">with Cindy Zhu</p>
           </div>
         </article>
@@ -1608,20 +1662,52 @@
         <article class="paper" data-topics="labor">
           <div class="paper-number">07</div>
           <div>
-            <h3 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h3>
+            <h4 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h4>
             <p class="paper-meta">with Jiawen Yan and Kangying Zhou</p>
+          </div>
+        </article>
+            </div>
+          </section>
+
+          <section class="all-papers-group" aria-labelledby="tech-papers-title">
+            <h3 class="all-papers-group-title" id="tech-papers-title">Tech</h3>
+            <div class="paper-list">
+        <article class="paper" data-topics="tech">
+          <div class="paper-number">01</div>
+          <div>
+            <h4 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h4>
+            <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
+            <span class="paper-note">Review of Accounting Studies, 2026</span>
+            <div class="paper-links">
+              <a href="https://link.springer.com/article/10.1007/s11142-026-09952-5" target="_blank" rel="noreferrer">Paper</a>
+            </div>
           </div>
         </article>
 
         <article class="paper" data-topics="tech">
           <div class="paper-number">08</div>
           <div>
-            <h3 class="paper-title"><span class="topic topic-tech">Out of Corpus, Out of Mind: Training-Corpus Exposure and LLM Firm Recommendation</span></h3>
+            <h4 class="paper-title"><span class="topic topic-tech">Out of Corpus, Out of Mind: Training-Corpus Exposure and LLM Firm Recommendation</span></h4>
             <p class="paper-meta">with Yilan Li</p>
           </div>
         </article>
-      </div>
-      </div>
+            </div>
+          </section>
+
+          <section class="all-papers-group" aria-labelledby="both-papers-title">
+            <h3 class="all-papers-group-title" id="both-papers-title">Both</h3>
+            <div class="paper-list">
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">05</div>
+          <div>
+            <h4 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h4>
+            <p class="paper-meta">with Yilan Li and Hao Ma</p>
+          </div>
+        </article>
+            </div>
+          </section>
+        </div>
+      </dialog>
     </section>
 
   </main>
@@ -1931,6 +2017,6 @@
     if (validFilters.has(initialFilter) && initialFilter !== 'all') startGame();
     }
   </script>
-  <script type="module" src="papers-game.js?v=mobile-controls-1"></script>
+  <script type="module" src="papers-game.js?v=fade-title-1"></script>
 </body>
 </html>

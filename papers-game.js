@@ -10,6 +10,16 @@ const encounterMeta = document.querySelector('.encounter-meta');
 const encounterNote = document.querySelector('.encounter-note');
 const encounterLinks = document.querySelector('.encounter-links');
 const paperElements = [...document.querySelectorAll('.paper[data-topics]')];
+const allPapersDialog = document.querySelector('#all-papers-dialog');
+const allPapersTrigger = document.querySelector('.papers-direct-link');
+allPapersTrigger.addEventListener('click', () => {
+  pressed.clear();
+  resetStick();
+  allPapersDialog.showModal();
+  allPapersDialog.querySelector('.all-papers-scroll').scrollTop = 0;
+});
+allPapersDialog.querySelector('.all-papers-close').addEventListener('click', () => allPapersDialog.close());
+allPapersDialog.addEventListener('close', () => allPapersTrigger.focus());
 
 const paperData = [
   { number:'01', zone:'tech',  x:12,  z:-2 },
@@ -521,6 +531,7 @@ paperData.forEach(paper => {
   button.addEventListener('click', () => {
     started = true;
     map.classList.add('is-started');
+    document.body.classList.add('is-started');
     rover.position.set(paper.arrivalX ?? paper.x, .02, paper.arrivalZ ?? Math.min(11.5, paper.z + 2.8));
     rover.rotation.y = Math.PI;
     speed = 0;
@@ -544,7 +555,7 @@ function block(parent, x, y, z, width, height, depth, color){
 function makePuppet(role, outfitColor){
   const figure = new THREE.Group();
   const outfits = {
-    person:0x667d70, accountant:0x173d55, manager:0x7a1f2b,
+    person:0x667d70, accountant:0x596b72, manager:0x7a1f2b,
     analyst:0x526d80, irs:0x294d67, researcher:0x607665, llm:0x496875
   };
   const coat = outfitColor ?? outfits[role] ?? outfits.person;
@@ -585,32 +596,14 @@ function makePuppet(role, outfitColor){
     });
   }
   if (role === 'accountant'){
-    const beanie = new THREE.Mesh(new THREE.SphereGeometry(.25, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(0x173d55));
-    beanie.position.y = 1.2;
-    figure.add(beanie);
-    const band = new THREE.Mesh(new THREE.CylinderGeometry(.25, .25, .09, 12), mat(0x173d55));
-    band.position.y = 1.2;
-    figure.add(band);
-    const canvas = document.createElement('canvas');
-    canvas.width = 256;
-    canvas.height = 96;
-    const context = canvas.getContext('2d');
-    context.fillStyle = '#f3eee1';
-    context.font = '800 74px Jost, sans-serif';
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    context.fillText('CPA', 128, 49);
-    const mark = new THREE.CanvasTexture(canvas);
-    mark.colorSpace = THREE.SRGBColorSpace;
-    const badge = new THREE.Mesh(new THREE.PlaneGeometry(.35, .12),
-      new THREE.MeshBasicMaterial({map:mark, transparent:true, side:THREE.DoubleSide}));
-    badge.position.set(0, 1.21, .258);
-    figure.add(badge);
-    const ledger = block(figure, .31, .59, .24, .29, .34, .045, 0xe7dfc5);
-    ledger.rotation.z = -.15;
-    [-.08,.08].forEach((dx, column) => {
-      [-.08,.02,.12].forEach(dy => block(ledger, dx, dy, .03, .045, .045, .008,
-        column ? 0x173d55 : 0x7a1f2b));
+    const calculator = block(figure, .33, .58, .24, .31, .4, .07, 0x263b46);
+    calculator.rotation.z = -.12;
+    block(calculator, 0, .12, .042, .23, .085, .009, 0xdbe8d9);
+    [-.08, 0, .08].forEach((x, column) => {
+      [.025, -.055, -.135].forEach((y, row) => {
+        block(calculator, x, y, .042, .052, .047, .009,
+          column === 2 && row === 2 ? 0x9b4a50 : 0xf0e8d9);
+      });
     });
   }
   if (role === 'analyst'){
@@ -627,15 +620,10 @@ function makePuppet(role, outfitColor){
     rightPage.rotation.y = .22;
     block(figure, .315, .59, .27, .018, .32, .012, 0x7a1f2b);
   }
-  if (role === 'accountant' || role === 'irs'){
+  if (role === 'irs'){
     block(figure, -.11, .7, .145, .13, .1, .015, 0xf3eee1);
-    if (role === 'accountant'){
-      block(figure, -.135, .7, .154, .032, .032, .01, 0x7a1f2b);
-      block(figure, -.085, .7, .154, .032, .032, .01, 0x173d55);
-    } else {
-      const emblem = block(figure, -.11, .7, .16, .052, .052, .012, 0x092f57);
-      emblem.rotation.z = Math.PI / 4;
-    }
+    const emblem = block(figure, -.11, .7, .16, .052, .052, .012, 0x092f57);
+    emblem.rotation.z = Math.PI / 4;
   }
   if (role === 'manager') block(figure, 0, .7, .15, .08, .24, .02, 0xe2d6b7);
   return figure;
@@ -989,11 +977,26 @@ function revealPaper(paper){
   button.setAttribute('aria-label', `Jump to paper ${paper.number}: ${title}`);
 }
 
+let encounterHideTimer;
+function hidePaper(){
+  if (encounter.hidden || encounter.classList.contains('is-leaving')) return;
+  encounter.classList.add('is-leaving');
+  encounterHideTimer = window.setTimeout(() => {
+    encounter.hidden = true;
+    encounter.classList.remove('is-leaving');
+    delete map.dataset.paper;
+    encounterHideTimer = null;
+  }, 260);
+}
+
 function showPaper(paper){
   if (!paper) return;
   revealPaper(paper);
   if (activePaper === paper.number) return;
   activePaper = paper.number;
+  window.clearTimeout(encounterHideTimer);
+  encounterHideTimer = null;
+  encounter.classList.remove('is-leaving');
 
   const source = findPaperElement(paper.number);
   if (!source) return;
@@ -1011,8 +1014,7 @@ function showPaper(paper){
 }
 
 document.querySelector('.encounter-close').addEventListener('click', () => {
-  encounter.hidden = true;
-  delete map.dataset.paper;
+  hidePaper();
 });
 
 function setPressed(key, isPressed){
@@ -1029,6 +1031,7 @@ const keyMap = {
 };
 
 window.addEventListener('keydown', event => {
+  if (allPapersDialog.open) return;
   const action = keyMap[event.code];
   if (!action) return;
   event.preventDefault();
@@ -1117,16 +1120,18 @@ window.addEventListener('blur', () => {
 startButton.addEventListener('click', () => {
   started = true;
   map.classList.add('is-started');
+  document.body.classList.add('is-started');
   renderer.domElement.focus();
 });
 
 if (new URLSearchParams(window.location.search).get('play') === '1') {
   started = true;
   map.classList.add('is-started');
+  document.body.classList.add('is-started');
 }
 
 function updateRover(delta){
-  if (!started) return;
+  if (!started || allPapersDialog.open) return;
   const stickStrength = Math.hypot(stick.x, stick.y);
   const usingStick = stick.pointerId !== null && stickStrength > .12;
   const hovering = pressed.has('hover');
@@ -1256,9 +1261,8 @@ function updateRover(delta){
     rover.position.x - paperData.find(paper => paper.number === activePaper).x,
     rover.position.z - paperData.find(paper => paper.number === activePaper).z
   ) > 3.2){
-    encounter.hidden = true;
-    delete map.dataset.paper;
     activePaper = null;
+    hidePaper();
   }
 }
 
