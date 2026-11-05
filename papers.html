@@ -579,6 +579,12 @@
       padding:12px 0 20px;
     }
 
+    @media (min-width:801px){
+      .papers-page .topbar{min-height:54px; padding-top:8px}
+      .papers-page .section{padding-top:4px}
+      .papers-page .papers-intro{margin-bottom:10px}
+    }
+
     .papers-intro{
       display:flex;
       align-items:end;
@@ -648,8 +654,28 @@
     }
     .all-papers-close:hover,
     .all-papers-close:focus-visible{color:var(--red); outline:2px solid currentColor}
+    .all-papers-tabs{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      padding:0 24px;
+      border-bottom:1px solid rgba(9,47,87,.24);
+    }
+    .all-papers-tab{
+      padding:12px 8px 10px;
+      border:0;
+      border-bottom:2px solid transparent;
+      background:none;
+      color:var(--muted);
+      cursor:pointer;
+      font:600 13px/1.2 var(--sans);
+      text-align:center;
+    }
+    .all-papers-tab[aria-pressed="true"]{border-bottom-color:var(--red); color:var(--ink)}
+    .all-papers-tab:hover,
+    .all-papers-tab:focus-visible{color:var(--red); outline:none}
     .all-papers-scroll{min-height:0; overflow:auto; overscroll-behavior:contain; padding:0 24px 20px}
     .all-papers-group{padding-top:18px}
+    .all-papers-group[hidden]{display:none}
     .all-papers-group + .all-papers-group{margin-top:8px}
     .all-papers-group-title{margin:0 0 8px; font-size:14px; font-weight:650; text-transform:uppercase; letter-spacing:.08em}
     .all-papers-dialog .paper{padding:20px 0 22px}
@@ -657,6 +683,7 @@
     @media (max-width:560px){
       .all-papers-header{padding:14px 16px}
       .all-papers-header h2{font-size:22px}
+      .all-papers-tabs{padding:0 16px}
       .all-papers-scroll{padding:0 16px 16px}
       .all-papers-dialog .paper{grid-template-columns:30px minmax(0,1fr); gap:10px; padding:16px 0}
       .all-papers-dialog .paper-title{font-size:18px}
@@ -1611,11 +1638,16 @@
 
       <dialog class="all-papers-dialog" id="all-papers-dialog" aria-labelledby="all-papers-title">
         <div class="all-papers-header">
-          <h2 id="all-papers-title">All papers</h2>
+          <h2 id="all-papers-title">List</h2>
           <button class="all-papers-close" type="button" aria-label="Close paper list" title="Close paper list">×</button>
         </div>
+        <div class="all-papers-tabs" role="group" aria-label="Filter papers">
+          <button class="all-papers-tab" type="button" data-paper-tab="all" aria-pressed="true">All</button>
+          <button class="all-papers-tab" type="button" data-paper-tab="labor" aria-pressed="false">Labor</button>
+          <button class="all-papers-tab" type="button" data-paper-tab="tech" aria-pressed="false">Tech</button>
+        </div>
         <div class="all-papers-scroll">
-          <section class="all-papers-group" aria-labelledby="labor-papers-title">
+          <section class="all-papers-group" data-topic="labor" aria-labelledby="labor-papers-title">
             <h3 class="all-papers-group-title" id="labor-papers-title">Labor</h3>
             <div class="paper-list">
         <article class="paper" data-topics="labor">
@@ -1669,7 +1701,7 @@
             </div>
           </section>
 
-          <section class="all-papers-group" aria-labelledby="tech-papers-title">
+          <section class="all-papers-group" data-topic="tech" aria-labelledby="tech-papers-title">
             <h3 class="all-papers-group-title" id="tech-papers-title">Tech</h3>
             <div class="paper-list">
         <article class="paper" data-topics="tech">
@@ -1694,7 +1726,7 @@
             </div>
           </section>
 
-          <section class="all-papers-group" aria-labelledby="both-papers-title">
+          <section class="all-papers-group" data-topic="both" aria-labelledby="both-papers-title">
             <h3 class="all-papers-group-title" id="both-papers-title">Both</h3>
             <div class="paper-list">
         <article class="paper" data-topics="labor tech both">
@@ -2017,6 +2049,6 @@
     if (validFilters.has(initialFilter) && initialFilter !== 'all') startGame();
     }
   </script>
-  <script type="module" src="papers-game.js?v=fade-title-1"></script>
+  <script type="module" src="papers-game.js?v=list-tabs-1"></script>
 </body>
 </html>

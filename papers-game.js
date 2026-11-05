@@ -12,11 +12,20 @@ const encounterLinks = document.querySelector('.encounter-links');
 const paperElements = [...document.querySelectorAll('.paper[data-topics]')];
 const allPapersDialog = document.querySelector('#all-papers-dialog');
 const allPapersTrigger = document.querySelector('.papers-direct-link');
+const paperTabs = [...allPapersDialog.querySelectorAll('[data-paper-tab]')];
+function setPaperTab(topic){
+  paperTabs.forEach(tab => tab.setAttribute('aria-pressed', String(tab.dataset.paperTab === topic)));
+  allPapersDialog.querySelectorAll('.all-papers-group').forEach(group => {
+    group.hidden = topic !== 'all' && group.dataset.topic !== topic && group.dataset.topic !== 'both';
+  });
+  allPapersDialog.querySelector('.all-papers-scroll').scrollTop = 0;
+}
+paperTabs.forEach(tab => tab.addEventListener('click', () => setPaperTab(tab.dataset.paperTab)));
 allPapersTrigger.addEventListener('click', () => {
   pressed.clear();
   resetStick();
   allPapersDialog.showModal();
-  allPapersDialog.querySelector('.all-papers-scroll').scrollTop = 0;
+  setPaperTab('all');
 });
 allPapersDialog.querySelector('.all-papers-close').addEventListener('click', () => allPapersDialog.close());
 allPapersDialog.addEventListener('close', () => allPapersTrigger.focus());
