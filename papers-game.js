@@ -15,8 +15,8 @@ const allPapersTrigger = document.querySelector('.papers-direct-link');
 const paperTabs = [...allPapersDialog.querySelectorAll('[data-paper-tab]')];
 function setPaperTab(topic){
   paperTabs.forEach(tab => tab.setAttribute('aria-pressed', String(tab.dataset.paperTab === topic)));
-  allPapersDialog.querySelectorAll('.all-papers-group').forEach(group => {
-    group.hidden = topic !== 'all' && group.dataset.topic !== topic && group.dataset.topic !== 'both';
+  paperElements.forEach(paper => {
+    paper.hidden = topic !== 'all' && !paper.dataset.topics.split(' ').includes(topic);
   });
   allPapersDialog.querySelector('.all-papers-scroll').scrollTop = 0;
 }

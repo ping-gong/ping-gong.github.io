@@ -674,11 +674,9 @@
     .all-papers-tab:hover,
     .all-papers-tab:focus-visible{color:var(--red); outline:none}
     .all-papers-scroll{min-height:0; overflow:auto; overscroll-behavior:contain; padding:0 24px 20px}
-    .all-papers-group{padding-top:18px}
-    .all-papers-group[hidden]{display:none}
-    .all-papers-group + .all-papers-group{margin-top:8px}
-    .all-papers-group-title{margin:0 0 8px; font-size:14px; font-weight:650; text-transform:uppercase; letter-spacing:.08em}
+    .all-papers-dialog .paper-list{border-top:0}
     .all-papers-dialog .paper{padding:20px 0 22px}
+    .all-papers-dialog .paper[hidden]{display:none}
     .all-papers-dialog .paper-title{font-size:20px}
     @media (max-width:560px){
       .all-papers-header{padding:14px 16px}
@@ -1647,13 +1645,23 @@
           <button class="all-papers-tab" type="button" data-paper-tab="tech" aria-pressed="false">Tech</button>
         </div>
         <div class="all-papers-scroll">
-          <section class="all-papers-group" data-topic="labor" aria-labelledby="labor-papers-title">
-            <h3 class="all-papers-group-title" id="labor-papers-title">Labor</h3>
-            <div class="paper-list">
+          <div class="paper-list">
+        <article class="paper" data-topics="tech">
+          <div class="paper-number">01</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h3>
+            <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
+            <span class="paper-note">Review of Accounting Studies, 2026</span>
+            <div class="paper-links">
+              <a href="https://link.springer.com/article/10.1007/s11142-026-09952-5" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
+
         <article class="paper" data-topics="labor">
           <div class="paper-number">02</div>
           <div>
-            <h4 class="paper-title"><span class="topic topic-labor">Recognizing Accountants and Trading Goods</span></h4>
+            <h3 class="paper-title"><span class="topic topic-labor">Recognizing Accountants and Trading Goods</span></h3>
             <p class="paper-meta">Solo-authored</p>
             <div class="paper-links">
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320459" target="_blank" rel="noreferrer">Paper</a>
@@ -1664,7 +1672,7 @@
         <article class="paper" data-topics="labor">
           <div class="paper-number">03</div>
           <div>
-            <h4 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h4>
+            <h3 class="paper-title"><span class="topic topic-labor">The Effect of CPA Firm Mobility and the Potential for Increased Audit Market Competition on Local Audit Markets</span></h3>
             <p class="paper-meta">with Daniel Aobdia and Hao Ma</p>
             <div class="paper-links">
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6225800" target="_blank" rel="noreferrer">Paper</a>
@@ -1675,7 +1683,7 @@
         <article class="paper" data-topics="labor">
           <div class="paper-number">04</div>
           <div>
-            <h4 class="paper-title"><span class="topic topic-labor">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h4>
+            <h3 class="paper-title"><span class="topic topic-labor">Internal Control Deficiencies and Employee Satisfaction: A Job Demands-Resources Perspective</span></h3>
             <p class="paper-meta">with Chan Li, Crystal Shi, and Yuan Xie</p>
             <div class="paper-links">
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4454973" target="_blank" rel="noreferrer">Paper</a>
@@ -1683,10 +1691,18 @@
           </div>
         </article>
 
+        <article class="paper" data-topics="labor tech both">
+          <div class="paper-number">05</div>
+          <div>
+            <h3 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h3>
+            <p class="paper-meta">with Yilan Li and Hao Ma</p>
+          </div>
+        </article>
+
         <article class="paper" data-topics="labor">
           <div class="paper-number">06</div>
           <div>
-            <h4 class="paper-title"><span class="topic topic-labor">Local IRS Assistance and Tax Benefit Claiming</span></h4>
+            <h3 class="paper-title"><span class="topic topic-labor">Local IRS Assistance and Tax Benefit Claiming</span></h3>
             <p class="paper-meta">with Cindy Zhu</p>
           </div>
         </article>
@@ -1694,50 +1710,19 @@
         <article class="paper" data-topics="labor">
           <div class="paper-number">07</div>
           <div>
-            <h4 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h4>
+            <h3 class="paper-title"><span class="topic topic-labor">Does Wall Street Learn from Academic Research? Evidence from Sell-Side Analysts</span></h3>
             <p class="paper-meta">with Jiawen Yan and Kangying Zhou</p>
-          </div>
-        </article>
-            </div>
-          </section>
-
-          <section class="all-papers-group" data-topic="tech" aria-labelledby="tech-papers-title">
-            <h3 class="all-papers-group-title" id="tech-papers-title">Tech</h3>
-            <div class="paper-list">
-        <article class="paper" data-topics="tech">
-          <div class="paper-number">01</div>
-          <div>
-            <h4 class="paper-title"><span class="topic topic-tech">Controlling the Narrative: Managers' Topic-Shifting Behavior in Conference Calls</span></h4>
-            <p class="paper-meta">with Lili Dai, Andrew Jackson, and Zihang Peng</p>
-            <span class="paper-note">Review of Accounting Studies, 2026</span>
-            <div class="paper-links">
-              <a href="https://link.springer.com/article/10.1007/s11142-026-09952-5" target="_blank" rel="noreferrer">Paper</a>
-            </div>
           </div>
         </article>
 
         <article class="paper" data-topics="tech">
           <div class="paper-number">08</div>
           <div>
-            <h4 class="paper-title"><span class="topic topic-tech">Out of Corpus, Out of Mind: Training-Corpus Exposure and LLM Firm Recommendation</span></h4>
+            <h3 class="paper-title"><span class="topic topic-tech">Out of Corpus, Out of Mind: Training-Corpus Exposure and LLM Firm Recommendation</span></h3>
             <p class="paper-meta">with Yilan Li</p>
           </div>
         </article>
-            </div>
-          </section>
-
-          <section class="all-papers-group" data-topic="both" aria-labelledby="both-papers-title">
-            <h3 class="all-papers-group-title" id="both-papers-title">Both</h3>
-            <div class="paper-list">
-        <article class="paper" data-topics="labor tech both">
-          <div class="paper-number">05</div>
-          <div>
-            <h4 class="paper-title"><span class="topic topic-both">Generative AI and the Declining Wisdom of the Crowd: Evidence from Glassdoor</span></h4>
-            <p class="paper-meta">with Yilan Li and Hao Ma</p>
           </div>
-        </article>
-            </div>
-          </section>
         </div>
       </dialog>
     </section>
@@ -2049,6 +2034,6 @@
     if (validFilters.has(initialFilter) && initialFilter !== 'all') startGame();
     }
   </script>
-  <script type="module" src="papers-game.js?v=list-tabs-1"></script>
+  <script type="module" src="papers-game.js?v=flat-list-1"></script>
 </body>
 </html>
